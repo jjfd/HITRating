@@ -60,7 +60,8 @@ namespace HitRating.RestfulJsonProccessor
                     PhotoUrl = (new Models.AccountMembershipService()).GetPhotoUrl(data.UserName),
                     Options = AccountControlProcess(data.UserName, userName),
                     Created = data.aspnet_Membership.CreateDate.ToString(),
-                    LastActivityDate = data.LastActivityDate.ToString()
+                    LastActivityDate = data.LastActivityDate.ToString(),
+                    IsAdmin = (data.IsAdmin == true)
                 };
             }
             catch

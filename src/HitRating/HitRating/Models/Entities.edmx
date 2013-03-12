@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HitRatingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="HitRatingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="HitRatingModelStoreContainer">
           <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
@@ -17,7 +17,13 @@
           <EntitySet Name="aspnet_Users" EntityType="HitRatingModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_UsersInRoles" EntityType="HitRatingModel.Store.aspnet_UsersInRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_WebEvent_Events" EntityType="HitRatingModel.Store.aspnet_WebEvent_Events" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="HitRatingModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comment" EntityType="HitRatingModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="HitRatingModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Review" EntityType="HitRatingModel.Store.Review" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vendor" EntityType="HitRatingModel.Store.Vendor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vote" EntityType="HitRatingModel.Store.Vote" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK__aspnet_Me__Appli__21B6055D" Association="HitRatingModel.Store.FK__aspnet_Me__Appli__21B6055D">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
@@ -170,6 +176,7 @@
           <Property Name="validUntil" Type="datetime2" />
           <Property Name="UserNameChanged" Type="bit" />
           <Property Name="PhotoUrl" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsAdmin" Type="bit" />
         </EntityType>
         <EntityType Name="aspnet_UsersInRoles">
           <Key>
@@ -199,6 +206,65 @@
           <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
           <Property Name="Details" Type="ntext" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" MaxLength="2000" />
+          <Property Name="Abbreviation" Type="varchar" MaxLength="2000" />
+          <Property Name="ChineseTitle" Type="varchar" MaxLength="2000" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="int" />
+          <Property Name="Details" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" MaxLength="2000" />
+          <Property Name="Logo" Type="varchar" MaxLength="2000" />
+          <Property Name="VenderId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Version" Type="varchar" MaxLength="50" />
+          <Property Name="Published" Type="date" />
+          <Property Name="PreVersion" Type="varchar" MaxLength="50" />
+          <Property Name="PhonePreSale" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneAfterSale" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Funtionality" Type="float" />
+          <Property Name="Capability" Type="float" />
+          <Property Name="Usability" Type="float" />
+          <Property Name="PPR" Type="float" />
+          <Property Name="AfterSale" Type="float" />
+          <Property Name="Details" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -208,6 +274,36 @@
           <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" MaxLength="2000" />
+          <Property Name="Logo" Type="varchar" MaxLength="2000" />
+          <Property Name="HomePage" Type="varchar" MaxLength="2000" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Phone_400" Type="varchar" MaxLength="50" />
+          <Property Name="Phone_800" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="2000" />
+          <Property Name="Address" Type="varchar" MaxLength="2000" />
+          <Property Name="PostNo" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="int" />
+          <Property Name="Supportive" Type="bit" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <Association Name="FK__aspnet_Me__Appli__21B6055D">
           <End Role="aspnet_Applications" Type="HitRatingModel.Store.aspnet_Applications" Multiplicity="1" />
@@ -341,12 +437,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HitRatingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="HitRatingEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.aspnet_Applications" />
           <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.aspnet_Membership" />
           <EntitySet Name="aspnet_Paths" EntityType="HitRatingModel.aspnet_Paths" />
@@ -357,7 +452,13 @@
           <EntitySet Name="aspnet_SchemaVersions" EntityType="HitRatingModel.aspnet_SchemaVersions" />
           <EntitySet Name="aspnet_Users" EntityType="HitRatingModel.aspnet_Users" />
           <EntitySet Name="aspnet_WebEvent_Events" EntityType="HitRatingModel.aspnet_WebEvent_Events" />
+          <EntitySet Name="Categories" EntityType="HitRatingModel.Category" />
+          <EntitySet Name="Comments" EntityType="HitRatingModel.Comment" />
+          <EntitySet Name="Products" EntityType="HitRatingModel.Product" />
+          <EntitySet Name="Reviews" EntityType="HitRatingModel.Review" />
           <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.sysdiagram" />
+          <EntitySet Name="Vendors" EntityType="HitRatingModel.Vendor" />
+          <EntitySet Name="Votes" EntityType="HitRatingModel.Vote" />
           <AssociationSet Name="FK__aspnet_Me__Appli__21B6055D" Association="HitRatingModel.FK__aspnet_Me__Appli__21B6055D">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
@@ -520,6 +621,7 @@
           <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="HitRatingModel.FK__aspnet_Pe__UserI__693CA210" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
           <NavigationProperty Name="aspnet_Profile" Relationship="HitRatingModel.FK__aspnet_Pr__UserI__38996AB5" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
           <NavigationProperty Name="aspnet_Roles" Relationship="HitRatingModel.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+          <Property Type="Boolean" Name="IsAdmin" />
         </EntityType>
         <EntityType Name="aspnet_WebEvent_Events">
           <Key>
@@ -541,6 +643,65 @@
           <Property Name="ExceptionType" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
           <Property Name="Details" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="ChineseTitle" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+          <Property Name="Updated" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+          <Property Name="Updated" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="VenderId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Version" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Published" Type="DateTime" />
+          <Property Name="PreVersion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PhonePreSale" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneAfterSale" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+          <Property Name="Updated" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Funtionality" Type="Double" />
+          <Property Name="Capability" Type="Double" />
+          <Property Name="Usability" Type="Double" />
+          <Property Name="PPR" Type="Double" />
+          <Property Name="AfterSale" Type="Double" />
+          <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+          <Property Name="Updated" Type="DateTime" />
+        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -550,6 +711,36 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="HomePage" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone_400" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone_800" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="PostNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+          <Property Name="Updated" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="Int32" />
+          <Property Name="Supportive" Type="Boolean" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
         </EntityType>
         <Association Name="FK__aspnet_Me__Appli__21B6055D">
           <End Role="aspnet_Applications" Type="HitRatingModel.aspnet_Applications" Multiplicity="1" />
@@ -620,7 +811,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HitRatingModelStoreContainer" CdmEntityContainer="HitRatingEntities">
+        <EntityContainerMapping StorageEntityContainer="HitRatingModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="aspnet_Applications"><EntityTypeMapping TypeName="HitRatingModel.aspnet_Applications"><MappingFragment StoreEntitySet="aspnet_Applications">
             <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
             <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
@@ -683,7 +874,8 @@
             <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="aspnet_Users"><EntityTypeMapping TypeName="HitRatingModel.aspnet_Users"><MappingFragment StoreEntitySet="aspnet_Users">
-            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
             <ScalarProperty Name="UserName" ColumnName="UserName" />
             <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
             <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
@@ -712,12 +904,83 @@
             <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
             <ScalarProperty Name="Details" ColumnName="Details" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="HitRatingModel.Category"><MappingFragment StoreEntitySet="Category">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+            <ScalarProperty Name="ChineseTitle" ColumnName="ChineseTitle" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Comments"><EntityTypeMapping TypeName="HitRatingModel.Comment"><MappingFragment StoreEntitySet="Comment">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+            <ScalarProperty Name="Details" ColumnName="Details" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="HitRatingModel.Product"><MappingFragment StoreEntitySet="Product">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Logo" ColumnName="Logo" />
+            <ScalarProperty Name="VenderId" ColumnName="VenderId" />
+            <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            <ScalarProperty Name="Version" ColumnName="Version" />
+            <ScalarProperty Name="Published" ColumnName="Published" />
+            <ScalarProperty Name="PreVersion" ColumnName="PreVersion" />
+            <ScalarProperty Name="PhonePreSale" ColumnName="PhonePreSale" />
+            <ScalarProperty Name="PhoneAfterSale" ColumnName="PhoneAfterSale" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Reviews"><EntityTypeMapping TypeName="HitRatingModel.Review"><MappingFragment StoreEntitySet="Review">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            <ScalarProperty Name="Funtionality" ColumnName="Funtionality" />
+            <ScalarProperty Name="Capability" ColumnName="Capability" />
+            <ScalarProperty Name="Usability" ColumnName="Usability" />
+            <ScalarProperty Name="PPR" ColumnName="PPR" />
+            <ScalarProperty Name="AfterSale" ColumnName="AfterSale" />
+            <ScalarProperty Name="Details" ColumnName="Details" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="HitRatingModel.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="principal_id" ColumnName="principal_id" />
             <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
             <ScalarProperty Name="version" ColumnName="version" />
             <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Vendors"><EntityTypeMapping TypeName="HitRatingModel.Vendor"><MappingFragment StoreEntitySet="Vendor">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Logo" ColumnName="Logo" />
+            <ScalarProperty Name="HomePage" ColumnName="HomePage" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="Phone_400" ColumnName="Phone_400" />
+            <ScalarProperty Name="Phone_800" ColumnName="Phone_800" />
+            <ScalarProperty Name="Fax" ColumnName="Fax" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="PostNo" ColumnName="PostNo" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+            <ScalarProperty Name="Updated" ColumnName="Updated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Votes"><EntityTypeMapping TypeName="HitRatingModel.Vote"><MappingFragment StoreEntitySet="Vote">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+            <ScalarProperty Name="Supportive" ColumnName="Supportive" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <AssociationSetMapping Name="FK__aspnet_Me__Appli__21B6055D" TypeName="HitRatingModel.FK__aspnet_Me__Appli__21B6055D" StoreEntitySet="aspnet_Membership">
             <EndProperty Name="aspnet_Applications">
@@ -791,7 +1054,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
@@ -808,7 +1071,13 @@
         <EntityTypeShape EntityType="HitRatingModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5879931640624996" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.aspnet_Users" Width="1.5" PointX="5.25" PointY="10.875" Height="4.0712491861979174" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.aspnet_WebEvent_Events" Width="1.5" PointX="7.75" PointY="0.75" Height="3.8802294921875031" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9700325520833353" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Category" Width="1.5" PointX="7.75" PointY="5.75" Height="2.5430916341145817" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Comment" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1610522460937531" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Product" Width="1.5" PointX="9.75" PointY="0.75" Height="3.6892097981770888" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="9.75" PointY="5.75" Height="3.1161507161458388" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9700325520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Vendor" Width="1.5" PointX="9.75" PointY="9.75" Height="3.8802294921875031" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Vote" Width="1.5" PointX="4.75" PointY="0.75" Height="1.9700325520833388" IsExpanded="true" />
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Me__Appli__21B6055D" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="10.084045817057291" />
           <ConnectorPoint PointX="3" PointY="10.084045817057291" />

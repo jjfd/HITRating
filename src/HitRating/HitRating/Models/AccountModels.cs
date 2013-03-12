@@ -93,6 +93,7 @@ namespace HitRating.Models
         void SetPhotoUrl(string userName, string photoUrl);
         string GetPhotoUrl(string userName);
         bool DeleteUser(string userName);
+        bool IsAdmin(string userName);
     }
 
     public class AccountMembershipService : IMembershipService
@@ -477,6 +478,19 @@ namespace HitRating.Models
                 {
                     throw new ArgumentException("注销失败");
                 }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public bool IsAdmin(string userName) {
+            try
+            {
+                var en = new Models.Entities();
+                var u = en.aspnet_Users.First(m => m.UserName == userName);
+                return (u.IsAdmin == true);
             }
             catch
             {
