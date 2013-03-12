@@ -25,6 +25,24 @@ namespace HitRating.RestfulJsonProccessor
             }
         }
 
+        public static object MiniList(IEnumerable<Models.Vendor> data, string userName)
+        {
+            try
+            {
+                IList<object> ts = new List<object>();
+                foreach (var t in data)
+                {
+                    ts.Add(MiniSingle(t));
+                }
+
+                return ts;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public static object Single(Models.Vendor data, string userName) 
         {
             return DataProcess(data, userName);

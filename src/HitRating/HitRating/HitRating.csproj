@@ -118,8 +118,8 @@
     <Content Include="Scripts\Js\jquery.common.js" />
     <Content Include="Views\Account\Manage.aspx" />
     <Content Include="Views\Account\Home.aspx" />
-    <Content Include="Views\Shared\Panels.ascx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Shared\Panels.ascx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />

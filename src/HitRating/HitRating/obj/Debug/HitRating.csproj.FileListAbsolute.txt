@@ -18,3 +18,13 @@ C:\Users\sony\Documents\GitHub\HITRating\src\HitRating\HitRating\bin\zh-Hans\Sys
 C:\Users\sony\Documents\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\sony\Documents\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\HitRating.dll
 C:\Users\sony\Documents\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\HitRating.pdb
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\App_Data\HitRating.mdf
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\App_Data\HitRating_log.ldf
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\HitRating.dll
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\HitRating.pdb
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\System.Web.Mvc.dll
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\System.Web.Mvc.xml
+G:\GitHub\HITRating\src\HitRating\HitRating\bin\zh-Hans\System.Web.Mvc.resources.dll
+G:\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\ResolveAssemblyReference.cache
+G:\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\HitRating.dll
+G:\GitHub\HITRating\src\HitRating\HitRating\obj\Debug\HitRating.pdb

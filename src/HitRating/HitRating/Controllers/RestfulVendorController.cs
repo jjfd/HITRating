@@ -41,7 +41,35 @@ namespace HitRating.Controllers
             }
             catch
             {
-                Response.StatusCode = 400;
+                Response.StatusCode = 404;
+                return null;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult MiniList(Models.VendorSearchModel conditions, int count = 20)
+        {
+            try
+            {
+                var vendors = RestfulVendor.Search(conditions, 0, count, User.Identity.IsAuthenticated ? User.Identity.Name : null);
+
+                if (vendors == null || vendors.Count() < 1)
+                {
+                    throw new Exception("NO FOUND");
+                }
+
+                return Json
+                (
+                    new
+                    {
+                        Entities = RestfulJsonProccessor.Vendor.MiniList(vendors, User.Identity.IsAuthenticated ? User.Identity.Name : null)
+                    },
+                    JsonRequestBehavior.AllowGet
+                );
+            }
+            catch
+            {
+                Response.StatusCode = 404;
                 return null;
             }
         }
@@ -79,155 +107,14 @@ namespace HitRating.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Create(Models.RegisterModel data)
-        {
-            try
-            {
-                try
-                {
-                    MembershipCreateStatus createStatus = MembershipService.CreateUser(data.UserName, data.Password, data.Email);
-
-                    FormsService.SignIn(data.UserName, true);
-
-                    Response.StatusCode = 200;
-                    return RedirectToAction("Read", new { userName = data.UserName });
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
-
-                Response.StatusCode = 406;
-                return null;
-            }
-            catch
-            {
-                Response.StatusCode = 500;
-                return null;
-            }
-        }
-
-        [HttpDelete]
-        public ActionResult Delete(string userName) {
-            try
-            {
-                if ((!User.Identity.IsAuthenticated) || (userName != User.Identity.Name))
-                {
-                    throw new RestfulModels.NoAccessException();
-                }
-
-                (new Models.AccountMembershipService()).DeleteUser(userName);
-
-                return null;
-            }
-            catch (RestfulModels.NoAccessException)
-            {
-                Response.StatusCode = 401;
-                return null;
-            }
-            catch
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-        }
-
-        [HttpPost]
-        public ActionResult LogOn(Models.LogOnModel data)
-        {
-            try
-            {
-                if (data.UserName.Contains("@"))
-                {
-                    if ((data.UserName = MembershipService.GetUserNameByEmail(data.UserName)) == null)
-                    {
-                        ModelState.AddModelError("", "用户名 或 密码不正确");
-
-                        Response.StatusCode = 406;
-                        return null;
-                    }
-                }
-
-                if (MembershipService.ValidateUser(data.UserName, data.Password))
-                {
-                    FormsService.SignIn(data.UserName, data.RememberMe);
-
-                    Response.StatusCode = 200;
-                    return null;
-                }
-                else
-                {
-                    ModelState.AddModelError("", "用户名 或 密码不正确");
-                }
-
-                Response.StatusCode = 406;
-                return null;
-            }
-            catch
-            {
-                Response.StatusCode = 500;
-                return null;
-            }
-        }
-
-        [HttpDelete]
-        public ActionResult LogOut()
-        {
-            try
-            {
-                FormsService.SignOut();
-
-                Response.StatusCode = 200;
-                return null;
-            }
-            catch
-            {
-                Response.StatusCode = 500;
-                return null;
-            }
-        }
-
         [HttpGet]
-        public ActionResult Email(string userName)
+        public ActionResult MiniRead(int id)
         {
             try
             {
-                if ((!User.Identity.IsAuthenticated) || (userName != User.Identity.Name))
-                {
-                    throw new RestfulModels.NoAccessException();
-                }
-                
-                string email = (new Models.AccountMembershipService()).GetEmail(userName);
-                return Json
-                (
-                    new
-                    {
-                        Entity = new { Email = email, Options = "" }
-                    },
-                    JsonRequestBehavior.AllowGet
-                );
-            }
-            catch (RestfulModels.NoAccessException)
-            {
-                Response.StatusCode = 401;
-                return null;
-            }
-            catch
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-        }
+                var vendor = RestfulVendor.Read(id, User.Identity.IsAuthenticated ? User.Identity.Name : null);
 
-        [HttpGet]
-        public ActionResult Photo(string userName)
-        {
-            try
-            {
-                var t = (new Models.Entities()).aspnet_Users.First(m => m.UserName == userName);
-
-                if (t == null)
+                if (vendor == null)
                 {
                     throw new Exception("NO FOUND");
                 }
@@ -236,7 +123,7 @@ namespace HitRating.Controllers
                 (
                     new
                     {
-                        Entity = new { Photo = t.PhotoUrl, Options = "" }
+                        Entity = RestfulJsonProccessor.Vendor.MiniSingle(vendor)
                     },
                     JsonRequestBehavior.AllowGet
                 );
@@ -253,81 +140,92 @@ namespace HitRating.Controllers
             }
         }
 
-        [HttpPut]
-        public ActionResult SetEmail(string userName, string email)
+        [HttpPost]
+        public ActionResult Create(Models.Vendor data)
         {
             try
             {
-                if ((!User.Identity.IsAuthenticated) || (userName != User.Identity.Name))
+                if (!string.IsNullOrEmpty(data.Description))
                 {
-                    throw new RestfulModels.NoAccessException();
+                    data.Description = Utilities.StringUtility.EscapeXml(System.Web.HttpUtility.HtmlDecode(data.Description));
                 }
-
-                (new Models.AccountMembershipService()).SetEmail(userName, email);
-                return null;
+                return RedirectToAction("Read", "RestfulVendor", new { id = RestfulVendor.Create(data, User.Identity.IsAuthenticated ? User.Identity.Name : null).Id });
             }
             catch (RestfulModels.NoAccessException)
             {
                 Response.StatusCode = 401;
                 return null;
             }
-            catch
+            catch (RestfulModels.ValidationException e)
             {
-                Response.StatusCode = 404;
-                return null;
-            }
-        }
-
-        [HttpPut]
-        public ActionResult SetPhoto(string userName, string photo)
-        {
-            try
-            {
-                if ((!User.Identity.IsAuthenticated) || (userName != User.Identity.Name))
-                {
-                    throw new RestfulModels.NoAccessException();
-                }
-
-                (new Models.AccountMembershipService()).SetPhotoUrl(userName, photo);
+                Response.StatusCode = 406;
                 return Json
                 (
                     new
                     {
-                        Entity = new { Photo = photo, Options = "" }
+                        ValidationErrors = e
                     },
                     JsonRequestBehavior.AllowGet
                 );
+
+            }
+            catch
+            {
+                Response.StatusCode = 500;
+                return null;
+            }
+        }
+
+        [HttpPut]
+        public ActionResult Edit(int id, Models.Vendor data)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(data.Description))
+                {
+                    data.Description = Utilities.StringUtility.EscapeXml(System.Web.HttpUtility.HtmlDecode(data.Description));
+                }
+                return RedirectToAction("Read", "RestfulVendor", new { id = RestfulVendor.Update(id, data, User.Identity.IsAuthenticated ? User.Identity.Name : null).Id });
             }
             catch (RestfulModels.NoAccessException)
             {
                 Response.StatusCode = 401;
                 return null;
             }
+            catch (RestfulModels.ValidationException e)
+            {
+                Response.StatusCode = 406;
+                return Json
+                (
+                    new
+                    {
+                        ValidationErrors = e
+                    },
+                    JsonRequestBehavior.AllowGet
+                );
+
+            }
             catch
             {
-                Response.StatusCode = 404;
+                Response.StatusCode = 500;
                 return null;
             }
         }
 
-        [HttpPut]
-        public ActionResult ChangePassword(string userName, Models.ChangePasswordModel model)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
             try
             {
-                if ((!User.Identity.IsAuthenticated) || (userName != User.Identity.Name))
-                {
-                    throw new RestfulModels.NoAccessException();
-                }
-
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                if (RestfulVendor.Delete(id, User.Identity.IsAuthenticated ? User.Identity.Name : null))
                 {
                     Response.StatusCode = 200;
                     return null;
                 }
                 else
                 {
-                    throw new Exception();
+                    Response.StatusCode = 401;
+                    return null;
                 }
             }
             catch (RestfulModels.NoAccessException)
@@ -336,20 +234,6 @@ namespace HitRating.Controllers
                 return null;
             }
             catch
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-        }
-
-        [HttpGet]
-        public ActionResult IsLogged() {
-            if (User.Identity.IsAuthenticated)
-            {
-                Response.StatusCode = 200;
-                return null;
-            }
-            else
             {
                 Response.StatusCode = 404;
                 return null;

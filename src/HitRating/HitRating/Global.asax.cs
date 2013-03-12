@@ -101,6 +101,56 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("PUT") }
             );
 
+            //apies of verdor
+            routes.MapRoute(
+                "VendorSearch",
+                "Api/Vendors",
+                new { controller = "RestfulVendor", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniVendorSearch",
+                "Api/MiniVendors",
+                new { controller = "RestfulVendor", action = "MiniList" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "VendorRead",
+                "Api/Vendor/{id}",
+                new { controller = "RestfulVendor", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniVendorRead",
+                "Api/MiniVendor/{id}",
+                new { controller = "RestfulVendor", action = "MiniRead" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "VendorCreate",
+                "Api/Vendors",
+                new { controller = "RestfulVendor", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "VendorEdit",
+                "Api/Vendor/{id}",
+                new { controller = "RestfulVendor", action = "Edit" },
+                new { Grendal = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "VendorDelete",
+                "Api/Vendor/{id}",
+                new { controller = "RestfulVendor", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
