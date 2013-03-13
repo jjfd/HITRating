@@ -7,24 +7,28 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         $(function () {
-            $("#create_vendor input:submit").click(function () {
+            $("a").click(function () {
+
                 $.ajax({
-                    type: "POST",
-                    url: "/Api/Vendors",
-                    data: { Title: $("#create_vendor input[name='Title']").val() },
+                    type: "PUT",
+                    url: "/Api/Vendor/2",
                     dataType: "json",
                     success: function (data) {
-                        alert(data.Entity.Id + " " + data.Entity.Title);
+                        alert("edited");
+                    },
+                    error: function (data) {
+                        alert("error");
                     }
                 })
             })
 
             $.ajax({
-                type: "DELETE",
-                url: "/Api/Vendor/1",
+                type: "POST",
+                url: "/Api/Vendors",
+                data: {Title: "Test 3" },
                 dataType: "json",
                 success: function (data) {
-                    alert("deleted");
+                    alert("created");
                 },
                 error: function (data) {
                     alert("error");
@@ -32,9 +36,6 @@
             })
         })
     </script>
-    <div id="create_vendor">
-        <input name="Title" />
-        <input type="submit" "创建Vendor" />
 
-    </div>
+    <a>Edit Vendor 2</a>
 </asp:Content>

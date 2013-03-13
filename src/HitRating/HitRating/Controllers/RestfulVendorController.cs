@@ -149,7 +149,15 @@ namespace HitRating.Controllers
                 {
                     data.Description = Utilities.StringUtility.EscapeXml(System.Web.HttpUtility.HtmlDecode(data.Description));
                 }
-                return RedirectToAction("Read", "RestfulVendor", new { id = RestfulVendor.Create(data, User.Identity.IsAuthenticated ? User.Identity.Name : null).Id });
+
+                return Json
+                (
+                    new
+                    {
+                        Entity = RestfulJsonProccessor.Vendor.Single(RestfulVendor.Create(data, User.Identity.IsAuthenticated ? User.Identity.Name : null), User.Identity.IsAuthenticated ? User.Identity.Name : null)
+                    },
+                    JsonRequestBehavior.AllowGet
+                );
             }
             catch (RestfulModels.NoAccessException)
             {
@@ -185,7 +193,15 @@ namespace HitRating.Controllers
                 {
                     data.Description = Utilities.StringUtility.EscapeXml(System.Web.HttpUtility.HtmlDecode(data.Description));
                 }
-                return RedirectToAction("Read", "RestfulVendor", new { id = RestfulVendor.Update(id, data, User.Identity.IsAuthenticated ? User.Identity.Name : null).Id });
+
+                return Json
+                (
+                    new
+                    {
+                        Entity = RestfulJsonProccessor.Vendor.Single(RestfulVendor.Update(id, data, User.Identity.IsAuthenticated ? User.Identity.Name : null), User.Identity.IsAuthenticated ? User.Identity.Name : null)
+                    },
+                    JsonRequestBehavior.AllowGet
+                );
             }
             catch (RestfulModels.NoAccessException)
             {

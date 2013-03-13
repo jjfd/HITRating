@@ -81,6 +81,7 @@ namespace HitRating.RestfulJsonProccessor
                     Email = data.Email,
                     Address = data.Address,
                     PostNo = data.PostNo,
+                    Description = data.Description,
                     Creator = RestfulJsonProccessor.Account.MiniSingle(data.Creator),
                     Created = data.Created.ToString(),
                     Updated = data.Updated.ToString(),

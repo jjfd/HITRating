@@ -151,6 +151,56 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of category
+            routes.MapRoute(
+                "CategorySearch",
+                "Api/Categories",
+                new { controller = "RestfulCategory", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniCategorySearch",
+                "Api/MiniCategories",
+                new { controller = "RestfulCategory", action = "MiniList" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "CategoryRead",
+                "Api/Category/{id}",
+                new { controller = "RestfulCategory", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniCategoryRead",
+                "Api/MiniCategory/{id}",
+                new { controller = "RestfulCategory", action = "MiniRead" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "CategoryCreate",
+                "Api/Categories",
+                new { controller = "RestfulCategory", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "CategoryEdit",
+                "Api/Category/{id}",
+                new { controller = "RestfulCategory", action = "Edit" },
+                new { Grendal = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "CategoryDelete",
+                "Api/Category/{id}",
+                new { controller = "RestfulCategory", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
