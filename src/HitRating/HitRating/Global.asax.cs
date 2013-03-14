@@ -201,6 +201,77 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of product
+            routes.MapRoute(
+                "ProductSearch",
+                "Api/Products",
+                new { controller = "RestfulProduct", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductSearchOfVendor",
+                "Api/Vendor/{vendorId}/Products",
+                new { controller = "RestfulProduct", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductSearchOfCategory",
+                "Api/Category/{categoryId}/Products",
+                new { controller = "RestfulProduct", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductSearchOfVendorOfCategory",
+                "Api/Vendor/{vendorId}/Category/{categoryId}/Products",
+                new { controller = "RestfulProduct", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniProductSearch",
+                "Api/MiniProducts",
+                new { controller = "RestfulProduct", action = "MiniList" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductRead",
+                "Api/Product/{id}",
+                new { controller = "RestfulProduct", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniProductRead",
+                "Api/MiniProduct/{id}",
+                new { controller = "RestfulProduct", action = "MiniRead" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductCreate",
+                "Api/Products",
+                new { controller = "RestfulProduct", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "ProductEdit",
+                "Api/Product/{id}",
+                new { controller = "RestfulProduct", action = "Edit" },
+                new { Grendal = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "ProductDelete",
+                "Api/Product/{id}",
+                new { controller = "RestfulProduct", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL

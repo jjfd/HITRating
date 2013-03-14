@@ -97,7 +97,6 @@
     <EntitySetMapping Name="aspnet_Users">
       <EntityTypeMapping TypeName="HitRatingModel.aspnet_Users">
         <MappingFragment StoreEntitySet="aspnet_Users">
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
@@ -109,6 +108,7 @@
           <ScalarProperty Name="validUntil" ColumnName="validUntil" />
           <ScalarProperty Name="UserNameChanged" ColumnName="UserNameChanged" />
           <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -165,7 +165,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Logo" ColumnName="Logo" />
-          <ScalarProperty Name="VenderId" ColumnName="VenderId" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Version" ColumnName="Version" />
           <ScalarProperty Name="Published" ColumnName="Published" />

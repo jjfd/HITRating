@@ -3779,24 +3779,24 @@ namespace HitRating.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> VenderId
+        public Nullable<global::System.Int32> VendorId
         {
             get
             {
-                return _VenderId;
+                return _VendorId;
             }
             set
             {
-                OnVenderIdChanging(value);
-                ReportPropertyChanging("VenderId");
-                _VenderId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("VenderId");
-                OnVenderIdChanged();
+                OnVendorIdChanging(value);
+                ReportPropertyChanging("VendorId");
+                _VendorId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VendorId");
+                OnVendorIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _VenderId;
-        partial void OnVenderIdChanging(Nullable<global::System.Int32> value);
-        partial void OnVenderIdChanged();
+        private Nullable<global::System.Int32> _VendorId;
+        partial void OnVendorIdChanging(Nullable<global::System.Int32> value);
+        partial void OnVendorIdChanged();
     
         /// <summary>
         /// 没有元数据文档可用。

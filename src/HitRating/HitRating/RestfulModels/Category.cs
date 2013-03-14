@@ -143,10 +143,10 @@ namespace HitRating.RestfulModels
             {
                 entity = CategoryDataProccessor.ValidationAndProcess(entity);
 
-                if (((new RestfulModels.Category()).Search(new Models.CategorySearchModel() { Title = entity.Title }).Count() > 0))
+                if (((new RestfulModels.Category()).Search(new Models.CategorySearchModel() { Title = entity.Title })).Count() > 0)
                 {
                     var e = new RestfulModels.ValidationException();
-                    e.ValidationErrors.Add("机构已经存在");
+                    e.ValidationErrors.Add("已经存在");
 
                     throw e;
                 }

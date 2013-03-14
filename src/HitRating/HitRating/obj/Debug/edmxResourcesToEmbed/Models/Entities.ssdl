@@ -232,7 +232,7 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="varchar" MaxLength="2000" />
     <Property Name="Logo" Type="varchar" MaxLength="2000" />
-    <Property Name="VenderId" Type="int" />
+    <Property Name="VendorId" Type="int" />
     <Property Name="CategoryId" Type="int" />
     <Property Name="Version" Type="varchar" MaxLength="50" />
     <Property Name="Published" Type="date" />
