@@ -175,12 +175,12 @@
     <Property Name="validUntil" Type="DateTime" />
     <Property Name="UserNameChanged" Type="Boolean" />
     <Property Name="PhotoUrl" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
-    <Property Name="IsAdmin" Type="Boolean" />
     <NavigationProperty Name="aspnet_Applications" Relationship="HitRatingModel.FK__aspnet_Us__Appli__0DAF0CB0" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
     <NavigationProperty Name="aspnet_Membership" Relationship="HitRatingModel.FK__aspnet_Me__UserI__22AA2996" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
     <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="HitRatingModel.FK__aspnet_Pe__UserI__693CA210" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
     <NavigationProperty Name="aspnet_Profile" Relationship="HitRatingModel.FK__aspnet_Pr__UserI__38996AB5" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
     <NavigationProperty Name="aspnet_Roles" Relationship="HitRatingModel.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+    <Property Type="Boolean" Name="IsAdmin" />
   </EntityType>
   <EntityType Name="aspnet_WebEvent_Events">
     <Key>
@@ -231,9 +231,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="VendorId" Type="Int32" />
     <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
     <Property Name="Logo" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+    <Property Name="VenderId" Type="Int32" />
     <Property Name="CategoryId" Type="Int32" />
     <Property Name="Version" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Published" Type="DateTime" />
