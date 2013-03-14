@@ -7,28 +7,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         $(function () {
-            $("a").click(function () {
-
-                $.ajax({
-                    type: "PUT",
-                    url: "/Api/Vendor/2",
-                    dataType: "json",
-                    success: function (data) {
-                        alert("edited");
-                    },
-                    error: function (data) {
-                        alert("error");
-                    }
-                })
-            })
-
             $.ajax({
-                type: "POST",
-                url: "/Api/Vendors",
-                data: {Title: "Test 3" },
+                type: "DELETE",
+                url: "/Api/Product/3",
+                data: { Published: "2012-12-23" },
                 dataType: "json",
                 success: function (data) {
-                    alert("created");
+                    alert("edited");
                 },
                 error: function (data) {
                     alert("error");
@@ -36,6 +21,4 @@
             })
         })
     </script>
-
-    <a>Edit Vendor 2</a>
 </asp:Content>
