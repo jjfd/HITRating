@@ -250,11 +250,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ProductId" Type="int" />
-    <Property Name="Funtionality" Type="float" />
-    <Property Name="Capability" Type="float" />
-    <Property Name="Usability" Type="float" />
-    <Property Name="PPR" Type="float" />
-    <Property Name="AfterSale" Type="float" />
+    <Property Name="Rate" Type="int" />
     <Property Name="Details" Type="varchar(max)" />
     <Property Name="Creator" Type="varchar" MaxLength="500" />
     <Property Name="Created" Type="datetime" />

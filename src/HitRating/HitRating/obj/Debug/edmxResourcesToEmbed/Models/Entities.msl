@@ -184,11 +184,7 @@
         <MappingFragment StoreEntitySet="Review">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="Funtionality" ColumnName="Funtionality" />
-          <ScalarProperty Name="Capability" ColumnName="Capability" />
-          <ScalarProperty Name="Usability" ColumnName="Usability" />
-          <ScalarProperty Name="PPR" ColumnName="PPR" />
-          <ScalarProperty Name="AfterSale" ColumnName="AfterSale" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="Creator" ColumnName="Creator" />
           <ScalarProperty Name="Created" ColumnName="Created" />

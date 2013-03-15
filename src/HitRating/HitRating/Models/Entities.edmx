@@ -255,11 +255,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ProductId" Type="int" />
-          <Property Name="Funtionality" Type="float" />
-          <Property Name="Capability" Type="float" />
-          <Property Name="Usability" Type="float" />
-          <Property Name="PPR" Type="float" />
-          <Property Name="AfterSale" Type="float" />
+          <Property Name="Rate" Type="int" />
           <Property Name="Details" Type="varchar(max)" />
           <Property Name="Creator" Type="varchar" MaxLength="500" />
           <Property Name="Created" Type="datetime" />
@@ -693,11 +689,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductId" Type="Int32" />
-          <Property Name="Funtionality" Type="Double" />
-          <Property Name="Capability" Type="Double" />
-          <Property Name="Usability" Type="Double" />
-          <Property Name="PPR" Type="Double" />
-          <Property Name="AfterSale" Type="Double" />
+          <Property Name="Rate" Type="Int32" />
           <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="Created" Type="DateTime" />
@@ -942,11 +934,7 @@
           <EntitySetMapping Name="Reviews"><EntityTypeMapping TypeName="HitRatingModel.Review"><MappingFragment StoreEntitySet="Review">
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-            <ScalarProperty Name="Funtionality" ColumnName="Funtionality" />
-            <ScalarProperty Name="Capability" ColumnName="Capability" />
-            <ScalarProperty Name="Usability" ColumnName="Usability" />
-            <ScalarProperty Name="PPR" ColumnName="PPR" />
-            <ScalarProperty Name="AfterSale" ColumnName="AfterSale" />
+            <ScalarProperty Name="Rate" ColumnName="Rate" />
             <ScalarProperty Name="Details" ColumnName="Details" />
             <ScalarProperty Name="Creator" ColumnName="Creator" />
             <ScalarProperty Name="Created" ColumnName="Created" />
@@ -1061,7 +1049,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Entities">
+      <Diagram Name="Entities" ZoomLevel="112">
         <EntityTypeShape EntityType="HitRatingModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="7.5" Height="2.2966927083333326" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.aspnet_Membership" Width="1.5" PointX="3" PointY="6.25" Height="4.6573697916666665" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.aspnet_Paths" Width="1.5" PointX="3" PointY="11.625" Height="1.9594531249999996" IsExpanded="true" />
@@ -1075,7 +1063,7 @@
         <EntityTypeShape EntityType="HitRatingModel.Category" Width="1.5" PointX="4.75" PointY="0.75" Height="2.2966927083333317" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Comment" Width="1.5" PointX="5.75" PointY="4.75" Height="1.9594531250000031" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Product" Width="1.5" PointX="7.75" PointY="0.75" Height="3.3084114583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="7.75" PointY="5.75" Height="2.8025520833333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="7.75" PointY="5.75" Height="2.1280729166666674" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" Height="1.7908333333333388" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Vendor" Width="1.5" PointX="9.75" PointY="3.75" Height="3.4770312500000031" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Vote" Width="1.5" PointX="11.75" PointY="0.75" Height="1.7908333333333388" IsExpanded="true" />

@@ -4122,120 +4122,24 @@ namespace HitRating.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> Funtionality
+        public Nullable<global::System.Int32> Rate
         {
             get
             {
-                return _Funtionality;
+                return _Rate;
             }
             set
             {
-                OnFuntionalityChanging(value);
-                ReportPropertyChanging("Funtionality");
-                _Funtionality = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Funtionality");
-                OnFuntionalityChanged();
+                OnRateChanging(value);
+                ReportPropertyChanging("Rate");
+                _Rate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rate");
+                OnRateChanged();
             }
         }
-        private Nullable<global::System.Double> _Funtionality;
-        partial void OnFuntionalityChanging(Nullable<global::System.Double> value);
-        partial void OnFuntionalityChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Capability
-        {
-            get
-            {
-                return _Capability;
-            }
-            set
-            {
-                OnCapabilityChanging(value);
-                ReportPropertyChanging("Capability");
-                _Capability = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Capability");
-                OnCapabilityChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Capability;
-        partial void OnCapabilityChanging(Nullable<global::System.Double> value);
-        partial void OnCapabilityChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Usability
-        {
-            get
-            {
-                return _Usability;
-            }
-            set
-            {
-                OnUsabilityChanging(value);
-                ReportPropertyChanging("Usability");
-                _Usability = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Usability");
-                OnUsabilityChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Usability;
-        partial void OnUsabilityChanging(Nullable<global::System.Double> value);
-        partial void OnUsabilityChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> PPR
-        {
-            get
-            {
-                return _PPR;
-            }
-            set
-            {
-                OnPPRChanging(value);
-                ReportPropertyChanging("PPR");
-                _PPR = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("PPR");
-                OnPPRChanged();
-            }
-        }
-        private Nullable<global::System.Double> _PPR;
-        partial void OnPPRChanging(Nullable<global::System.Double> value);
-        partial void OnPPRChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AfterSale
-        {
-            get
-            {
-                return _AfterSale;
-            }
-            set
-            {
-                OnAfterSaleChanging(value);
-                ReportPropertyChanging("AfterSale");
-                _AfterSale = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AfterSale");
-                OnAfterSaleChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AfterSale;
-        partial void OnAfterSaleChanging(Nullable<global::System.Double> value);
-        partial void OnAfterSaleChanged();
+        private Nullable<global::System.Int32> _Rate;
+        partial void OnRateChanging(Nullable<global::System.Int32> value);
+        partial void OnRateChanged();
     
         /// <summary>
         /// 没有元数据文档可用。

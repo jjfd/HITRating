@@ -272,6 +272,63 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of review
+            routes.MapRoute(
+                "ReviewSearch",
+                "Api/Reviews",
+                new { controller = "RestfulReview", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ReviewSearchOfProduct",
+                "Api/Product/{productId}/Reviews",
+                new { controller = "RestfulReview", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniReviewSearch",
+                "Api/MiniReviews",
+                new { controller = "RestfulReview", action = "MiniList" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ReviewRead",
+                "Api/Review/{id}",
+                new { controller = "RestfulReview", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "MiniReviewRead",
+                "Api/MiniReview/{id}",
+                new { controller = "RestfulReview", action = "MiniRead" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ReviewCreate",
+                "Api/Reviews",
+                new { controller = "RestfulReview", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "ReviewEdit",
+                "Api/Review/{id}",
+                new { controller = "RestfulReview", action = "Edit" },
+                new { Grendal = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "ReviewDelete",
+                "Api/Review/{id}",
+                new { controller = "RestfulReview", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL

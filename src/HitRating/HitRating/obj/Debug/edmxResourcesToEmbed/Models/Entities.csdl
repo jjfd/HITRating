@@ -251,11 +251,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProductId" Type="Int32" />
-    <Property Name="Funtionality" Type="Double" />
-    <Property Name="Capability" Type="Double" />
-    <Property Name="Usability" Type="Double" />
-    <Property Name="PPR" Type="Double" />
-    <Property Name="AfterSale" Type="Double" />
+    <Property Name="Rate" Type="Int32" />
     <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
     <Property Name="Created" Type="DateTime" />
