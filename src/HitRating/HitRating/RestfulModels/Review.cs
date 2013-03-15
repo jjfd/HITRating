@@ -281,7 +281,7 @@ namespace HitRating.RestfulModels
             try
             {
                 var productId = (int)(entity.ProductId);
-                entity.Product = DbEntities.Products.First(m => m.Id == productId);
+                entity.Product = (new RestfulModels.RestfulProduct()).Read(productId);
             }
             catch
             {
@@ -363,6 +363,10 @@ namespace HitRating.RestfulModels
                 catch
                 {
                     validationException.ValidationErrors.Add("HIT产品为空");
+                }
+
+                if (data.Rate == null || data.Rate < 1 || data.Rate > 5) {
+                    validationException.ValidationErrors.Add("无效的评分");
                 }
 
                 if (string.IsNullOrEmpty(data.Details))

@@ -8,12 +8,12 @@
     <script type="text/javascript">
         $(function () {
             $.ajax({
-                type: "POST",
-                url: "/Api/Products",
-                data: {Title: "Test 3", VendorId: 2, Version: "1.2.23" },
+                type: "PUT",
+                url: "/Api/Review/1",
+                data: {ProductId: 1, Rate: 4 },
                 dataType: "json",
                 success: function (data) {
-                    alert("created");
+                    alert("edited");
                 },
                 error: function (data) {
                     alert("error");
