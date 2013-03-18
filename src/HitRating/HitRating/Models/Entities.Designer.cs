@@ -290,18 +290,18 @@ namespace HitRating.Models
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<Review> Reviews
+        public ObjectSet<ReviewModels> Reviews
         {
             get
             {
                 if ((_Reviews == null))
                 {
-                    _Reviews = base.CreateObjectSet<Review>("Reviews");
+                    _Reviews = base.CreateObjectSet<ReviewModels>("Reviews");
                 }
                 return _Reviews;
             }
         }
-        private ObjectSet<Review> _Reviews;
+        private ObjectSet<ReviewModels> _Reviews;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -461,7 +461,7 @@ namespace HitRating.Models
         /// <summary>
         /// 用于向 Reviews EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToReviews(Review review)
+        public void AddToReviews(ReviewModels review)
         {
             base.AddObject("Reviews", review);
         }
@@ -4048,7 +4048,7 @@ namespace HitRating.Models
     [EdmEntityTypeAttribute(NamespaceName="HitRatingModel", Name="Review")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Review : EntityObject
+    public partial class ReviewModels : EntityObject
     {
         #region 工厂方法
     
@@ -4056,9 +4056,9 @@ namespace HitRating.Models
         /// 创建新的 Review 对象。
         /// </summary>
         /// <param name="id">Id 属性的初始值。</param>
-        public static Review CreateReview(global::System.Int32 id)
+        public static ReviewModels CreateReview(global::System.Int32 id)
         {
-            Review review = new Review();
+            ReviewModels review = new ReviewModels();
             review.Id = id;
             return review;
         }

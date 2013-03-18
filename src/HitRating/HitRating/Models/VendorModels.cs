@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace HitRating.Models
 {
-    public class VendorSearchModel : Vendor
+    public class CommentSearchModel : Comment
     {
         public int IdUpper { get; set; }
         public int IdLower { get; set; }

@@ -15,7 +15,7 @@ namespace HitRating.RestfulModels
             RestfulReview = new RestfulReview();
         }
 
-        public Models.Review Create(Models.Review entity, string userName)
+        public Models.ReviewModels Create(Models.ReviewModels entity, string userName)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review Read(int id, string userName = null)
+        public Models.ReviewModels Read(int id, string userName = null)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review Update(int id, Models.Review entity, string userName)
+        public Models.ReviewModels Update(int id, Models.ReviewModels entity, string userName)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review First(Models.ReviewSearchModel conditions = null, string userName = null)
+        public Models.ReviewModels First(Models.ReviewSearchModel conditions = null, string userName = null)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public IEnumerable<Models.Review> Search(Models.ReviewSearchModel conditions = null, int start = 0, int count = 0, string userName = null)
+        public IEnumerable<Models.ReviewModels> Search(Models.ReviewSearchModel conditions = null, int start = 0, int count = 0, string userName = null)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace HitRating.RestfulModels
             DbEntities = new Entities();
         }
 
-        public Models.Review Create(Models.Review entity) 
+        public Models.ReviewModels Create(Models.ReviewModels entity) 
         {
             try
             {
@@ -155,7 +155,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review Update(int id, Models.Review entity)
+        public Models.ReviewModels Update(int id, Models.ReviewModels entity)
         {
             try
             {
@@ -173,7 +173,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review Read(int id) {
+        public Models.ReviewModels Read(int id) {
             try
             {
                 var t =  DbEntities.Reviews.First(m => m.Id == id);
@@ -204,7 +204,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public Models.Review First(Models.ReviewSearchModel conditions = null) {
+        public Models.ReviewModels First(Models.ReviewSearchModel conditions = null) {
             try
             {
                 return Search(conditions, 0, 1).First();
@@ -215,11 +215,11 @@ namespace HitRating.RestfulModels
             }
         }
 
-        public IEnumerable<Models.Review> Search(Models.ReviewSearchModel conditions = null, int start = 0, int count = -1)
+        public IEnumerable<Models.ReviewModels> Search(Models.ReviewSearchModel conditions = null, int start = 0, int count = -1)
         {
             try
             {
-                IEnumerable<Models.Review> fs =
+                IEnumerable<Models.ReviewModels> fs =
                 (
                     from review in
                         DbEntities.Reviews.OrderByDescending(m => m.Id)
@@ -276,7 +276,7 @@ namespace HitRating.RestfulModels
             }
         }
 
-        private void GetFullEntity(ref Models.Review entity)
+        private void GetFullEntity(ref Models.ReviewModels entity)
         {
             try
             {
@@ -292,7 +292,7 @@ namespace HitRating.RestfulModels
 
     public static class ReviewAccessControl
     {
-        public static bool Pass(byte action, Models.Review Review, string accessor = null)
+        public static bool Pass(byte action, Models.ReviewModels Review, string accessor = null)
         {
             try
             {
@@ -347,7 +347,7 @@ namespace HitRating.RestfulModels
 
     public static class ReviewDataProccessor
     {
-        public static Models.Review ValidationAndProcess(Models.Review data)
+        public static Models.ReviewModels ValidationAndProcess(Models.ReviewModels data)
         {
             try
             {

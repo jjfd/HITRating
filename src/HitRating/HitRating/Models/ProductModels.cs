@@ -8,7 +8,13 @@ using System.Web.Mvc;
 
 namespace HitRating.Models
 {
-    public class VendorSearchModel : Vendor
+    public partial class Product
+    {
+        public Models.Vendor Vendor { get; set; }
+        public Models.Category Category { get; set; }
+    }
+
+    public class ProductSearchModel : Product
     {
         public int IdUpper { get; set; }
         public int IdLower { get; set; }

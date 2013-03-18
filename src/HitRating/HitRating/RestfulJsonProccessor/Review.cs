@@ -7,7 +7,7 @@ namespace HitRating.RestfulJsonProccessor
 {
     public static class Review
     {
-        public static object List(IEnumerable<Models.Review> data, string userName)
+        public static object List(IEnumerable<Models.ReviewModels> data, string userName)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace HitRating.RestfulJsonProccessor
             }
         }
 
-        public static object MiniList(IEnumerable<Models.Review> data, string userName)
+        public static object MiniList(IEnumerable<Models.ReviewModels> data, string userName)
         {
             try
             {
@@ -43,12 +43,12 @@ namespace HitRating.RestfulJsonProccessor
             }
         }
 
-        public static object Single(Models.Review data, string userName) 
+        public static object Single(Models.ReviewModels data, string userName) 
         {
             return DataProcess(data, userName);
         }
 
-        public static object MiniSingle(Models.Review data)
+        public static object MiniSingle(Models.ReviewModels data)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace HitRating.RestfulJsonProccessor
             }
         }
 
-        private static object DataProcess(Models.Review data, string userName)
+        private static object DataProcess(Models.ReviewModels data, string userName)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace HitRating.RestfulJsonProccessor
             }
         }
 
-        public static IList<RestfulJsonProccessor.RestfulOption> ControlProcess(Models.Review data, string userName)
+        public static IList<RestfulJsonProccessor.RestfulOption> ControlProcess(Models.ReviewModels data, string userName)
         {
             try
             {
