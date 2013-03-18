@@ -8,12 +8,12 @@
     <script type="text/javascript">
         $(function () {
             $.ajax({
-                type: "DELETE",
-                url: "/Api/Comment/2",
-                data: {Details: "this is a comment to review #6 edited by ryan" },
+                type: "POST",
+                url: "/Api/Votes",
+                data: {ReviewId: 6, Supportive: false },
                 dataType: "json",
                 success: function (data) {
-                    alert("DELETE");
+                    alert("Voted");
                 },
                 error: function (data) {
                     alert("error");

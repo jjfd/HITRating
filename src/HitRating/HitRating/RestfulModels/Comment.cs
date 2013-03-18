@@ -257,7 +257,7 @@ namespace HitRating.RestfulModels
             {
                 if (action == RestfulAction.Create)
                 {
-                    if (!string.IsNullOrEmpty(accessor) && (new Models.AccountMembershipService()).IsAdmin(accessor))
+                    if (!string.IsNullOrEmpty(accessor) && (new Models.AccountMembershipService()).Exist(accessor))
                     {
                         return true;
                     }
@@ -272,7 +272,7 @@ namespace HitRating.RestfulModels
                 }
                 else if (action == RestfulAction.Update)
                 {
-                    if (!string.IsNullOrEmpty(accessor) && (new Models.AccountMembershipService()).IsAdmin(accessor))
+                    if (!string.IsNullOrEmpty(accessor) && Comment.Creator == accessor)
                     {
                         return true;
                     }
@@ -283,7 +283,7 @@ namespace HitRating.RestfulModels
                 }
                 else if (action == RestfulAction.Delete)
                 {
-                    if (!string.IsNullOrEmpty(accessor) && (new Models.AccountMembershipService()).IsAdmin(accessor))
+                    if (!string.IsNullOrEmpty(accessor) && Comment.Creator == accessor)
                     {
                         return true;
                     }

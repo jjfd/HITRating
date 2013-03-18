@@ -372,6 +372,42 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of vote
+            routes.MapRoute(
+                "VoteSearch",
+                "Api/Votes",
+                new { controller = "RestfulVote", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "VoteSearchOfReview",
+                "Api/Review/{reviewId}/Votes",
+                new { controller = "RestfulVote", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "VoteRead",
+                "Api/Vote/{id}",
+                new { controller = "RestfulVote", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "VoteCreate",
+                "Api/Votes",
+                new { controller = "RestfulVote", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "VoteDelete",
+                "Api/Vote/{id}",
+                new { controller = "RestfulVote", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
