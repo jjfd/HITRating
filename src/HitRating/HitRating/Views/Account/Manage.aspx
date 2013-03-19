@@ -4,23 +4,20 @@
 	账户管理
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="AsideContent" runat="server">
+           <div class="center line">
+                <a class="taction" object="Session" taction_type="4" title="退出" redirect_to="">> 退出系统 <</a>
+           </div>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <style type="text/css">
-            #account 
-            {
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto; 
-                   
-            }
-        </style>
         <div id="account">
             <script type="text/javascript">
                 var userName = "<%: Page.User.Identity.Name %>";
             </script>
 
-            <p class="green_background">账户管理</p>
-
+            <p class="red_background">账户管理</p>
+            <br />
             <script type="text/javascript">
                 $(function () {
                     $("#edit_account_email input:submit").click(function () {
@@ -118,10 +115,6 @@
                 <div class="buttons one_click_buttons line right">
                     <input type="submit" value="修改" />
                 </div>
-           </div>
-
-           <div class="big_buttons line">
-                <a class="taction" object="Session" taction_type="4" title="退出" redirect_to="">退出</a>
            </div>
        </div>
 </asp:Content>

@@ -159,7 +159,6 @@ textarea,
 	font-family: Arial;
 	font-size: 1em;
 	color: #333;
-	border-radius: 2px;
 	line-height: 1.5em;
 	width: 100%;
 }
@@ -198,7 +197,6 @@ textarea
 	background: #f66;
 	color: #fff;
 	padding: .2em 0;
-	border-radius: 2px;
 }
 
 /* table */
@@ -330,7 +328,6 @@ table textarea
 	background: #39f;
 	border: none;
 	cursor: pointer;
-	border-radius: 2px;
 }
 .buttons input,
 .one_click_buttons input
@@ -342,7 +339,6 @@ table textarea
 	color: #fff;
 	border: none;
     padding: .45em 1.5em;
-	border-radius: 2px;
 	height: auto;
 	
 }
@@ -387,8 +383,8 @@ table textarea
     background: #39f;
     color: #fff;
     margin: .5em 0;
-    border-radius: 2px;
     height: auto;
+    cursor: pointer;
 }
 .big_buttons a:hover,
 .big_buttons input:hover
@@ -423,7 +419,6 @@ table textarea
 {
     background: #ddd; 
     border: 1px solid #ccc;
-    border-radius: 2px;
 }
 .module.no_border
 {
@@ -490,7 +485,6 @@ table textarea
 	overflow-y: auto;
 	background: #fff;
 	border: 0;
-	border-radius: 0;
 	border-bottom-left-radius: 5px;
 	box-shadow: 0px 0px 10px #666;
 	display: none;
@@ -533,7 +527,6 @@ table textarea
 	display: inline-block;
 	height: 1.8em;
 	width: 1.8em;
-	border-radius: 2px;
 	text-align: center;
 	background: #f99;
 	color: #fff;
@@ -675,7 +668,6 @@ table textarea
     font-size: 0.8em;
     border: 1px solid #9ac;
     color: #679;
-    border-radius: 2px;
     padding: 0 .2em;
     text-align: center;
     margin-left: .2em;  
@@ -711,7 +703,6 @@ table textarea
     font-size: 0.8em;
     border: 1px solid #9ac;
     color: #679;
-    border-radius: 2px;
     text-align: center;    
 }
 .mini_tbox > nav a:hover
@@ -735,7 +726,6 @@ table textarea
     display: inline-block;
     border: 1px solid #9ac;
     color: #679;
-    border-radius: 2px;
     line-height: 1.5em;
     font-size: .8em;
     padding: 0 .3em;
@@ -772,9 +762,6 @@ table textarea
 .ajax_search .ajax_suggestions .options
 {
     background: #fff;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
     border: 1px solid #ccc;    
 }
 .ajax_search .ajax_suggestions .option
@@ -799,74 +786,70 @@ input.tip_search
 }
 
 /* layout */
-#header 
+body
 {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    background: #333;
-    box-shadow: 0px 0px 10px #000;
+    width: 1000px;
+    margin: 0 auto;    
 }
-#header .nav
+body > header
 {
-    width: auto;
-    min-width: 400px;
-    max-width: 980px;
-    padding: .5em 0;
-    margin: 0 auto;
+    position: relative;
+    padding: 5px;
     background: #333;
-    position: relative; 
 }
-#logo
+body > header #logo
 {
     position: absolute;
-    top: 1em;
-    left: 0;        
+    top: 11px;
+    left: 10px;        
 }
-#header_photo 
-{
-    position: absolute;
-    top: .5em;
-    right: 0;
-    width: 2.2em;
-    height: 2.2em;
-    border: 1px solid #ccc;   
-}
-#header .nav .nav_group 
+body > header > nav
 {
     text-align: right;
 }
-#header .nav .nav_group a
+body > header > nav input.mini_search
 {
-    display: inline-block;
-    padding: .5em;
-}
-#header .mini_search
-{
-    width: 4em;
-    margin-right: 1.5em;  
-}
-#main 
-{
-    min-width: 400px;
-    max-width: 980px;
-    margin: 3.5em auto 0 auto;
-    background: #fff;
-    box-shadow: 0px 0px 10px #666; 
     position: relative;
+    right: 2.7em;
+    width: 4em;
+}
+body > header > nav img#header_photo
+{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 2.25em;
+    width: 2.25em;
+    border: 1px solid #fff;
+}
+body > aside
+{
+    float: right;
+    width: 300px;
+    padding: 0 20px 20px 20px;
+    margin-top: 20px;
+    min-height: 300px;
+    border-left: 1px solid #ccc;
+}
+body > article
+{
+    background: #fff;
+    padding: 20px;
+    padding-right: 360px;  
 }
 #main_content
 {
     min-height: 525px;
     padding:  1em;
 }
-#footer 
+body > footer 
 {
-    padding: .5em 0;
+    text-align: center;
+    clear: both;
+    padding: 10px 0;
     text-align: center; 
     color: #666; 
+    background: #eee;
 }
 #go_top,
 #go_top:link
@@ -878,7 +861,6 @@ input.tip_search
     width: 3em;
     height: 3em;
     padding: .5em;
-    border-radius: 2px;
     background: #39f;
     color: #fff;
     font-size: .8em;
@@ -898,7 +880,6 @@ input.tip_search
     right: 5em;
     display: hidden;
     padding: .5em;
-    border-radius: 2px;
     background: #f55;
     color: #fff;
     font-size: .8em;

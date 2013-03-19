@@ -6,18 +6,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
-        #main 
-        {
-            background: none;
-            box-shadow: none;
-        }
         #logon_and_register
         {
             width: 420px;
+            height: 500px;
             margin: 0 auto;
             padding: 1em;
-            border-radius: 5px;
-            box-shadow: 0px 0px 20px #666; 
         }
         #logon_and_register .module 
         {
@@ -30,10 +24,6 @@
             background: #fff;
             height: 97px;
             text-align: center;
-        }
-        #main_content
-        {
-            background: none;    
         }
     </style>
     <script type="text/javascript">
