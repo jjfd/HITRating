@@ -65,18 +65,19 @@ $.print = function (article) {
 $.centerPopup = function (popup) {
     $("#popup_cover").show();
 
-    $(".popup:visible").hide("normal");
-    $("#corner_popup_icon").hide("normal", function () {
-        $(popup).show("normal");
-    })
+    if ($(".popup:visible").length) {
+        $(".popup:visible").slideUp("normal", function () {
+            $(popup).slideDown("normal");
+        });
+    }
+    else {
+        $(popup).slideDown("normal");
+    }
 }
 
 $.fadePopup = function (popup, fn) {
     $("#popup_cover").hide();
-
-    $(popup).hide("normal", function () {
-        $("#corner_popup_icon").show("normal", fn);
-    });
+    $(popup).slideUp("normal", fn);
 }
 
 $.centerFlashPopup = function (popup) {

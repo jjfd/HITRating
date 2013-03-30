@@ -6,10 +6,18 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
+        body > aside
+        {
+            display: none;    
+        }
+        body > article
+        {
+            padding: 20px 0;
+        }
         #logon_and_register
         {
             width: 420px;
-            height: 500px;
+            height: 460px;
             margin: 0 auto;
             padding: 1em;
         }

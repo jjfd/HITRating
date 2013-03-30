@@ -26,8 +26,8 @@
                     else
                     {      
                 %>
-                        <a id="header_logon" class="taction" object="Session" taction_type="1" title="登录" redirect_to="">登录</a>
-                        <a id="header_register" class="taction" object="Account" taction_type="1" title="注册" redirect_to="">注册</a>
+                        <a id="header_logon" class="taction" object="Session" taction_type="1" title="登录" redirect_to="" href="#logon">登录</a>
+                        <a id="header_register" class="taction" object="Account" taction_type="1" title="注册" redirect_to="" href="#register">注册</a>
                 <%  
                     } 
                 %>
