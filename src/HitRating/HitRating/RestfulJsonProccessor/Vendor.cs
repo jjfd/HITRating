@@ -113,7 +113,7 @@ namespace HitRating.RestfulJsonProccessor
                             ActionDefinition = "修改供应商信息",
                             ActionType = Models.RestfulAction.Update,
                             HttpMethod = "PUT",
-                            Uri = Models.ApplicationConfig.Domain + "Api/Verdor/" + data.Id
+                            Uri = Models.ApplicationConfig.Domain + "Api/Vendor/" + data.Id
                         }
                     );
 
@@ -127,7 +127,7 @@ namespace HitRating.RestfulJsonProccessor
                             ActionDefinition = "删除供应商信息",
                             ActionType = Models.RestfulAction.Delete,
                             HttpMethod = "DELETE",
-                            Uri = Models.ApplicationConfig.Domain + "Api/Verdor/" + data.Id
+                            Uri = Models.ApplicationConfig.Domain + "Api/Vendor/" + data.Id
                         }
                     );
 

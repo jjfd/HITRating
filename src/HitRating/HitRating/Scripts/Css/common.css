@@ -167,6 +167,11 @@ input[type="checkbox"]
     width: auto;
     padding: .8em;    
 }
+input[readonly="readonly"] 
+{
+    background: #eee;
+    color: #999;    
+}
 select 
 {
     width: auto;
@@ -475,8 +480,7 @@ table textarea
 {
 	position: fixed;
 	top: 41px;
-	margin: 0 300px;
-	width: 400px;
+	width: 658px;
 	max-height: 100%;
 	overflow-y: auto;
 	background: #fff;
@@ -491,7 +495,6 @@ table textarea
 .flash 
 {
     position: fixed;
-    border: 0;
 }
 .popup .validation_error 
 {
@@ -572,7 +575,7 @@ table textarea
 }
 .tbox > article > h3
 {
-    font-size: 1em;
+    font-size: 1.2em;
 }
 .tbox > article > section
 {
