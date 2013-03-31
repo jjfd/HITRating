@@ -66,6 +66,7 @@ namespace HitRating.RestfulModels
                 }
 
                 entity.ReviewId = old.ReviewId;
+                entity.Creator = userName;
                 entity.Created = old.Created;
                 entity.Updated = DateTime.Now;
 

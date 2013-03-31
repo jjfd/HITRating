@@ -706,6 +706,764 @@
             </div>
         </div>
 
+        <div id="product_panels">
+            <script type="text/javascript">
+                $(function () {
+                    $(".taction[object='Product'][taction_type='1']").live("click", function () {
+                        $("#product_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#product_create_panel .caption").text($(this).attr("title"));
+
+                        $.centerPopup($("#product_create_panel"));
+                    });
+
+                    $(".taction[object='Product'][taction_type='2']").live("click", function () {
+                        window.open(PanelApiRoot + "Product/Details/" + $(this).attr("object_id"));
+                    });
+
+                    $(".taction[object='Product'][taction_type='3']").live("click", function () {
+                        $("#product_edit_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#product_edit_panel .caption").text($(this).attr("title"));
+
+                        var objectId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/Product/" + objectId,
+                            dataType: "json",
+                            success: function (data) {
+                                var product = data.Entity;
+
+                                $("#product_edit_panel input[name='VendorId']").val(product.Vendor.Id);
+                                $("#product_edit_panel input[name='VendorId']").siblings(".ajax_input_title").val(product.Vendor.Title);
+                                $("#product_edit_panel input[name='Title']").val(product.Title);
+                                $("#product_edit_panel input[name='Version']").val(product.Version);
+                                $("#product_edit_panel input[name='Logo']").val(product.Logo);
+                                if (product.Category != null) {
+                                    $("#product_edit_panel input[name='CategoryId']").val(product.Category.Id);
+                                    $("#product_edit_panel input[name='CategoryId']").siblings(".ajax_input_title").val(product.Category.Title);
+                                }
+                                $("#product_edit_panel input[name='Published']").val(product.Published);
+                                $("#product_edit_panel input[name='PreVersion']").val(product.PreVersion);
+                                $("#product_edit_panel input[name='PhonePreSale']").val(product.PhonePreSale);
+                                $("#product_edit_panel input[name='PhoneAfterSale']").val(product.PhoneAfterSale);
+                                $("#product_edit_panel textarea[name='Description']").val(product.Description);
+
+                                $.centerPopup($("#product_edit_panel"));
+                            },
+                            error: function () {
+                                $.miniErrorAjaxResult("HIT产品信息 #" + objectId + " 不存在");
+                            }
+                        });
+                    });
+
+                    $(".taction[object='Product'][taction_type='4']").live("click", function () {
+                        var objectId = $(this).attr("object_id");
+                        $("#product_delete_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api")).attr("object_id", objectId);
+                        $("#product_delete_panel .caption").text($(this).attr("title"));
+
+                        $("#product_delete_panel .pages").html("删除 #" + objectId + " HIT产品信息吗?");
+                        $.centerPopup($("#product_delete_panel"));
+                    })
+
+                    $(".taction[object='Product'][taction_type='5']").live("click", function () {
+                        window.open(PanelApiRoot + "/Product/Search?Api=" + encodeUri($(this).attr("api")));
+                    })
+                })
+            </script>
+
+            <div id="product_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#product_create_panel input:submit").click(function () {
+                            var method = $("#product_create_panel").attr("method");
+                            var api = $("#product_create_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    VendorId: $("#product_create_panel input[name='VendorId']").val(),
+                                    Title: $("#product_create_panel input[name='Title']").val(),  
+                                    Version: $("#product_create_panel input[name='Version']").val(), 
+                                    Logo: $("#product_create_panel input[name='Logo']").val(),
+                                    CategoryId: $("#product_create_panel input[name='CategoryId']").val(),
+                                    Published: $("#product_create_panel input[name='Published']").val(),
+                                    PreVersion: $("#product_create_panel input[name='PreVersion']").val(),
+                                    PhonePreSale: $("#product_create_panel input[name='PhonePreSale']").val(),
+                                    PhoneAfterSale: $("#product_create_panel input[name='PhoneAfterSale']").val(),  
+                                    Description: $("#product_create_panel textarea[name='Description']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var product = data.Entity;
+                                    
+                                    $("#product_create_panel .pages input").val("");
+                                    $("#product_create_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#product_create_panel .buttons"));
+
+                                    $.fadePopup($("#product_create_panel"), function () {
+                                        $.miniSuccessAjaxResult("发布成功");
+                                        $("#products .container").prepend($.renderProduct(product));
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#product_create_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">创建HIT产品信息</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line ajax_search" url="/Api/MiniVendors?Title=">
+                        <label>供应商<span class="tip">*</span></label>
+                        <input type="hidden" class="ajax_input_sid" name="VendorId">
+                        <input class="ajax_input_title">
+                        <div class="ajax_suggestions"></div>
+                    </div>
+                    <div class="line">
+                        <label>产品名称<span class="tip">*</span></label>
+                        <input name="Title" />
+                    </div>
+                    <div class="line">
+                        <label>版本号<span class="tip">*</span></label>
+                        <input type="version" name="Version" />
+                    </div>
+                    <div class="line">
+                        <label>Logo</label>
+                        <input type="url" name="Logo" />
+                    </div>
+                    <div class="line ajax_search" url="/Api/MiniCategories?Title=">
+                        <label>产品类别</label>
+                        <input type="hidden" class="ajax_input_sid" name="CategoryId">
+                        <input class="ajax_input_title">
+                        <div class="ajax_suggestions"></div>
+                    </div>
+                    <div class="line">
+                        <label>发布日期</label>
+                        <input type="date" name="Published" />
+                    </div>
+                    <div class="line">
+                        <label>前一版本号</label>
+                        <input type="version" name="PreVersion" />
+                    </div>
+                    <div class="line">
+                        <label>售前电话</label>
+                        <input type="phone" name="PhonePreSale" />
+                    </div>
+                    <div class="line">
+                        <label>售后电话</label>
+                        <input type="phone" name="PhoneAfterSale" />
+                    </div>
+                    <div class="line">
+                        <label>产品简介</label>
+                        <textarea name="Description"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="product_edit_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#product_edit_panel input:submit").click(function () {
+                            var method = $("#product_edit_panel").attr("method");
+                            var api = $("#product_edit_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Logo: $("#product_edit_panel input[name='Logo']").val(),
+                                    CategoryId: $("#product_edit_panel input[name='CategoryId']").val(),
+                                    Published: $("#product_edit_panel input[name='Published']").val(),
+                                    PreVersion: $("#product_edit_panel input[name='PreVersion']").val(),
+                                    PhonePreSale: $("#product_edit_panel input[name='PhonePreSale']").val(),
+                                    PhoneAfterSale: $("#product_edit_panel input[name='PhoneAfterSale']").val(),  
+                                    Description: $("#product_edit_panel textarea[name='Description']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var product = data.Entity;
+                                    
+                                    $("#product_edit_panel .pages input").val("");
+                                    $("#product_edit_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#product_edit_panel .buttons"));
+
+                                    $.fadePopup($("#product_edit_panel"), function () {
+                                        $.miniSuccessAjaxResult("修改成功");
+                                        $(".product_instant[object_id='" + product.Id + "']").html($.renderProduct(product).html());
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("修改失败");
+
+                                    $.enableButtons($("#product_edit_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">修改HIT产品信息</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line ajax_search" url="/Api/MiniVendors?Title=">
+                        <label>供应商<span class="tip">*</span></label>
+                        <input type="hidden" class="ajax_input_sid" name="VendorId">
+                        <input class="ajax_input_title" readonly="readonly">
+                        <div class="ajax_suggestions"></div>
+                    </div>
+                    <div class="line">
+                        <label>产品名称<span class="tip">*</span></label>
+                        <input name="Title" readonly="readonly" />
+                    </div>
+                    <div class="line">
+                        <label>版本号<span class="tip">*</span></label>
+                        <input type="version" name="Version" readonly="readonly" />
+                    </div>
+                    <div class="line">
+                        <label>Logo</label>
+                        <input type="url" name="Logo" />
+                    </div>
+                    <div class="line ajax_search" url="/Api/MiniCategories?Title=">
+                        <label>产品类别</label>
+                        <input type="hidden" class="ajax_input_sid" name="CategoryId">
+                        <input class="ajax_input_title">
+                        <div class="ajax_suggestions"></div>
+                    </div>
+                    <div class="line">
+                        <label>发布日期</label>
+                        <input type="date" name="Published" />
+                    </div>
+                    <div class="line">
+                        <label>前一版本号</label>
+                        <input type="version" name="PreVersion" />
+                    </div>
+                    <div class="line">
+                        <label>售前电话</label>
+                        <input type="phone" name="PhonePreSale" />
+                    </div>
+                    <div class="line">
+                        <label>售后电话</label>
+                        <input type="phone" name="PhoneAfterSale" />
+                    </div>
+                    <div class="line">
+                        <label>产品简介</label>
+                        <textarea name="Description"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="product_delete_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#product_delete_panel input:submit").click(function () {
+                            var objectId = $("#product_delete_panel").attr("object_id");
+
+                            $.ajax({
+                                type: $("#product_delete_panel").attr("method"),
+                                url: $("#product_delete_panel").attr("api"),
+                                dataType: "json",
+                                success: function () {
+                                    $.fadePopup($("#product_delete_panel"), function () {
+                                        $.miniSuccessAjaxResult("删除成功");
+
+                                        $.enableButtons($("#product_delete_panel .buttons"));
+                                        $(".product_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
+                                            $(this).remove();
+                                        })
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("删除失败");
+                                    $.enableButtons($("#product_delete_panel .buttons"));
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <h3 class="caption">删除</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <p class="gray center">加载中...</p>
+                </div>
+                <div class="bottom buttons one_click_buttons right">
+                    <input type="submit" value="确认" />
+                </div>
+            </div>
+        </div>
+
+        <div id="review_panels">
+            <script type="text/javascript">
+                $(function () {
+                    $(".taction[object='Review'][taction_type='1']").live("click", function () {
+                        $("#review_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#review_create_panel .caption").text($(this).attr("title"));
+
+                        $.centerPopup($("#review_create_panel"));
+                    });
+
+                    $(".taction[object='Review'][taction_type='2']").live("click", function () {
+                        window.open(PanelApiRoot + "Review/Details/" + $(this).attr("object_id"));
+                    });
+
+                    $(".taction[object='Review'][taction_type='3']").live("click", function () {
+                        $("#review_edit_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#review_edit_panel .caption").text($(this).attr("title"));
+
+                        var objectId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/Review/" + objectId,
+                            dataType: "json",
+                            success: function (data) {
+                                var review = data.Entity;
+
+                                $("#review_edit_panel .star_input").find(".star").eq(review.Rate - 1).mouseover();
+
+                                $("#review_edit_panel textarea[name='Details']").val(review.Details);
+
+                                $.centerPopup($("#review_edit_panel"));
+                            },
+                            error: function () {
+                                $.miniErrorAjaxResult("HIT产品评价 #" + objectId + " 不存在");
+                            }
+                        });
+                    });
+
+                    $(".taction[object='Review'][taction_type='4']").live("click", function () {
+                        var objectId = $(this).attr("object_id");
+                        $("#review_delete_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api")).attr("object_id", objectId);
+                        $("#review_delete_panel .caption").text($(this).attr("title"));
+
+                        $("#review_delete_panel .pages").html("删除 #" + objectId + " HIT产品评价 吗?");
+                        $.centerPopup($("#review_delete_panel"));
+                    })
+
+                    $(".taction[object='Review'][taction_type='5']").live("click", function () {
+                        window.open(PanelApiRoot + "/Review/Search?Api=" + encodeUri($(this).attr("api")));
+                    })
+
+                })
+            </script>
+
+            <div id="review_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#review_create_panel input:submit").click(function () {
+                            var method = $("#review_create_panel").attr("method");
+                            var api = $("#review_create_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Rate: $("#review_create_panel input[name='Rate']").val(),
+                                    Details: $("#review_create_panel textarea[name='Details']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var review = data.Entity;
+                                    
+                                    $("#category_create_panel .pages input").val("");
+                                    $("#category_create_panel .pages .star_input .star").removeClass("selected");
+                                    $("#category_create_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#review_create_panel .buttons"));
+
+                                    $.fadePopup($("#review_create_panel"), function () {
+                                        $.miniSuccessAjaxResult("发布成功");
+                                        $("#reviews .container").prepend($.renderReview(review));
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#review_create_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">创建产品评价</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>整体评分<span class="tip">*</span></label>
+                        <span class="star_input">
+                            <span class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </span>
+                            <input type="hidden" name="Rate" />
+                        </span>
+                    </div>
+                    <div class="line">
+                        <label>你的评价<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="review_edit_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#review_edit_panel input:submit").click(function () {
+                            var method = $("#review_edit_panel").attr("method");
+                            var api = $("#review_edit_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Rate: $("#review_edit_panel input[name='Rate']").val(),
+                                    Details: $("#review_edit_panel textarea[name='Details']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var review = data.Entity;
+                                    
+                                    $("#review_edit_panel .pages input").val("");
+                                    $("#review_edit_panel .pages .star_input .star").removeClass("selected");
+                                    $("#review_edit_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#review_edit_panel .buttons"));
+
+                                    $.fadePopup($("#review_edit_panel"), function () {
+                                        $.miniSuccessAjaxResult("修改成功");
+                                        $(".review_instant[object_id='" + review.Id + "']").html($.renderReview(review).html());
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("修改失败");
+
+                                    $.enableButtons($("#review_edit_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">修改产品评价</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>整体评分<span class="tip">*</span></label>
+                        <span class="star_input">
+                            <span class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </span>
+                            <input type="hidden" name="Rate" />
+                        </span>
+                    </div>
+                    <div class="line">
+                        <label>你的评价<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="review_delete_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#review_delete_panel input:submit").click(function () {
+                            var objectId = $("#review_delete_panel").attr("object_id");
+
+                            $.ajax({
+                                type: $("#review_delete_panel").attr("method"),
+                                url: $("#review_delete_panel").attr("api"),
+                                dataType: "json",
+                                success: function () {
+                                    $.fadePopup($("#review_delete_panel"), function () {
+                                        $.miniSuccessAjaxResult("删除成功");
+
+                                        $.enableButtons($("#review_delete_panel .buttons"));
+                                        $(".review_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
+                                            $(this).remove();
+                                        })
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("删除失败");
+                                    $.enableButtons($("#review_delete_panel .buttons"));
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <h3 class="caption">删除</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <p class="gray center">加载中...</p>
+                </div>
+                <div class="bottom buttons one_click_buttons right">
+                    <input type="submit" value="确认" />
+                </div>
+            </div>
+        </div>
+
+        <div id="comment_panels">
+            <script type="text/javascript">
+                $(function () {
+                    $(".taction[object='Comment'][taction_type='1']").live("click", function () {
+                        $("#comment_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#comment_create_panel .caption").text($(this).attr("title"));
+
+                        $.centerPopup($("#comment_create_panel"));
+                    });
+
+                    $(".taction[object='Comment'][taction_type='2']").live("click", function () {
+                        //window.open(PanelApiRoot + "Comment/Details/" + $(this).attr("object_id"));
+                        return false;
+                    });
+
+                    $(".taction[object='Comment'][taction_type='3']").live("click", function () {
+                        $("#comment_edit_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#comment_edit_panel .caption").text($(this).attr("title"));
+
+                        var objectId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/Comment/" + objectId,
+                            dataType: "json",
+                            success: function (data) {
+                                var comment = data.Entity;
+
+                                $("#comment_edit_panel textarea[name='Details']").val(comment.Details);
+
+                                $.centerPopup($("#comment_edit_panel"));
+                            },
+                            error: function () {
+                                $.miniErrorAjaxResult("评论 #" + objectId + " 不存在");
+                            }
+                        });
+                    });
+
+                    $(".taction[object='Comment'][taction_type='4']").live("click", function () {
+                        var objectId = $(this).attr("object_id");
+                        $("#comment_delete_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api")).attr("object_id", objectId);
+                        $("#comment_delete_panel .caption").text($(this).attr("title"));
+
+                        $("#comment_delete_panel .pages").html("删除 #" + objectId + " 评论 吗?");
+                        $.centerPopup($("#comment_delete_panel"));
+                    })
+
+                    $(".taction[object='Comment'][taction_type='5']").live("click", function () {
+                        window.open(PanelApiRoot + "/Comment/Search?Api=" + encodeUri($(this).attr("api")));
+                    })
+
+                })
+            </script>
+
+            <div id="comment_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#comment_create_panel input:submit").click(function () {
+                            var method = $("#comment_create_panel").attr("method");
+                            var api = $("#comment_create_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Details: $("#comment_create_panel textarea[name='Details']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var comment = data.Entity;
+                                    
+                                    $("#comment_create_panel .pages input").val("");
+                                    $("#comment_create_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#comment_create_panel .buttons"));
+
+                                    $.fadePopup($("#comment_create_panel"), function () {
+                                        $.miniSuccessAjaxResult("发布成功");
+                                        $("#comments .container").prepend($.renderComment(comment));
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#comment_create_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">评论</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>你的评论<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="comment_edit_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#comment_edit_panel input:submit").click(function () {
+                            var method = $("#comment_edit_panel").attr("method");
+                            var api = $("#comment_edit_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Details: $("#comment_edit_panel textarea[name='Details']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var comment = data.Entity;
+                                    
+                                    $("#comment_edit_panel .pages input").val("");
+                                    $("#comment_edit_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#comment_edit_panel .buttons"));
+
+                                    $.fadePopup($("#comment_edit_panel"), function () {
+                                        $.miniSuccessAjaxResult("修改成功");
+                                        $(".comment_instant[object_id='" + comment.Id + "']").html($.renderComment(comment).html());
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("修改失败");
+
+                                    $.enableButtons($("#comment_edit_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">修改评论</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>你的评论<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="comment_delete_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#comment_delete_panel input:submit").click(function () {
+                            var objectId = $("#comment_delete_panel").attr("object_id");
+
+                            $.ajax({
+                                type: $("#comment_delete_panel").attr("method"),
+                                url: $("#comment_delete_panel").attr("api"),
+                                dataType: "json",
+                                success: function () {
+                                    $.fadePopup($("#comment_delete_panel"), function () {
+                                        $.miniSuccessAjaxResult("删除成功");
+
+                                        $.enableButtons($("#comment_delete_panel .buttons"));
+                                        $(".comment_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
+                                            $(this).remove();
+                                        })
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("删除失败");
+                                    $.enableButtons($("#comment_delete_panel .buttons"));
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <h3 class="caption">删除</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <p class="gray center">加载中...</p>
+                </div>
+                <div class="bottom buttons one_click_buttons right">
+                    <input type="submit" value="确认" />
+                </div>
+            </div>
+        </div>
+
+        <div id="vote_panels" class="hidden">
+            <div id="vote_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $(".taction[object='Vote'][taction_type='1']").live("click", function () {
+                            var method = $(this).attr("method");
+                            var api = $(this).attr("api");
+                            var targetId = $(this).attr("object_id");
+                            var voteMsg = $(this).parents(".vote_message");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                dataType: "json",
+                                success: function (data) {
+                                    var comment = data.Entity;
+
+                                    $.miniSuccessAjaxResult("感谢你的投票");
+                                    $(voteMsg).html("<span class='gray'>感谢你的投票!</span>");
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("投票失败，或无法重复投票");
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">评论</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>你的评论<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="text/javascript">
             $.ajaxResult = function (caption, content, buttons) {
                 $("#ajax_result .caption").html(caption);

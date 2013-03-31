@@ -68,6 +68,7 @@ namespace HitRating.RestfulModels
                 entity.VendorId = old.VendorId;
                 entity.Title = old.Title;
                 entity.Version = old.Version;
+                entity.Creator = userName;
                 entity.Created = old.Created;
                 entity.Updated = DateTime.Now;
 
@@ -157,7 +158,7 @@ namespace HitRating.RestfulModels
                 DbEntities.SaveChanges();
                 DbEntities.Refresh(System.Data.Objects.RefreshMode.StoreWins, entity);
 
-                return entity;
+                return Read(entity.Id);
             }
             catch
             {
@@ -175,7 +176,7 @@ namespace HitRating.RestfulModels
                 DbEntities.ApplyCurrentValues("Products", entity);
                 DbEntities.SaveChanges();
 
-                return entity;
+                return Read(entity.Id);
             }
             catch 
             {

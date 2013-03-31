@@ -66,6 +66,7 @@ namespace HitRating.RestfulModels
                 }
 
                 entity.Title = old.Title;
+                entity.Creator = userName;
                 entity.Created = old.Created;
                 entity.Updated = DateTime.Now;
 

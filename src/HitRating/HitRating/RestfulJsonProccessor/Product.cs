@@ -76,7 +76,7 @@ namespace HitRating.RestfulJsonProccessor
                     Logo = data.Logo,
                     Category = RestfulJsonProccessor.Category.MiniSingle(data.Category),
                     Version = data.Version,
-                    Published = data.Published.ToString(),
+                    Published = data.Published != null ? ((DateTime)data.Published).ToShortDateString() : null,
                     PreVersion = data.PreVersion,
                     PhonePreSale = data.PhonePreSale,
                     PhoneAfterSale = data.PhoneAfterSale,

@@ -195,6 +195,21 @@ textarea
 {
     color: #999;    
 }
+.star_input 
+{
+    cursor: pointer;    
+}
+.star_input .star
+{
+    display: inline-block;
+    font-size: 18px;
+    color: #ddd;
+    cursor: pointer;   
+}
+.star_input .selected
+{
+    color: #f55;  
+}
 /* tips & errors */
 .validation_error,
 .alert
@@ -553,10 +568,10 @@ table textarea
 /* tbox */
 .tbox 
 {
-    padding: 1em .5em;
+    padding: 1em 0;
     min-height: 4em; 
     position: relative;
-    border-bottom: 1px dashed #999;
+    border-bottom: 1px dashed #ccc;
 }
 .tbox > aside
 {
@@ -752,6 +767,32 @@ input.tip_search
     color: #999;    
 }
 
+/* vote message */
+.vote_message 
+{
+    
+}
+.vote_message .taction,
+.vote_message .taction:link
+{
+    padding: 0 .4em;
+}
+.vote_message .taction[taction_id='Support']
+{
+    background: #f99;    
+}
+.vote_message .taction[taction_id='Support']:hover
+{
+    background: #f66;    
+}
+.vote_message .taction[taction_id='Oppose']
+{
+    background: #6c9;    
+}
+.vote_message .taction[taction_id='Oppose']:hover
+{
+    background: #3c6;    
+}
 /* layout */
 body
 {
