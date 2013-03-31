@@ -391,7 +391,7 @@ $.renderVendor = function (entity) {
         var tbox = $(TboxTemplate);
 
         tbox.addClass("vendor_instant").attr("object_id", entity.Id);
-        tbox.find("aside").append("<a class='taction' object='Vendor' object_id='" + entity.Id + "' taction_id='Read_Vendor' taction_type='2' method='GET' api='" + HitRatingApiRoot + "Api/Vendor/" + entity.Id + "' title='查看" + entity.Title + "的详细信息'><img class='photo' src='" + entity.Logo + "' alt='' /></a>");
+        tbox.find("aside").append("<a href='#taction' class='taction' object='Vendor' object_id='" + entity.Id + "' taction_id='Read_Vendor' taction_type='2' method='GET' api='" + HitRatingApiRoot + "Api/Vendor/" + entity.Id + "' title='查看" + entity.Title + "的详细信息'><img class='photo' src='" + entity.Logo + "' alt='' /></a>");
         tbox.find("article > h3").append(entity.Title);
 
         var toggleRead = $(ToggleReadTemplate);
@@ -418,4 +418,32 @@ $.renderVendor = function (entity) {
         throw e;
     }
 }
-//--vendor 
+//--vendor
+
+//category
+$.renderCategory = function (entity) {
+    try {
+        var tbox = $(TboxTemplate);
+
+        tbox.addClass("category_instant").attr("object_id", entity.Id);
+        tbox.find("aside").append("<a href='#taction' class='taction' object='Category' object_id='" + entity.Id + "' taction_id='Read_Category' taction_type='2' method='GET' api='" + HitRatingApiRoot + "Api/Category/" + entity.Id + "' title='查看" + entity.Title + "的详细信息'>" + entity.Abbreviation + "</a>");
+        tbox.find("article > h3").append(entity.Title);
+
+        var toggleRead = $(ToggleReadTemplate);
+        toggleRead.find(".toggle_content").eq(0).append("<label>英文简称：</label><span class='value abbreviation'>" + entity.Abbreviation + "</span>&nbsp;")
+                                                .append("<label>中文名称：</label><span class='value'>" + entity.ChineseTitle + "</span>。")
+        toggleRead.find(".toggle_content").eq(1).append('<p><label>英文简称：</label><span class="value abbreviation">' + entity.Abbreviation + '</span></p>')
+                                                .append('<p><label>中文名称：</label><span class="value">' + entity.ChineseTitle + '</span></p>')
+                                                .append('<div><label>简介：</label><p class="value">' + $.renderDescription(entity.Description) + '</p></div>');
+        tbox.find("article > section").append(toggleRead);
+
+        tbox.find("article > nav").append($.renderTactions(entity.Options))
+                                  .append('<a href="#taction" class="taction" object="Category" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Category" method="GET" api="/Api/Category/' + entity.Id + '" title="查看详情">&#8674</a>');
+
+        return tbox;
+    }
+    catch (e) {
+        throw e;
+    }
+}
+//--category  

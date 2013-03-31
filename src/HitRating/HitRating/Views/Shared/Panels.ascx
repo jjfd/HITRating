@@ -194,7 +194,7 @@
             </div>
         </div>
 
-        <div id="vendo_panels">
+        <div id="vendor_panels">
             <script type="text/javascript">
                 $(function () {
                     $(".taction[object='Vendor'][taction_type='1']").live("click", function () {
@@ -361,7 +361,6 @@
                                 type: method,
                                 url: api,
                                 data: { 
-                                    Title: $("#vendor_edit_panel input[name='Title']").val(), 
                                     Logo: $("#vendor_edit_panel input[name='Logo']").val(),
                                     HomePage: $("#vendor_edit_panel input[name='HomePage']").val(),
                                     Phone: $("#vendor_edit_panel input[name='Phone']").val(),
@@ -457,7 +456,7 @@
                                 dataType: "json",
                                 success: function () {
                                     $.fadePopup($("#vendor_delete_panel"), function () {
-                                        $.miniSuccessAjaxResult("撤销成功");
+                                        $.miniSuccessAjaxResult("删除成功");
 
                                         $.enableButtons($("#vendor_delete_panel .buttons"));
                                         $(".vendor_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
@@ -466,14 +465,237 @@
                                     });
                                 },
                                 error: function () {
-                                    $.miniErrorAjaxResult("撤销失败");
+                                    $.miniErrorAjaxResult("删除失败");
                                     $.enableButtons($("#vendor_delete_panel .buttons"));
                                 }
                             })
                         })
                     })
                 </script>
-                <h3 class="caption">撤销</h3>
+                <h3 class="caption">删除</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <p class="gray center">加载中...</p>
+                </div>
+                <div class="bottom buttons one_click_buttons right">
+                    <input type="submit" value="确认" />
+                </div>
+            </div>
+        </div>
+
+        <div id="category_panels">
+            <script type="text/javascript">
+                $(function () {
+                    $(".taction[object='Category'][taction_type='1']").live("click", function () {
+                        $("#category_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#category_create_panel .caption").text($(this).attr("title"));
+
+                        $.centerPopup($("#category_create_panel"));
+                    });
+
+                    $(".taction[object='Category'][taction_type='2']").live("click", function () {
+                        window.open(PanelApiRoot + "Category/Details/" + $(this).attr("object_id"));
+                    });
+
+                    $(".taction[object='Category'][taction_type='3']").live("click", function () {
+                        $("#category_edit_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#category_edit_panel .caption").text($(this).attr("title"));
+
+                        var objectId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/Category/" + objectId,
+                            dataType: "json",
+                            success: function (data) {
+                                var category = data.Entity;
+
+                                $("#category_edit_panel input[name='Title']").val(category.Title);
+                                $("#category_edit_panel input[name='Abbreviation']").val(category.Abbreviation);
+                                $("#category_edit_panel input[name='ChineseTitle']").val(category.ChineseTitle);
+                                $("#category_edit_panel textarea[name='Description']").val(category.Description);
+
+                                $.centerPopup($("#category_edit_panel"));
+                            },
+                            error: function () {
+                                $.miniErrorAjaxResult("HIT产品类别 #" + objectId + " 不存在");
+                            }
+                        });
+                    });
+
+                    $(".taction[object='Category'][taction_type='4']").live("click", function () {
+                        var objectId = $(this).attr("object_id");
+                        $("#category_delete_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api")).attr("object_id", objectId);
+                        $("#category_delete_panel .caption").text($(this).attr("title"));
+
+                        $("#category_delete_panel .pages").html("删除 #" + objectId + " HIT产品类别 吗?");
+                        $.centerPopup($("#category_delete_panel"));
+                    })
+
+                    $(".taction[object='Category'][taction_type='5']").live("click", function () {
+                        window.open(PanelApiRoot + "/Category/Search?Api=" + encodeUri($(this).attr("api")));
+                    })
+                })
+            </script>
+
+            <div id="category_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#category_create_panel input:submit").click(function () {
+                            var method = $("#category_create_panel").attr("method");
+                            var api = $("#category_create_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Title: $("#category_create_panel input[name='Title']").val(), 
+                                    Abbreviation: $("#category_create_panel input[name='Abbreviation']").val(),
+                                    ChineseTitle: $("#category_create_panel input[name='ChineseTitle']").val(),
+                                    Description: $("#category_create_panel textarea[name='Description']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var category = data.Entity;
+                                    
+                                    $("#category_create_panel .pages input").val("");
+                                    $("#category_create_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#category_create_panel .buttons"));
+
+                                    $.fadePopup($("#category_create_panel"), function () {
+                                        $.miniSuccessAjaxResult("发布成功");
+                                        $("#categories .container").prepend($.renderCategory(category));
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#category_create_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">创建HIT产品类别</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>英文全称<span class="tip">*</span></label>
+                        <input name="Title" />
+                    </div>
+                    <div class="line">
+                        <label>英文缩写</label>
+                        <input name="Abbreviation" />
+                    </div>
+                    <div class="line">
+                        <label>中文名称</label>
+                        <input name="ChineseTitle" />
+                    </div>
+                    <div class="line">
+                        <label>简介</label>
+                        <textarea name="Description"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="category_edit_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#category_edit_panel input:submit").click(function () {
+                            var method = $("#category_edit_panel").attr("method");
+                            var api = $("#category_edit_panel").attr("api");
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: { 
+                                    Abbreviation: $("#category_edit_panel input[name='Abbreviation']").val(),
+                                    ChineseTitle: $("#category_edit_panel input[name='ChineseTitle']").val(),
+                                    Description: $("#category_edit_panel textarea[name='Description']").val(),       
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var category = data.Entity;
+                                    
+                                    $("#category_edit_panel .pages input").val("");
+                                    $("#category_edit_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#category_edit_panel .buttons"));
+
+                                    $.fadePopup($("#category_edit_panel"), function () {
+                                        $.miniSuccessAjaxResult("修改成功");
+                                        $(".category_instant[object_id='" + category.Id + "']").html($.renderCategory(category).html());
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("修改失败");
+
+                                    $.enableButtons($("#category_edit_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">修改HIT产品类别</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>英文全称<span class="tip">*</span></label>
+                        <input name="Title" readonly="readonly" />
+                    </div>
+                    <div class="line">
+                        <label>英文缩写</label>
+                        <input name="Abbreviation" />
+                    </div>
+                    <div class="line">
+                        <label>中文名称</label>
+                        <input name="ChineseTitle" />
+                    </div>
+                    <div class="line">
+                        <label>简介</label>
+                        <textarea name="Description"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="category_delete_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#category_delete_panel input:submit").click(function () {
+                            var objectId = $("#category_delete_panel").attr("object_id");
+
+                            $.ajax({
+                                type: $("#category_delete_panel").attr("method"),
+                                url: $("#category_delete_panel").attr("api"),
+                                dataType: "json",
+                                success: function () {
+                                    $.fadePopup($("#category_delete_panel"), function () {
+                                        $.miniSuccessAjaxResult("删除成功");
+
+                                        $.enableButtons($("#category_delete_panel .buttons"));
+                                        $(".category_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
+                                            $(this).remove();
+                                        })
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("删除失败");
+                                    $.enableButtons($("#category_delete_panel .buttons"));
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <h3 class="caption">删除</h3>
                 <a class="close">x</a>
                 <div class="pages">
                     <p class="gray center">加载中...</p>
