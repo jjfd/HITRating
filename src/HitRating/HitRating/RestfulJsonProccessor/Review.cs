@@ -68,6 +68,27 @@ namespace HitRating.RestfulJsonProccessor
         {
             try
             {
+                object voted = null;
+                try
+                {
+                    if (!string.IsNullOrEmpty(userName))
+                    {
+                        var vote = (new RestfulModels.Vote()).First(new Models.VoteSearchModel() { Creator = userName, ReviewId = data.Id }, userName);
+                        if (vote != null)
+                        {
+                            voted = RestfulJsonProccessor.Vote.Single(vote, userName);
+                        }
+                    }
+                    else
+                    {
+                        voted = "not_allowed";
+                    }
+                }
+                catch
+                {
+                    ;
+                }
+
                 return new
                 {
                     Id = data.Id,
@@ -77,6 +98,8 @@ namespace HitRating.RestfulJsonProccessor
                     Creator = RestfulJsonProccessor.Account.MiniSingle(data.Creator),
                     Created = data.Created.ToString(),
                     Updated = data.Updated.ToString(),
+
+                    Vote = voted,
 
                     Options = ControlProcess(data, userName)
                 };

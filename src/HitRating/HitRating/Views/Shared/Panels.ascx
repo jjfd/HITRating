@@ -205,7 +205,7 @@
                     });
 
                     $(".taction[object='Vendor'][taction_type='2']").live("click", function () {
-                        window.open(PanelApiRoot + "Vendor/Details/" + $(this).attr("object_id"));
+                        window.location.href = (PanelApiRoot + "Vendor/Details/" + $(this).attr("object_id"));
                     });
 
                     $(".taction[object='Vendor'][taction_type='3']").live("click", function () {
@@ -250,7 +250,7 @@
                     })
 
                     $(".taction[object='Vendor'][taction_type='5']").live("click", function () {
-                        window.open(PanelApiRoot + "/Vendor/Search?Api=" + encodeUri($(this).attr("api")));
+                        window.location.href = (PanelApiRoot + "Vendor/Search?Api=" + encodeUri($(this).attr("api")));
                     })
                 })
             </script>
@@ -494,7 +494,7 @@
                     });
 
                     $(".taction[object='Category'][taction_type='2']").live("click", function () {
-                        window.open(PanelApiRoot + "Category/Details/" + $(this).attr("object_id"));
+                        window.location.href = (PanelApiRoot + "Category/Details/" + $(this).attr("object_id"));
                     });
 
                     $(".taction[object='Category'][taction_type='3']").live("click", function () {
@@ -533,7 +533,7 @@
                     })
 
                     $(".taction[object='Category'][taction_type='5']").live("click", function () {
-                        window.open(PanelApiRoot + "/Category/Search?Api=" + encodeUri($(this).attr("api")));
+                        window.location.href = (PanelApiRoot + "Category/Search?Api=" + encodeUri($(this).attr("api")));
                     })
                 })
             </script>
@@ -717,7 +717,7 @@
                     });
 
                     $(".taction[object='Product'][taction_type='2']").live("click", function () {
-                        window.open(PanelApiRoot + "Product/Details/" + $(this).attr("object_id"));
+                        window.location.href = (PanelApiRoot + "Product/Details/" + $(this).attr("object_id"));
                     });
 
                     $(".taction[object='Product'][taction_type='3']").live("click", function () {
@@ -766,7 +766,7 @@
                     })
 
                     $(".taction[object='Product'][taction_type='5']").live("click", function () {
-                        window.open(PanelApiRoot + "/Product/Search?Api=" + encodeUri($(this).attr("api")));
+                        window.location.href = (PanelApiRoot + "Product/Search?Api=" + encodeUri($(this).attr("api")));
                     })
                 })
             </script>
@@ -1016,7 +1016,7 @@
                     });
 
                     $(".taction[object='Review'][taction_type='2']").live("click", function () {
-                        window.open(PanelApiRoot + "Review/Details/" + $(this).attr("object_id"));
+                        window.location.href = (PanelApiRoot + "Review/Details/" + $(this).attr("object_id"));
                     });
 
                     $(".taction[object='Review'][taction_type='3']").live("click", function () {
@@ -1054,7 +1054,7 @@
                     })
 
                     $(".taction[object='Review'][taction_type='5']").live("click", function () {
-                        window.open(PanelApiRoot + "/Review/Search?Api=" + encodeUri($(this).attr("api")));
+                        window.location.href = (PanelApiRoot + "Review/Search?Api=" + encodeUri($(this).attr("api")));
                     })
 
                 })
@@ -1240,7 +1240,7 @@
                     });
 
                     $(".taction[object='Comment'][taction_type='2']").live("click", function () {
-                        //window.open(PanelApiRoot + "Comment/Details/" + $(this).attr("object_id"));
+                        //window.location.href = (PanelApiRoot + "Comment/Details/" + $(this).attr("object_id"));
                         return false;
                     });
 
@@ -1277,7 +1277,7 @@
                     })
 
                     $(".taction[object='Comment'][taction_type='5']").live("click", function () {
-                        window.open(PanelApiRoot + "/Comment/Search?Api=" + encodeUri($(this).attr("api")));
+                        window.location.href = (PanelApiRoot + "Comment/Search?Api=" + encodeUri($(this).attr("api")));
                     })
 
                 })

@@ -158,7 +158,7 @@ $(function () {
 
     $("input.mini_search").live("keyup", function (e) {
         if (e.keyCode == 13) {
-            window.location.href = encodeURI(ROOT + $(this).attr("action")) + encodeURIComponent($(this).val());
+            window.location.href = encodeURI($(this).attr("action")) + encodeURIComponent($(this).val());
         }
     })
 
@@ -502,11 +502,11 @@ $.renderReview = function (entity) {
         tbox.find("article > h3").append("<a href='#taction' class='taction' object='Review' taction_id='Search_Review' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Reviews?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'>" + entity.Creator.UserName + "</a>" + "@" + entity.Product.Title);
 
         var toggleRead = $(ToggleReadTemplate);
-        toggleRead.find(".toggle_content").eq(0).append("<label>整体评分：</label><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span>&nbsp;")
+        toggleRead.find(".toggle_content").eq(0).append("<span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span>&nbsp;")
                                                 .append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
 
-        toggleRead.find(".toggle_content").eq(1).append("<p><label>整体评分：</label><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span></p>")
-                                                .append("<div><label>评价：</label><div class='value'>" + $.renderDescription(entity.Details) + "</div></div>");
+        toggleRead.find(".toggle_content").eq(1).append("<p><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span></p>")
+                                                .append("<div class='value'>" + $.renderDescription(entity.Details) + "</div>");
 
         var starGroup1 = toggleRead.find(".star_input").eq(0).find(".star");
         for (var i = 0; i < entity.Rate; i++) {
@@ -525,11 +525,21 @@ $.renderReview = function (entity) {
         if (entity.Updated != null && entity.Updated != "") {
             dateTime.append("，<span>" + $.renderDateTime(entity.Updated) + "做了最新修改</span>");
         }
-
         tbox.find("article > section").append(dateTime);
 
+        //vote message
+        if (entity.Vote != null) {
+            if (entity.Vote != "not_allowed") {
+                tbox.find("article > section").append("<br /><p class='gray small'>你已经于" + $.renderDateTime(entity.Vote.Created) + "投票" + (entity.Vote.Supportive ? "<span class='red'>支持</span>" : "<span class='green'>反对</span>") + "这条评价。</p>");
+            }
+        }
+        else {
+            tbox.find("article > section").append('<br /><p class="vote_message small"><span class="gray message">你对本HIT产品评价的投票：</span>&nbsp;<span class="buttons one_click_buttons"><a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Support" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=true" title="支持">支持</a>&nbsp;<a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Oppose" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=false" title="反对">反对</a></span></p>');
+        }
+
         tbox.find("article > nav").append($.renderTactions(entity.Options))
-                                  .append('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Category" method="GET" api="/Api/Category/' + entity.Id + '" title="查看详情">&#8674</a>');
+                                  .append('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Review" method="GET" api="/Api/Review/' + entity.Id + '" title="查看详情">&#8674</a>')
+                                  .prepend('<a href="#taction" class="taction" object="Product" object_id="' + entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/"' + entity.Product.Id + ' title="查看产品信息">同类产品评价</a>');
 
         return tbox;
     }
@@ -550,7 +560,7 @@ $.renderComment = function (entity) {
 
         var toggleRead = $(ToggleReadTemplate);
         toggleRead.find(".toggle_content").eq(0).append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
-        toggleRead.find(".toggle_content").eq(1).append("<div><label>评价：</label><div class='value'>" + $.renderDescription(entity.Details) + "</div></div>");
+        toggleRead.find(".toggle_content").eq(1).append("<div class='value'>" + $.renderDescription(entity.Details) + "</div>");
 
         tbox.find("article > section").append(toggleRead);
 

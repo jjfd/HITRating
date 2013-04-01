@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RestfulAccountController.cs" />
     <Compile Include="Controllers\RestfulProductController.cs" />
     <Compile Include="Controllers\RestfulVendorController.cs" />
@@ -81,6 +82,9 @@
     <Compile Include="Controllers\RestfulReviewController.cs" />
     <Compile Include="Controllers\RestfulCommentController.cs" />
     <Compile Include="Controllers\RestfulVoteController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,12 +143,20 @@
     <Content Include="Views\Account\Manage.aspx" />
     <Content Include="Views\Account\Home.aspx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Product\Details.aspx" />
+    <Content Include="Views\Product\Search.aspx" />
     <Content Include="Views\Shared\Panels.ascx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Vendor\Details.aspx" />
+    <Content Include="Views\Vendor\Search.aspx" />
+    <Content Include="Views\Category\Details.aspx" />
+    <Content Include="Views\Category\Search.aspx" />
+    <Content Include="Views\Review\Details.aspx" />
+    <Content Include="Views\Review\Search.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

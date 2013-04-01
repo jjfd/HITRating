@@ -99,7 +99,7 @@ label
 .red_background
 {
     padding: .5em;
-    background: #f66;
+    background: #f99;
     color: #fff;    
 }
 .green_background
@@ -568,7 +568,8 @@ table textarea
 /* tbox */
 .tbox 
 {
-    padding: 1em 0;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
     min-height: 4em; 
     position: relative;
     border-bottom: 1px dashed #ccc;
@@ -647,17 +648,17 @@ table textarea
 .tbox > article > nav a:link
 {
     display: inline-block;
-    font-size: 012px;
-    border: 1px solid #9ac;
-    color: #679;
+    font-size: 12px;
+    border: 1px solid #eee;
+    color: #999;
     padding: 0 .2em;
     text-align: center;
     margin-left: .2em;  
 }
 .tbox > article > nav a:hover
 {
-    border-color: #679;
-    color: #346;
+    border-color: #ddd;
+    color: #666;
 }
 
 /* mini tbox */
@@ -682,7 +683,7 @@ table textarea
 .mini_tbox > nav a:link
 {
     display: block;
-    font-size: 012px;
+    font-size: 12px;
     border: 1px solid #9ac;
     color: #679;
     text-align: center;    
@@ -706,8 +707,8 @@ table textarea
 .toggle_read .toggle:link
 {
     display: inline-block;
-    border: 1px solid #9ac;
-    color: #679;
+    border: 1px solid #eee;
+    color: #999;
     line-height: 1.5em;
     font-size: 12px;
     padding: 0 .3em;
@@ -717,8 +718,8 @@ table textarea
 }
 .toggle_read .toggle:hover
 {
-    border-color: #679;
-    color: #346;    
+    border-color: #ccc;
+    color: #666;    
 }
 
 /* printable */
@@ -775,7 +776,8 @@ input.tip_search
 .vote_message .taction,
 .vote_message .taction:link
 {
-    padding: 0 .4em;
+    display: inline;
+    padding: 0 .2em;
 }
 .vote_message .taction[taction_id='Support']
 {
@@ -792,6 +794,38 @@ input.tip_search
 .vote_message .taction[taction_id='Oppose']:hover
 {
     background: #3c6;    
+}
+
+/* vs */
+.vs 
+{
+    
+}
+.vs .support_side
+{
+    display: inline-block;
+    color: #c00;
+    background: #f99;
+}
+.vs .oppose_side
+{
+    display: inline-block;
+    color: #063;
+    background: #6c9;
+    text-align: right;
+}
+.vs .supportors 
+{
+    font-size: 12px;
+    padding: .2em 0;
+    color: #f55;    
+}
+.vs .opposers 
+{
+    font-size: 12px;
+    padding: .2em 0;
+    color: #3c6;
+    text-align: right;    
 }
 /* layout */
 body
@@ -820,7 +854,7 @@ body > header > nav
 }
 body > header > nav input.mini_search
 {
-    width: 21.5em;
+    width: 22em;
     border: 0;
 }
 body > header > nav img#header_photo
@@ -836,7 +870,7 @@ body > header > nav a,
 body > header > nav a:link
 {
     display: inline-block;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #666;
     padding: .4em .8em;    
 }
 body > aside
