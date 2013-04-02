@@ -19,7 +19,7 @@
             <a href="/Review/Search">产品评价</a>
             </nav>
             <nav>
-                <input class="mini_search tip_search short_input" value="发现" action="" />
+                <input class="mini_search tip_search short_input" value="发现" action="/Home/Find?key=" />
                 <% 
                     if (Page.User.Identity.IsAuthenticated)
                     { 
@@ -45,7 +45,7 @@
             <p class="clear">&nbsp;</p>
         </article>
         <footer>
-            <p>Copyright 2012-2013 HIT-Rating.com | <a target="_blank" href="http://www.miibeian.gov.cn/">浙ICP备13004170号</a></p>
+            <p class="small"><a href="/Home/About">关于HitRating</a> | Copyright 2012-2013 HIT-Rating.com | <a target="_blank" href="http://www.miibeian.gov.cn/">浙ICP备13004170号</a></p>
         </footer>
 
         <div id="tpanels">

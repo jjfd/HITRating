@@ -228,7 +228,7 @@ namespace HitRating.RestfulModels
                     (
                         ((conditions.IdLower == null || conditions.IdLower < 1) ? true : review.Id < conditions.IdLower)
                         && ((conditions.IdUpper == null || conditions.IdUpper < 1) ? true : review.Id > conditions.IdUpper)
-                        && ((conditions.Product == null || conditions.ProductId < 1) ? true : review.ProductId == conditions.ProductId)
+                        && ((conditions.ProductId == null || conditions.ProductId < 1) ? true : review.ProductId == conditions.ProductId)
                         && (
                             (conditions.Rate == null || conditions.Rate < 1 || conditions.Rate > 5) 
                             ? 

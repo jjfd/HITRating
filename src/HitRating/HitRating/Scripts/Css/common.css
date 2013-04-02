@@ -454,6 +454,13 @@ table textarea
 }
 .module .tabs 
 {
+    
+}
+.module.no_border .tabs
+{
+    background: #ddd;
+    border: 1px solid #ddd;
+    border-bottom: 0;
 }
 .module .tabs span 
 {
@@ -483,6 +490,11 @@ table textarea
 {
 	padding: .8em;
 	background: #fff;
+}
+.module.no_border .pages
+{
+    padding: .8em 0;
+    background: none;    
 }
 .module .page 
 {
@@ -806,6 +818,7 @@ input.tip_search
     display: inline-block;
     color: #c00;
     background: #f99;
+    padding: .5em 0;
 }
 .vs .oppose_side
 {
@@ -813,6 +826,7 @@ input.tip_search
     color: #063;
     background: #6c9;
     text-align: right;
+    padding: .5em 0;
 }
 .vs .supportors 
 {

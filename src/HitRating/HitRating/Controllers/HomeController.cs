@@ -23,5 +23,16 @@ namespace HitRating.Controllers
         {
             return View();
         }
+
+        public ActionResult Find(string key = "") {
+            ViewData["Key"] = key;
+
+            return View();
+        }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

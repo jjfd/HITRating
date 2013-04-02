@@ -140,9 +140,12 @@
     <Content Include="Scripts\Css\common.css" />
     <Content Include="Scripts\Js\jquery.js" />
     <Content Include="Scripts\Js\jquery.common.js" />
+    <Content Include="Views\Account\AdminHome.aspx" />
     <Content Include="Views\Account\Manage.aspx" />
     <Content Include="Views\Account\Home.aspx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\Find.aspx" />
+    <Content Include="Views\Home\Test.aspx" />
     <Content Include="Views\Product\Details.aspx" />
     <Content Include="Views\Product\Search.aspx" />
     <Content Include="Views\Shared\Panels.ascx" />

@@ -27,52 +27,71 @@
                         success: function(data) {
                             var votes = data.Entities;
 
-                            var opposes = new Array();
-                            var supports = new Array();
+                            if (votes.length > 1) {
+                                var opposes = new Array();
+                                var supports = new Array();
 
-                            for (var i=0, oi=0, si=0; i<votes.length; i++) {
-                                if (votes[i].Supportive) {
-                                    supports[si] = votes[i];
-                                    si++;
+                                for (var i=0, oi=0, si=0; i<votes.length; i++) {
+                                    if (votes[i].Supportive) {
+                                        supports[si] = votes[i];
+                                        si++;
+                                    }
+                                    else {
+                                        opposes[oi] = votes[i];
+                                        oi++;
+                                    }
                                 }
-                                else {
-                                    opposes[oi] = votes[i];
-                                    oi++;
+                            
+                                var supportPercents = Math.round(supports.length * 100 / votes.length);
+                                var opposePercents = 100 - supportPercents;
+                            
+                                var vsBar = $('<div class="vs"><p class="opposers float_right"></p><p class="supportors"></p><span class="support_side" style="width: ' + supportPercents + '%;"></span><span class="oppose_side"  style="width: ' + opposePercents + '%;"></span></div>');
+                            
+                                var sCount = supports.length < 3 ? supports.length : 3;
+                                var oCount = opposes.length < 3 ? opposes.length : 3;
+
+                                if (sCount > 0) {
+                                    for (var i=0; i<sCount; i++) {
+                                        vsBar.find(".supportors").append("<span class='voter'>" + supports[i].Creator.UserName + "</span>,");
+                                    }
+
+                                    if (supports.length > 3) {
+                                        vsBar.find(".supportors").append("等");
+                                    }
+
+                                    vsBar.find(".support_side").html('&nbsp;< ' + supportPercents + '%');
                                 }
+                                else 
+                                {
+                                    vsBar.find(".supportors").append("目前无人");
+                                }
+                                vsBar.find(".supportors").append("支持");
+
+                                if (oCount > 0) 
+                                {
+                                    for (var i=0; i<oCount; i++) {
+                                        vsBar.find(".opposers").append("<span class='voter'>" + opposes[i].Creator.UserName + "</span>,");
+                                    }
+
+                                    if (opposes.length > 3) {
+                                        vsBar.find(".opposers").append("等")
+                                    }
+
+                                    vsBar.find(".oppose_side").html('' + opposePercents + '% > &nbsp;');
+                                }
+                                else
+                                {
+                                    vsBar.find(".opposers").append("目前无人");
+                                }
+                                vsBar.find(".opposers").append("反对");
+
+                                vsBar.append("<p class='line small gray'>根据最新的 <span class='blue'>" + votes.length + "</span> 次投票</p>")
                             }
-                            
-                            var supportPercents = Math.round(supports.length * 100 / votes.length);
-                            var opposePercents = 100 - supportPercents;
-                            
-                            var vsBar = $('<div class="vs"><p class="supportors"></p><span class="support_side" style="width: ' + supportPercents + '%;">&nbsp;< ' + supportPercents + '%</span><span class="oppose_side"  style="width: ' + opposePercents + '%;">' + opposePercents + '% >&nbsp;</span><p class="opposers"></p></div>');
-                            
-                            var sCount = supports.length < 3 ? supports.length : 3;
-                            var oCount = opposes.length < 3 ? opposes.length : 3;
-
-                            for (var i=0; i<sCount; i++) {
-                                vsBar.find(".supportors").append("<span class='voter'>" + supports[i].Creator.UserName + "</span>,");
-                            }
-
-                            if (supports.length > 3) {
-                                vsBar.find(".supportors").append("等")
-                            }
-
-                            vsBar.find(".supportors").append("支持");
-
-                            for (var i=0; i<oCount; i++) {
-                                vsBar.find(".opposers").append("<span class='voter'>" + opposes[i].Creator.UserName + "</span>,");
-                            }
-
-                            if (opposes.length > 3) {
-                                vsBar.find(".opposers").append("等")
-                            }
-
-                            vsBar.find(".opposers").append("反对");
 
                             $("body > aside").prepend("<br />").prepend(vsBar);
                         },
                         error: function() {
-                        
+                            $("body > aside").prepend("<br />").prepend('<p class="gray small">尚未有人做出投票!</p>');
                         }
                     });
                 },

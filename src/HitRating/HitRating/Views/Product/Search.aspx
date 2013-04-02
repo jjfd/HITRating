@@ -31,7 +31,7 @@
                 }
             });
 
-            $("#reviews .more").click(function() {
+            $("#products .more").click(function() {
                 $.ajax({
                     type: "GET",
                     url: api,

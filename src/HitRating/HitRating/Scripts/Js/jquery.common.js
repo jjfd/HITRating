@@ -152,7 +152,7 @@ $(function () {
     });
 
     //mini_search
-    $("input.mini_search.tip_search").live("click", function () {
+    $("input.tip_search").live("click", function () {
         $(this).val("").removeClass("tip_search");
     })
 
@@ -482,7 +482,8 @@ $.renderProduct = function (entity) {
         tbox.find("article > section").append(toggleRead);
 
         tbox.find("article > nav").append($.renderTactions(entity.Options))
-                                  .append('<a href="#taction" class="taction" object="Product" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/' + entity.Id + '" title="查看详情">&#8674</a>');
+                                  .append('<a href="#taction" class="taction" object="Product" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/' + entity.Id + '" title="查看详情">&#8674</a>')
+                                  .prepend('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id +'" taction_type="1" taction_id="Create_Review_Of_Product" method="POST" api="/Api/Reviews?ProductId=' + entity.Id + '" title="发表对本HIT产品的评价">评价</a>');
 
         return tbox;
     }
@@ -530,11 +531,11 @@ $.renderReview = function (entity) {
         //vote message
         if (entity.Vote != null) {
             if (entity.Vote != "not_allowed") {
-                tbox.find("article > section").append("<br /><p class='gray small'>你已经于" + $.renderDateTime(entity.Vote.Created) + "投票" + (entity.Vote.Supportive ? "<span class='red'>支持</span>" : "<span class='green'>反对</span>") + "这条评价。</p>");
+                tbox.find("article > section").append("<p class='gray small line'>你已经于" + $.renderDateTime(entity.Vote.Created) + "投票" + (entity.Vote.Supportive ? "<span class='red'>支持</span>" : "<span class='green'>反对</span>") + "这条评价。</p>");
             }
         }
         else {
-            tbox.find("article > section").append('<br /><p class="vote_message small"><span class="gray message">你对本HIT产品评价的投票：</span>&nbsp;<span class="buttons one_click_buttons"><a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Support" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=true" title="支持">支持</a>&nbsp;<a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Oppose" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=false" title="反对">反对</a></span></p>');
+            tbox.find("article > section").append('<p class="vote_message small line"><span class="gray message">你对本HIT产品评价的投票：</span>&nbsp;<span class="buttons one_click_buttons"><a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Support" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=true" title="支持">支持</a>&nbsp;<a href="#taction" class="taction" object="Vote" object_id="' + entity.Id + '" taction_type="1" taction_id="Oppose" method="POST" api="/Api/Votes?ReviewId=' + entity.Id + '&Supportive=false" title="反对">反对</a></span></p>');
         }
 
         tbox.find("article > nav").append($.renderTactions(entity.Options))

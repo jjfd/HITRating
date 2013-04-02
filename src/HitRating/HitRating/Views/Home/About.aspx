@@ -1,146 +1,57 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Welcome to HitRating, <%: Page.User.Identity.Name %>
+	About HitRating
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+        h2 
+        {
+            padding-top: 41px;    
+        }
+    </style>
+    <img src="http://m3.img.libdd.com/farm5/2013/0402/15/CBE1A07AF40F23457B36FCBEF1F5A45C8F122A211340B_934_560.JPEG" style="width:100%" />
+    <h2 id="why">Why HitRating</h2>
+    <p class="line">
+        we want to ...
+        <br />
+        HIT Entertainment is one of the world's leading pre-school entertainment companies, specialising in building powerful brands based on engaging stories. HIT Entertainment's world-class portfolio includes Thomas & Friends®, Mike the Knight™, Fireman Sam®, Bob the Builder, Barney®, Angelina Ballerina®, Pingu® and Rainbow Magic®.
+        <br />
+        HIT Entertainment excels at creating and building globally successful brands which capture the hearts and imaginations of pre-schoolers and their families. This is achieved through exceptional storytelling in multiple formats, enhanced by creating high quality character-based products and experiences with best-in-class partners. HIT Entertainment's lines of business span television and home entertainment production, content distribution, digital media, publishing, consumer products and live events and attractions. HIT Entertainment is a division of Fisher-Price and has operations in the UK, US, Canada, Hong Kong and Japan.
+    </p>
+    <a href="#" class="small">返回</a>
 
-    <h2>Welcome to HitRating.TestPanels, <%: Page.User.Identity.Name %></h2>
-
-    <div id="test_vendor">
-        <a href="#create_vendor" class="taction" object="Vendor" taction_type="1" taction_id="Create_Vendor" method="POST" api="/Api/Vendors" title="创建供应商信息">创建供应商信息</a>
-        <a href="#read_vendor" class="taction" object="Vendor" object_id="5" taction_type="2" taction_id="Read_Vendor" method="GET" api="/Api/Vendor/5" title="查看供应商信息">查看供应商信息</a>
-        <a href="#edit_vendor" class="taction" object="Vendor" object_id="5" taction_type="3" taction_id="Edit_Vendor" method="PUT" api="/Api/Vendor/5" title="修改供应商信息">修改供应商信息</a>
-        <a href="#search_vendor" class="taction" object="Vendor" taction_type="5" taction_id="Search_Vendor" method="GET" api="/Api/Vendors" title="查询供应商信息">查询供应商信息</a>
-        <div id="vendor_5">
-            <script type="text/javascript">
-                $(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Api/Vendor/" + 5,
-                        dataType: "json",
-                        success: function (data) {
-                            $("#vendor_5").append($.renderVendor(data.Entity));
-                        }
-                    })
-                })
-            </script>
-        </div>
-    </div>
-
-    <div id="test_category">
-        <a href="#create_category" class="taction" object="Category" taction_type="1" taction_id="Create_Category" method="POST" api="/Api/Categories" title="创建HIT产品类别">创建HIT产品类别</a>
-        <a href="#read_category" class="taction" object="Category" object_id="3" taction_type="2" taction_id="Read_Category" method="GET" api="/Api/Category/3" title="查看HIT产品类别">查看HIT产品类别</a>
-        <a href="#edit_category" class="taction" object="Category" object_id="3" taction_type="3" taction_id="Edit_Category" method="PUT" api="/Api/Category/3" title="修改HIT产品类别">修改HIT产品类别</a>
-        <a href="#search_category" class="taction" object="Category" taction_type="5" taction_id="Search_Category" method="GET" api="/Api/Categories" title="查询HIT产品类别">查询HIT产品类别</a>
+    <h2 id="what">What HitRating</h2>
+    <p class="line">
+        we are ...
+        <br />
+        HIT Entertainment and Corus Entertainment’s Nelvana have greenlit a second season of their preschool phenomenon, Mike the Knight™. 
+        <br />
+        The second season, comprising 52 x 12-minute episodes, is in production and is set to begin delivery to broadcasters in late Spring 2013. The series will be produced jointly by HIT Entertainment in London, UK and the award-winning Nelvana Studio in Toronto, Canada. In the second season, viewers will be introduced to Mike’s father and role model, the King of Glendragon, who has been away exploring faraway lands. 
+    </p>
+    <a href="#" class="small">返回</a>
     
-        <div id="category_3">
-            <script type="text/javascript">
-                $(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Api/Category/" + 3,
-                        dataType: "json",
-                        success: function (data) {
-                            $("#category_3").append($.renderCategory(data.Entity));
-                        }
-                    })
-                })
-            </script>
-        </div>
-    </div>
+    <h2 id="how">How HitRating</h2>
+    <p class="line">
+        you can ...
+        <br />
+        HIT Entertainment and Corus Entertainment’s Nelvana have greenlit a second season of their preschool phenomenon, Mike the Knight™. 
+        <br />
+        The second season, comprising 52 x 12-minute episodes, is in production and is set to begin delivery to broadcasters in late Spring 2013.  The series will be produced jointly by HIT Entertainment in London, UK and the award-winning Nelvana Studio in Toronto, Canada.  In the second season, viewers will be introduced to Mike’s father and role model, the King of Glendragon, who has been away exploring faraway lands.
+        <br />
+        Treehouse in Canada, CBeebies in the UK, and Nick Jr. in the U.S. have committed to air Season 2 of Mike the Knight starting in May in Canada, this summer in the UK and later in the fall in the U.S. The first season debuted to high acclaim and viewership, and to date, it has been sold to 27 broadcasters in 112 territories around the world.   
+        <br />
+        “We’re thrilled to greenlight a second season of Mike the Knight with Nelvana,” said Edward Catchpole, Senior Vice President, HIT Brands, HIT Entertainment.  “Mike has experienced a tremendous reception around the world on broadcast so we’re delighted to deliver even more magical, medieval adventures to the many preschool boys and girls that have been clamouring for them.”
+    </p>
+    <a href="#" class="small">返回</a>
 
-    <div id="test_product">
-        <a href="#create_product" class="taction" object="Product" taction_type="1" taction_id="Create_Product" method="POST" api="/Api/Products" title="创建HIT产品">创建HIT产品</a>
-        <a href="#read_product" class="taction" object="Product" object_id="2" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/2" title="查看HIT产品">查看HIT产品</a>
-        <a href="#edit_product" class="taction" object="Product" object_id="2" taction_type="3" taction_id="Edit_Product" method="PUT" api="/Api/Product/2" title="修改HIT产品">修改HIT产品</a>
-        <a href="#search_product" class="taction" object="Product" taction_type="5" taction_id="Search_Product" method="GET" api="/Api/Products" title="查询HIT产品">查询HIT产品</a>
-        
-        <div id="product_2">
-            <script type="text/javascript">
-                $(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Api/Product/" + 2,
-                        dataType: "json",
-                        success: function (data) {
-                            $("#product_2").append($.renderProduct(data.Entity));
-                        }
-                    })
-                })
-            </script>
-        </div>
-    </div>
+</asp:Content>
 
-    <div id="test_review">
-        <script type="text/javascript">
-            $(function () {
-                $("#test_review .star_input").find(".star").eq(1).mouseover();
-                $("#test_review .star_input").attr("disabled", "disabled");
-            })
-        </script>
-        <label>5_star</label>
-        <span class="star_input">
-            <span class="stars">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-            </span>
-            <input type="hidden" name="" />
-        </span>
-
-        <a href="#create_review" class="taction" object="Review" taction_type="1" taction_id="Create_Review" method="POST" api="/Api/Reviews?ProductId=2" title="创建HIT产品评价">创建HIT产品评价</a>
-        <a href="#read_review" class="taction" object="Review" object_id="8" taction_type="2" taction_id="Read_Review" method="GET" api="/Api/Review/8" title="查看HIT产品评价">查看HIT产品评价</a>
-        <a href="#edit_review" class="taction" object="Review" object_id="8" taction_type="3" taction_id="Read_Review" method="PUT" api="/Api/Review/8" title="修改HIT产品评价">修改HIT产品评价</a>
-        <a href="#search_review" class="taction" object="Review" taction_type="5" taction_id="Search_Review" method="GET" api="/Api/Reviews" title="查询HIT产品评价">查询HIT产品评价</a>
-        
-        <div id="review_7">
-            <script type="text/javascript">
-                $(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Api/Review/" + 7,
-                        dataType: "json",
-                        success: function (data) {
-                            $("#review_7").append($.renderReview(data.Entity));
-                        }
-                    })
-                })
-            </script>
-        </div>
-    </div>
-
-    <div id="test_comment">
-            <a href="#create_comment" class="taction" object="Comment" taction_type="1" taction_id="Create_Comment" method="POST" api="/Api/Comments?ReviewId=7" title="创建评论">创建评论</a>
-            <a href="#read_comment" class="taction" object="Comment" object_id="3" taction_type="2" taction_id="Read_Comment" method="GET" api="/Api/Comment/3" title="查看评论">查看评论</a>
-            <a href="#edit_comment" class="taction" object="Comment" object_id="3" taction_type="3" taction_id="Edit_Comment" method="PUT" api="/Api/Comment/3" title="修改评论">修改评论</a>
-        
-        <div id="comment_4">
-            <script type="text/javascript">
-                $(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Api/Comment/" + 4,
-                        dataType: "json",
-                        success: function (data) {
-                            $("#comment_4").append($.renderComment(data.Entity));
-                        }
-                    })
-                })
-            </script>
-        </div>
-    </div>
-
-    <div id="test_vote">
-        <p class="vote_message small">
-            <span class="gray message">你觉得这条HIT产品评价</span>
-            <span class="buttons one_click_buttons">
-                <a href="#taction" class="taction" object="Vote" object_id="7" taction_type="1" taction_id="Support" method="POST" api="/Api/Votes?ReviewId=7&Supportive=true" title="有用">有用</a>
-                <a href="#taction" class="taction" object="Vote" object_id="7" taction_type="1" taction_id="Oppose" method="POST" api="/Api/Votes?ReviewId=7&Supportive=false" title="没用">没用</a>
-            </span>
-        </p>
+<asp:Content ID="Content3" ContentPlaceHolderID="AsideContent" runat="server">
+    <div class="big_buttons">
+        <a href="#why">Why HitRating</a>
+        <a href="#what">What HitRating</a>
+        <a href="#how">How HitRating</a>
     </div>
 </asp:Content>

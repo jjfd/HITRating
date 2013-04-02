@@ -14,6 +14,10 @@ namespace HitRating.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            if ((new Models.AccountMembershipService()).IsAdmin(User.Identity.Name)) {
+                return View("AdminHome");
+            }
+
             return View();
         }
 
