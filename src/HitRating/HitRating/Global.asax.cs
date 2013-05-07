@@ -408,6 +408,64 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of aspect
+            routes.MapRoute(
+                "AspectSearch",
+                "Api/Aspects",
+                new { controller = "RestfulAspect", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "AspectSearchOfCategory",
+                "Api/Category/{categoryId}/Aspects",
+                new { controller = "RestfulAspect", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "AspectRead",
+                "Api/Aspect/{id}",
+                new { controller = "RestfulAspect", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "AspectCreate",
+                "Api/Aspects",
+                new { controller = "RestfulAspect", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            //apies of rate
+            routes.MapRoute(
+                "RateSearch",
+                "Api/Rate",
+                new { controller = "RestfulRate", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "RateSearchOfCategory",
+                "Api/Aspect/{AspectId}/Rates",
+                new { controller = "RestfulRate", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "RateRead",
+                "Api/Rate/{id}",
+                new { controller = "RestfulRate", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "RateCreate",
+                "Api/Rates",
+                new { controller = "RestfulRate", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL

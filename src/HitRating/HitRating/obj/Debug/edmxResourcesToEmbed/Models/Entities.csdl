@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HitRatingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
   <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Aspects" EntityType="HitRatingModel.Aspect" />
     <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.aspnet_Applications" />
     <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.aspnet_Membership" />
     <EntitySet Name="aspnet_Paths" EntityType="HitRatingModel.aspnet_Paths" />
@@ -14,6 +15,7 @@
     <EntitySet Name="Categories" EntityType="HitRatingModel.Category" />
     <EntitySet Name="Comments" EntityType="HitRatingModel.Comment" />
     <EntitySet Name="Products" EntityType="HitRatingModel.Product" />
+    <EntitySet Name="Rates" EntityType="HitRatingModel.Rate" />
     <EntitySet Name="Reviews" EntityType="HitRatingModel.Review" />
     <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.sysdiagram" />
     <EntitySet Name="Vendors" EntityType="HitRatingModel.Vendor" />
@@ -59,6 +61,17 @@
       <End Role="aspnet_Users" EntitySet="aspnet_Users" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Aspect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+    <Property Name="RatedTimes" Type="Int32" />
+    <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="Created" Type="DateTime" />
+  </EntityType>
   <EntityType Name="aspnet_Applications">
     <Key>
       <PropertyRef Name="ApplicationId" />
@@ -245,6 +258,18 @@
     <Property Name="Created" Type="DateTime" />
     <Property Name="Updated" Type="DateTime" />
   </EntityType>
+  <EntityType Name="Rate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewId" Type="Int32" />
+    <Property Name="AspectId" Type="Int32" />
+    <Property Name="AspectTitle" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+    <Property Name="Stars" Type="Int32" />
+    <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="Created" Type="DateTime" />
+  </EntityType>
   <EntityType Name="Review">
     <Key>
       <PropertyRef Name="Id" />
@@ -256,6 +281,7 @@
     <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
     <Property Name="Created" Type="DateTime" />
     <Property Name="Updated" Type="DateTime" />
+    <Property Name="RatedAspects" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>

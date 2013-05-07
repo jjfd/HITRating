@@ -85,6 +85,8 @@
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\RestfulAspectController.cs" />
+    <Compile Include="Controllers\RestfulRateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -102,6 +104,8 @@
     <Compile Include="Models\ReviewModels.cs" />
     <Compile Include="Models\CommentModels.cs" />
     <Compile Include="Models\VoteModels.cs" />
+    <Compile Include="Models\RateModels.cs" />
+    <Compile Include="Models\AspectModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestfulJsonProccessor\Account.cs" />
     <Compile Include="RestfulJsonProccessor\Product.cs" />
@@ -111,6 +115,8 @@
     <Compile Include="RestfulJsonProccessor\Review.cs" />
     <Compile Include="RestfulJsonProccessor\Comment.cs" />
     <Compile Include="RestfulJsonProccessor\Vote.cs" />
+    <Compile Include="RestfulJsonProccessor\Aspect.cs" />
+    <Compile Include="RestfulJsonProccessor\Rate.cs" />
     <Compile Include="RestfulModels\Product.cs" />
     <Compile Include="RestfulModels\Vendor.cs" />
     <Compile Include="RestfulModels\IRestful.cs" />
@@ -120,6 +126,8 @@
     <Compile Include="RestfulModels\Review.cs" />
     <Compile Include="RestfulModels\Comment.cs" />
     <Compile Include="RestfulModels\Vote.cs" />
+    <Compile Include="RestfulModels\Aspect.cs" />
+    <Compile Include="RestfulModels\Rate.cs" />
     <Compile Include="Utitlities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>

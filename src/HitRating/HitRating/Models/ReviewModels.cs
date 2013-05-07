@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace HitRating.Models
 {
-    public partial class ReviewModels
+    public partial class Review
     {
         public Models.Product Product { get; set; }
     }
 
-    public class ReviewSearchModel : ReviewModels
+    public class ReviewSearchModel : Review
     {
         public int IdUpper { get; set; }
         public int IdLower { get; set; }

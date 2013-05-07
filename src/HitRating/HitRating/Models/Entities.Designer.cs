@@ -82,6 +82,22 @@ namespace HitRating.Models
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Aspect> Aspects
+        {
+            get
+            {
+                if ((_Aspects == null))
+                {
+                    _Aspects = base.CreateObjectSet<Aspect>("Aspects");
+                }
+                return _Aspects;
+            }
+        }
+        private ObjectSet<Aspect> _Aspects;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<aspnet_Applications> aspnet_Applications
         {
             get
@@ -290,18 +306,34 @@ namespace HitRating.Models
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<ReviewModels> Reviews
+        public ObjectSet<Rate> Rates
+        {
+            get
+            {
+                if ((_Rates == null))
+                {
+                    _Rates = base.CreateObjectSet<Rate>("Rates");
+                }
+                return _Rates;
+            }
+        }
+        private ObjectSet<Rate> _Rates;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<Review> Reviews
         {
             get
             {
                 if ((_Reviews == null))
                 {
-                    _Reviews = base.CreateObjectSet<ReviewModels>("Reviews");
+                    _Reviews = base.CreateObjectSet<Review>("Reviews");
                 }
                 return _Reviews;
             }
         }
-        private ObjectSet<ReviewModels> _Reviews;
+        private ObjectSet<Review> _Reviews;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -353,6 +385,14 @@ namespace HitRating.Models
 
         #endregion
         #region AddTo 方法
+    
+        /// <summary>
+        /// 用于向 Aspects EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToAspects(Aspect aspect)
+        {
+            base.AddObject("Aspects", aspect);
+        }
     
         /// <summary>
         /// 用于向 aspnet_Applications EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
@@ -459,9 +499,17 @@ namespace HitRating.Models
         }
     
         /// <summary>
+        /// 用于向 Rates EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToRates(Rate rate)
+        {
+            base.AddObject("Rates", rate);
+        }
+    
+        /// <summary>
         /// 用于向 Reviews EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToReviews(ReviewModels review)
+        public void AddToReviews(Review review)
         {
             base.AddObject("Reviews", review);
         }
@@ -497,6 +545,181 @@ namespace HitRating.Models
     #endregion
     
     #region 实体
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HitRatingModel", Name="Aspect")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Aspect : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Aspect 对象。
+        /// </summary>
+        /// <param name="id">Id 属性的初始值。</param>
+        public static Aspect CreateAspect(global::System.Int32 id)
+        {
+            Aspect aspect = new Aspect();
+            aspect.Id = id;
+            return aspect;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CategoryId
+        {
+            get
+            {
+                return _CategoryId;
+            }
+            set
+            {
+                OnCategoryIdChanging(value);
+                ReportPropertyChanging("CategoryId");
+                _CategoryId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CategoryId");
+                OnCategoryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CategoryId;
+        partial void OnCategoryIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCategoryIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> RatedTimes
+        {
+            get
+            {
+                return _RatedTimes;
+            }
+            set
+            {
+                OnRatedTimesChanging(value);
+                ReportPropertyChanging("RatedTimes");
+                _RatedTimes = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RatedTimes");
+                OnRatedTimesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _RatedTimes;
+        partial void OnRatedTimesChanging(Nullable<global::System.Int32> value);
+        partial void OnRatedTimesChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Creator
+        {
+            get
+            {
+                return _Creator;
+            }
+            set
+            {
+                OnCreatorChanging(value);
+                ReportPropertyChanging("Creator");
+                _Creator = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Creator");
+                OnCreatorChanged();
+            }
+        }
+        private global::System.String _Creator;
+        partial void OnCreatorChanging(global::System.String value);
+        partial void OnCreatorChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Created;
+        partial void OnCreatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// 没有元数据文档可用。
@@ -4045,10 +4268,209 @@ namespace HitRating.Models
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HitRatingModel", Name="Rate")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Rate : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Rate 对象。
+        /// </summary>
+        /// <param name="id">Id 属性的初始值。</param>
+        public static Rate CreateRate(global::System.Int32 id)
+        {
+            Rate rate = new Rate();
+            rate.Id = id;
+            return rate;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ReviewId
+        {
+            get
+            {
+                return _ReviewId;
+            }
+            set
+            {
+                OnReviewIdChanging(value);
+                ReportPropertyChanging("ReviewId");
+                _ReviewId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReviewId");
+                OnReviewIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ReviewId;
+        partial void OnReviewIdChanging(Nullable<global::System.Int32> value);
+        partial void OnReviewIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AspectId
+        {
+            get
+            {
+                return _AspectId;
+            }
+            set
+            {
+                OnAspectIdChanging(value);
+                ReportPropertyChanging("AspectId");
+                _AspectId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AspectId");
+                OnAspectIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AspectId;
+        partial void OnAspectIdChanging(Nullable<global::System.Int32> value);
+        partial void OnAspectIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AspectTitle
+        {
+            get
+            {
+                return _AspectTitle;
+            }
+            set
+            {
+                OnAspectTitleChanging(value);
+                ReportPropertyChanging("AspectTitle");
+                _AspectTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AspectTitle");
+                OnAspectTitleChanged();
+            }
+        }
+        private global::System.String _AspectTitle;
+        partial void OnAspectTitleChanging(global::System.String value);
+        partial void OnAspectTitleChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Stars
+        {
+            get
+            {
+                return _Stars;
+            }
+            set
+            {
+                OnStarsChanging(value);
+                ReportPropertyChanging("Stars");
+                _Stars = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Stars");
+                OnStarsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Stars;
+        partial void OnStarsChanging(Nullable<global::System.Int32> value);
+        partial void OnStarsChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Creator
+        {
+            get
+            {
+                return _Creator;
+            }
+            set
+            {
+                OnCreatorChanging(value);
+                ReportPropertyChanging("Creator");
+                _Creator = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Creator");
+                OnCreatorChanged();
+            }
+        }
+        private global::System.String _Creator;
+        partial void OnCreatorChanging(global::System.String value);
+        partial void OnCreatorChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Created;
+        partial void OnCreatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="HitRatingModel", Name="Review")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class ReviewModels : EntityObject
+    public partial class Review : EntityObject
     {
         #region 工厂方法
     
@@ -4056,9 +4478,9 @@ namespace HitRating.Models
         /// 创建新的 Review 对象。
         /// </summary>
         /// <param name="id">Id 属性的初始值。</param>
-        public static ReviewModels CreateReview(global::System.Int32 id)
+        public static Review CreateReview(global::System.Int32 id)
         {
-            ReviewModels review = new ReviewModels();
+            Review review = new Review();
             review.Id = id;
             return review;
         }
@@ -4236,6 +4658,30 @@ namespace HitRating.Models
         private Nullable<global::System.DateTime> _Updated;
         partial void OnUpdatedChanging(Nullable<global::System.DateTime> value);
         partial void OnUpdatedChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RatedAspects
+        {
+            get
+            {
+                return _RatedAspects;
+            }
+            set
+            {
+                OnRatedAspectsChanging(value);
+                ReportPropertyChanging("RatedAspects");
+                _RatedAspects = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RatedAspects");
+                OnRatedAspectsChanged();
+            }
+        }
+        private global::System.String _RatedAspects;
+        partial void OnRatedAspectsChanging(global::System.String value);
+        partial void OnRatedAspectsChanged();
 
         #endregion
     

@@ -142,7 +142,7 @@ namespace HitRating.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Models.ReviewModels data)
+        public ActionResult Create(Models.Review data)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace HitRating.Controllers
         }
 
         [HttpPut]
-        public ActionResult Edit(int id, Models.ReviewModels data)
+        public ActionResult Edit(int id, Models.Review data)
         {
             try
             {

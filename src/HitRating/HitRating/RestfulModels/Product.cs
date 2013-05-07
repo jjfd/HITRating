@@ -385,7 +385,7 @@ namespace HitRating.RestfulModels
 
                 try
                 {
-                    if (data.CategoryId != null && (data.VendorId > 0) && (new RestfulModels.Category()).Read((int)data.CategoryId) == null)
+                    if (data.CategoryId == null || (data.VendorId < 1) || (new RestfulModels.Category()).Read((int)data.CategoryId) == null)
                     {
                         validationException.ValidationErrors.Add("产品类别不存在");
                     }

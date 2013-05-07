@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HitRatingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="HitRatingModelStoreContainer">
+    <EntitySet Name="Aspect" EntityType="HitRatingModel.Store.Aspect" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="aspnet_Paths" EntityType="HitRatingModel.Store.aspnet_Paths" store:Type="Tables" Schema="dbo" />
@@ -15,6 +16,7 @@
     <EntitySet Name="Category" EntityType="HitRatingModel.Store.Category" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comment" EntityType="HitRatingModel.Store.Comment" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Product" EntityType="HitRatingModel.Store.Product" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rate" EntityType="HitRatingModel.Store.Rate" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Review" EntityType="HitRatingModel.Store.Review" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Vendor" EntityType="HitRatingModel.Store.Vendor" store:Type="Tables" Schema="dbo" />
@@ -64,6 +66,17 @@
       <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Aspect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Title" Type="varchar" MaxLength="2000" />
+    <Property Name="RatedTimes" Type="int" />
+    <Property Name="Creator" Type="varchar" MaxLength="500" />
+    <Property Name="Created" Type="datetime" />
+  </EntityType>
   <EntityType Name="aspnet_Applications">
     <Key>
       <PropertyRef Name="ApplicationId" />
@@ -244,6 +257,18 @@
     <Property Name="Created" Type="datetime" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="Rate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewId" Type="int" />
+    <Property Name="AspectId" Type="int" />
+    <Property Name="AspectTitle" Type="varchar" MaxLength="2000" />
+    <Property Name="Stars" Type="int" />
+    <Property Name="Creator" Type="varchar" MaxLength="500" />
+    <Property Name="Created" Type="datetime" />
+  </EntityType>
   <EntityType Name="Review">
     <Key>
       <PropertyRef Name="Id" />
@@ -255,6 +280,7 @@
     <Property Name="Creator" Type="varchar" MaxLength="500" />
     <Property Name="Created" Type="datetime" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="RatedAspects" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

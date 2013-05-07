@@ -6,6 +6,7 @@
     <edmx:StorageModels>
       <Schema Namespace="HitRatingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="HitRatingModelStoreContainer">
+          <EntitySet Name="Aspect" EntityType="HitRatingModel.Store.Aspect" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Paths" EntityType="HitRatingModel.Store.aspnet_Paths" store:Type="Tables" Schema="dbo" />
@@ -20,6 +21,7 @@
           <EntitySet Name="Category" EntityType="HitRatingModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Comment" EntityType="HitRatingModel.Store.Comment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Product" EntityType="HitRatingModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rate" EntityType="HitRatingModel.Store.Rate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Review" EntityType="HitRatingModel.Store.Review" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Vendor" EntityType="HitRatingModel.Store.Vendor" store:Type="Tables" Schema="dbo" />
@@ -69,6 +71,17 @@
             <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Aspect">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="2000" />
+          <Property Name="RatedTimes" Type="int" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
         <EntityType Name="aspnet_Applications">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -249,6 +262,18 @@
           <Property Name="Created" Type="datetime" />
           <Property Name="Updated" Type="datetime" />
         </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="int" />
+          <Property Name="AspectId" Type="int" />
+          <Property Name="AspectTitle" Type="varchar" MaxLength="2000" />
+          <Property Name="Stars" Type="int" />
+          <Property Name="Creator" Type="varchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
         <EntityType Name="Review">
           <Key>
             <PropertyRef Name="Id" />
@@ -260,6 +285,7 @@
           <Property Name="Creator" Type="varchar" MaxLength="500" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Updated" Type="datetime" />
+          <Property Name="RatedAspects" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -439,6 +465,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="HitRatingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aspects" EntityType="HitRatingModel.Aspect" />
           <EntitySet Name="aspnet_Applications" EntityType="HitRatingModel.aspnet_Applications" />
           <EntitySet Name="aspnet_Membership" EntityType="HitRatingModel.aspnet_Membership" />
           <EntitySet Name="aspnet_Paths" EntityType="HitRatingModel.aspnet_Paths" />
@@ -452,6 +479,7 @@
           <EntitySet Name="Categories" EntityType="HitRatingModel.Category" />
           <EntitySet Name="Comments" EntityType="HitRatingModel.Comment" />
           <EntitySet Name="Products" EntityType="HitRatingModel.Product" />
+          <EntitySet Name="Rates" EntityType="HitRatingModel.Rate" />
           <EntitySet Name="Reviews" EntityType="HitRatingModel.Review" />
           <EntitySet Name="sysdiagrams" EntityType="HitRatingModel.sysdiagram" />
           <EntitySet Name="Vendors" EntityType="HitRatingModel.Vendor" />
@@ -497,6 +525,17 @@
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Aspect">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="RatedTimes" Type="Int32" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+        </EntityType>
         <EntityType Name="aspnet_Applications">
           <Key>
             <PropertyRef Name="ApplicationId" />
@@ -683,6 +722,18 @@
           <Property Name="Created" Type="DateTime" />
           <Property Name="Updated" Type="DateTime" />
         </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="Int32" />
+          <Property Name="AspectId" Type="Int32" />
+          <Property Name="AspectTitle" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
+          <Property Name="Stars" Type="Int32" />
+          <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Created" Type="DateTime" />
+        </EntityType>
         <EntityType Name="Review">
           <Key>
             <PropertyRef Name="Id" />
@@ -694,6 +745,7 @@
           <Property Name="Creator" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="Created" Type="DateTime" />
           <Property Name="Updated" Type="DateTime" />
+          <Property Name="RatedAspects" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -805,6 +857,14 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HitRatingModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Aspects"><EntityTypeMapping TypeName="HitRatingModel.Aspect"><MappingFragment StoreEntitySet="Aspect">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="RatedTimes" ColumnName="RatedTimes" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="aspnet_Applications"><EntityTypeMapping TypeName="HitRatingModel.aspnet_Applications"><MappingFragment StoreEntitySet="aspnet_Applications">
             <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
             <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
@@ -931,6 +991,15 @@
             <ScalarProperty Name="Created" ColumnName="Created" />
             <ScalarProperty Name="Updated" ColumnName="Updated" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Rates"><EntityTypeMapping TypeName="HitRatingModel.Rate"><MappingFragment StoreEntitySet="Rate">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+            <ScalarProperty Name="AspectId" ColumnName="AspectId" />
+            <ScalarProperty Name="AspectTitle" ColumnName="AspectTitle" />
+            <ScalarProperty Name="Stars" ColumnName="Stars" />
+            <ScalarProperty Name="Creator" ColumnName="Creator" />
+            <ScalarProperty Name="Created" ColumnName="Created" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Reviews"><EntityTypeMapping TypeName="HitRatingModel.Review"><MappingFragment StoreEntitySet="Review">
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -939,6 +1008,7 @@
             <ScalarProperty Name="Creator" ColumnName="Creator" />
             <ScalarProperty Name="Created" ColumnName="Created" />
             <ScalarProperty Name="Updated" ColumnName="Updated" />
+            <ScalarProperty Name="RatedAspects" ColumnName="RatedAspects" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="HitRatingModel.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
             <ScalarProperty Name="name" ColumnName="name" />
@@ -1049,77 +1119,73 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Entities" ZoomLevel="112">
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="7.5" Height="2.2966927083333326" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Membership" Width="1.5" PointX="3" PointY="6.25" Height="4.6573697916666665" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Paths" Width="1.5" PointX="3" PointY="11.625" Height="1.9594531249999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="11.875" Height="1.6222135416666674" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="8.75" Height="1.7908333333333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Profile" Width="1.5" PointX="10.5" PointY="10.875" Height="1.9594531249999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Roles" Width="1.5" PointX="3" PointY="14.375" Height="1.9594531249999978" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4535937499999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_Users" Width="1.5" PointX="8.25" PointY="10" Height="3.8142708333333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.aspnet_WebEvent_Events" Width="1.5" PointX="2.75" PointY="0.75" Height="3.4770312500000031" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Category" Width="1.5" PointX="4.75" PointY="0.75" Height="2.2966927083333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Comment" Width="1.5" PointX="5.75" PointY="4.75" Height="1.9594531250000031" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Product" Width="1.5" PointX="7.75" PointY="0.75" Height="3.3084114583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="7.75" PointY="5.75" Height="2.1280729166666674" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" Height="1.7908333333333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Vendor" Width="1.5" PointX="9.75" PointY="3.75" Height="3.4770312500000031" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Vote" Width="1.5" PointX="11.75" PointY="0.75" Height="1.7908333333333388" IsExpanded="true" />
+      <Diagram Name="Entities">
+        <EntityTypeShape EntityType="HitRatingModel.Aspect" Width="1.5" PointX="0.75" PointY="0.75" Height="2.16105224609375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="8.125" Height="2.5430916341145817" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Membership" Width="1.5" PointX="3" PointY="9.75" Height="5.2173673502604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Paths" Width="1.5" PointX="3" PointY="6.75" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="7" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="3.875" Height="1.9700325520833322" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Profile" Width="1.5" PointX="7.5" PointY="11.875" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Roles" Width="1.5" PointX="3" PointY="15.625" Height="2.1610522460937514" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_SchemaVersions" Width="1.5" PointX="2.75" PointY="0.75" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_Users" Width="1.5" PointX="5.25" PointY="10.875" Height="4.2622688802083353" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.aspnet_WebEvent_Events" Width="1.5" PointX="7.75" PointY="0.75" Height="3.8802294921875031" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Category" Width="1.5" PointX="7.75" PointY="5.75" Height="2.5430916341145817" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Comment" Width="1.5" PointX="0.75" PointY="3.75" Height="2.1610522460937531" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Product" Width="1.5" PointX="9.75" PointY="0.75" Height="3.6892097981770888" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Rate" Width="1.5" PointX="4.75" PointY="0.75" Height="2.3520719401041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="9.75" PointY="5.75" Height="2.5430916341145888" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" Height="1.9700325520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Vendor" Width="1.5" PointX="11.75" PointY="0.75" Height="3.8802294921875031" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Vote" Width="1.5" PointX="11.75" PointY="5.75" Height="1.9700325520833388" IsExpanded="true" />
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Me__Appli__21B6055D" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.6483463541666659" />
-          <ConnectorPoint PointX="3" PointY="8.6483463541666659" />
+          <ConnectorPoint PointX="2.25" PointY="10.209045817057291" />
+          <ConnectorPoint PointX="3" PointY="10.209045817057291" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Pa__Appli__5AEE82B9" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="9.7966927083333317" />
-          <ConnectorPoint PointX="1.5" PointY="12.6047265625" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="12.6047265625" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="12.6047265625" />
-          <ConnectorPoint PointX="3" PointY="12.6047265625" />
+          <ConnectorPoint PointX="2.25" PointY="8.5180261230468748" />
+          <ConnectorPoint PointX="3" PointY="8.5180261230468748" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Ro__Appli__440B1D61" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.9062525" PointY="9.7966927083333317" />
-          <ConnectorPoint PointX="1.9062525" PointY="15.354726562499998" />
-          <ConnectorPoint PointX="3" PointY="15.354726562499998" />
+          <ConnectorPoint PointX="1.5" PointY="10.668091634114582" />
+          <ConnectorPoint PointX="1.5" PointY="16.705526123046877" />
+          <ConnectorPoint PointX="3" PointY="16.705526123046877" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Us__Appli__0DAF0CB0" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.0937475" PointY="9.7966927083333317" />
-          <ConnectorPoint PointX="1.0937475" PointY="11.266184895833334" />
-          <ConnectorPoint PointX="1.4166666666666667" PointY="11.266184895833334" />
-          <ConnectorPoint PointX="1.5833333333333333" PointY="11.266184895833334" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="11.266184895833334" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="11.266184895833334" />
-          <ConnectorPoint PointX="8.25" PointY="11.266184895833334" />
+          <ConnectorPoint PointX="1.9062525" PointY="10.668091634114582" />
+          <ConnectorPoint PointX="1.9062525" PointY="15.083568115234376" />
+          <ConnectorPoint PointX="5.25" PointY="15.083568115234376" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Me__UserI__22AA2996" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="10.7553515625" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="10.7553515625" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="10.7553515625" />
-          <ConnectorPoint PointX="4.5" PointY="10.7553515625" />
+          <ConnectorPoint PointX="5.25" PointY="12.921183675130209" />
+          <ConnectorPoint PointX="4.5" PointY="12.921183675130209" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Pe__PathI__628FA481" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="12.686106770833334" />
-          <ConnectorPoint PointX="5.25" PointY="12.686106770833334" />
+          <ConnectorPoint PointX="4.5" PointY="7.8895064290364587" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="7.8895064290364578" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="7.8895064290364587" />
+          <ConnectorPoint PointX="5.25" PointY="7.8895064290364587" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Pe__PathI__68487DD7" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="11.626152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="11.251152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="9.6454166666666659" />
-          <ConnectorPoint PointX="5.25" PointY="9.6454166666666659" />
+          <ConnectorPoint PointX="3.75" PointY="6.75" />
+          <ConnectorPoint PointX="3.75" PointY="4.8600162760416659" />
+          <ConnectorPoint PointX="5.25" PointY="4.8600162760416659" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Pe__UserI__693CA210" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="10.270416666666666" />
-          <ConnectorPoint PointX="6.75" PointY="10.270416666666666" />
+          <ConnectorPoint PointX="5.2511528461538459" PointY="10.875" />
+          <ConnectorPoint PointX="4.875" PointY="10.498847153846153" />
+          <ConnectorPoint PointX="4.875" PointY="6.2200325520833317" />
+          <ConnectorPoint PointX="5.25" PointY="5.8450325520833317" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.FK__aspnet_Pr__UserI__38996AB5" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="11.8547265625" />
-          <ConnectorPoint PointX="10.5" PointY="11.8547265625" />
+          <ConnectorPoint PointX="6.75" PointY="12.955526123046875" />
+          <ConnectorPoint PointX="7.5" PointY="12.955526123046875" />
         </AssociationConnector>
         <AssociationConnector Association="HitRatingModel.aspnet_UsersInRoles" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="15.354726562499998" />
-          <ConnectorPoint PointX="9" PointY="15.354726562499998" />
-          <ConnectorPoint PointX="9" PointY="13.814270833333332" />
+          <ConnectorPoint PointX="4.5" PointY="16.705526123046877" />
+          <ConnectorPoint PointX="6" PointY="16.705526123046877" />
+          <ConnectorPoint PointX="6" PointY="15.137268880208335" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

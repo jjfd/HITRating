@@ -323,10 +323,10 @@ namespace HitRating.RestfulModels
             {
                 ValidationException validationException = new ValidationException();
 
-                //Categoryer
+                //Title
                 if (string.IsNullOrEmpty(data.Title))
                 {
-                    validationException.ValidationErrors.Add("供应商名称为空");
+                    validationException.ValidationErrors.Add("名称为空");
                 }
 
                 //created
