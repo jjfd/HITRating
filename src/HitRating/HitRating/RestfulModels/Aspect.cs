@@ -192,7 +192,7 @@ namespace HitRating.RestfulModels
                         ((conditions.IdLower == null || conditions.IdLower < 1) ? true : aspect.Id < conditions.IdLower)
                         && ((conditions.IdUpper == null || conditions.IdUpper < 1) ? true : aspect.Id > conditions.IdUpper)
                         && ((conditions.CategoryId == null || conditions.CategoryId < 1) ? true : aspect.CategoryId == conditions.CategoryId)
-                        && (!string.IsNullOrEmpty(conditions.Title) ? true : aspect.Title.Contains(conditions.Title))
+                        && (string.IsNullOrEmpty(conditions.Title) ? true : aspect.Title.Contains(conditions.Title))
                         && ((conditions.RatedTimesLt == null || conditions.RatedTimesLt < 1) ? true : aspect.RatedTimes <= conditions.RatedTimesLt)
                         && ((conditions.RatedTimesGt == null || conditions.RatedTimesGt < 1) ? true : aspect.Id >= conditions.RatedTimesGt)
                         && (string.IsNullOrEmpty(conditions.Creator) ? true : aspect.Creator == conditions.Creator)

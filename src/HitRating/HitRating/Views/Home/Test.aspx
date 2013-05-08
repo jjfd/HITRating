@@ -143,4 +143,29 @@
             </span>
         </p>
     </div>
+
+    <br />
+    <br />
+
+    <div id="test_aspect">
+        <script type="text/javascript">
+            $(function () {
+                $("#create_aspect a").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Api/Aspects?CategoryId=3",
+                        data: { "Title": $("#create_aspect input").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            alert(data.Entity.Title);
+                        }
+                    })
+                })
+            })
+        </script>
+        <div id="create_aspect">
+            <input name="Title" />
+            <a>Create_aspect</a>
+        </div>
+    </div>
 </asp:Content>

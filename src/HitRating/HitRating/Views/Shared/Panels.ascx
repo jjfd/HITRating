@@ -1012,7 +1012,33 @@
                         $("#review_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
                         $("#review_create_panel .caption").text($(this).attr("title"));
 
-                        $.centerPopup($("#review_create_panel"));
+                        var productId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/Product/" + productId,
+                            dataType: "json",
+                            success: function (data) {
+                                var categoryId = data.Entity.CategoryId;
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: PanelApiRoot + "Api/Category/" + categoryId + "/Aspects",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        var aspects = data.Entities;
+
+                                        $.centerPopup($("#review_create_panel"));
+                                    },
+                                    error: function () {
+                                        $.centerPopup($("#review_create_panel"));
+                                    }
+                                })
+                            },
+                            error: function () {
+                                $.centerPopup($("#review_create_panel"));
+                            }
+                        })
                     });
 
                     $(".taction[object='Review'][taction_type='2']").live("click", function () {
