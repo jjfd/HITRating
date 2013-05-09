@@ -1019,7 +1019,12 @@
                             url: PanelApiRoot + "Api/Product/" + productId,
                             dataType: "json",
                             success: function (data) {
-                                var categoryId = data.Entity.CategoryId;
+                                var categoryId = data.Entity.Category.Id;
+                                
+                                $("#review_create_panel .review_aspects .add_aspect").attr("method", "post").attr("api", PanelApiRoot + "Api/Aspects?CategoryId=" + categoryId);
+                                $("#review_create_panel .review_aspects .add_aspect .ajax_search").attr("url", PanelApiRoot + "Api/Category/" + categoryId + "/Aspects?Title=");
+
+                                $("#review_create_panel .review_aspects .container").empty();
 
                                 $.ajax({
                                     type: "GET",
@@ -1027,6 +1032,10 @@
                                     dataType: "json",
                                     success: function (data) {
                                         var aspects = data.Entities;
+
+                                        for (var i = 0; i < aspects.length; i++) {
+                                            $("#review_create_panel .review_aspects .container").append('<div class="line gray small rate_aspect_input" aspect_id="' + aspects[i].Id + '"><span class="float_right"><span class="star_input"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><input type="hidden" class="Rate" /></span>&nbsp;[<a href="#remove_aspect" class="remove">去除</a>]</span><label class="Title">' + aspects[i].Title + '</label></div>');
+                                        }
 
                                         $.centerPopup($("#review_create_panel"));
                                     },
@@ -1062,7 +1071,43 @@
 
                                 $("#review_edit_panel textarea[name='Details']").val(review.Details);
 
-                                $.centerPopup($("#review_edit_panel"));
+                                $("#review_create_panel .review_aspects .add_aspect").attr("method", "post").attr("api", PanelApiRoot + "Api/Aspects?CategoryId=" + review.CategoryId);
+                                $("#review_edit_panel .review_aspects .add_aspect .ajax_search").attr("url", PanelApiRoot + "Api/Category/" + review.CategoryId + "/Aspects?Title=");
+
+                                $("#review_edit_panel .review_aspects .container").empty();
+                                try {
+                                    var aspects = review.RatedAspects;
+
+                                    for (var i = 0; i < aspects.length; i++) {
+                                        $("#review_edit_panel .review_aspects .container").append('<div class="line gray small rate_aspect_input" aspect_id="' + aspects[i].Id + '"><span class="float_right"><span class="star_input"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><input type="hidden" class="Rate" /></span>&nbsp;[<a href="#remove_aspect" class="remove">去除</a>]</span><label class="Title">' + aspects[i].Title + '</label></div>');
+                                    }
+
+                                    for (var i = 0; i < aspects.length; i++) {
+                                        $("#review_edit_panel .review_aspects .container .rate_aspect_input .star_input").eq(i).find(".star").eq(aspects[i].Rate - 1).mouseover();
+                                    }
+
+                                    $.centerPopup($("#review_edit_panel"));
+
+                                }
+                                catch (e) {
+                                    $.ajax({
+                                        type: "GET",
+                                        url: PanelApiRoot + "Api/Category/" + review.Category.Id + "/Aspects",
+                                        dataType: "json",
+                                        success: function (data) {
+                                            var aspects = data.Entities;
+
+                                            for (var i = 0; i < aspects.length; i++) {
+                                                $("#review_edit_panel .review_aspects .container").append('<div class="line gray small rate_aspect_input" aspect_id="' + aspects[i].Id + '"><span class="float_right"><span class="star_input"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><input type="hidden" class="Rate" /></span>&nbsp;[<a href="#remove_aspect" class="remove">去除</a>]</span><label class="Title">' + aspects[i].Title + '</label></div>');
+                                            }
+
+                                            $.centerPopup($("#review_edit_panel"));
+                                        },
+                                        error: function () {
+                                            $.centerPopup($("#review_edit_panel"));
+                                        }
+                                    })
+                                }
                             },
                             error: function () {
                                 $.miniErrorAjaxResult("HIT产品评价 #" + objectId + " 不存在");
@@ -1083,6 +1128,66 @@
                         window.location.href = (PanelApiRoot + "Review/Search?Api=" + encodeUri($(this).attr("api")));
                     })
 
+                    $(".rate_aspect_input .remove").live("click", function () {
+                        var rateAspectInput = $(this).parents(".rate_aspect_input");
+                        rateAspectInput.fadeOut("normal", function () {
+                            rateAspectInput.remove();
+                        })
+                    })
+
+                    $(".review_aspects .add_aspect .submit").live("click", function () {
+                        var thisSubmit = $(this);
+
+                        var newAspectTitle = $(this).parents(".add_aspect").find(".ajax_input_title").val();
+
+                        if (newAspectTitle.length) {
+                            var newAspectId = $(this).parents(".add_aspect").find(".ajax_input_sid").val();
+
+                            if (newAspectId > 0) {
+                                if ($(this).parents(".review_aspects").find(".container").find(".rate_aspect_input[aspect_id='" + newAspectId + "']").length) {
+                                    $.miniErrorAjaxResult("已经存在.");
+                                }
+                                else {
+                                    $(this).parents(".review_aspects").find(".container").append('<div class="line gray small rate_aspect_input" aspect_id="' + newAspectId + '"><span class="float_right"><span class="star_input"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><input type="hidden" class="Rate" /></span>&nbsp;[<a href="#remove_aspect" class="remove">去除</a>]</span><label class="Title">' + newAspectTitle + '</label></div>');
+
+                                    var stars = $(this).parents(".add_aspect").find("input[name='Rate']").val();
+                                    if (stars > 0 && stars < 6) {
+                                        $(this).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).mouseover();
+                                    }
+
+                                    $(this).parents(".add_aspect").find("input").val("");
+                                    $(this).parents(".add_aspect").find(".star").removeClass("selected");
+                                }
+                            }
+                            else {
+                                var api = $(this).parents(".add_aspect").attr("api");
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: api,
+                                    data: { Title: newAspectTitle },
+                                    dataType: "json",
+                                    success: function (data) {
+                                        $(thisSubmit).parents(".review_aspects").find(".container").append('<div class="line gray small rate_aspect_input" aspect_id="' + data.Entity.Id + '"><span class="float_right"><span class="star_input"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><input type="hidden" class="Rate" /></span>&nbsp;[<a href="#remove_aspect" class="remove">去除</a>]</span><label class="Title">' + data.Entity.Title + '</label></div>');
+
+                                        $(thisSubmit).parents(".add_aspect").find(".input").val("");
+                                        $(thisSubmit).parents(".add_aspect").find(".star").removeClass("selected");
+
+                                        var stars = $(thisSubmit).parents(".add_aspect").find("input[name='Rate']").val();
+                                        if (stars > 0 && stars < 6) {
+                                            $(thisSubmit).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).mouseover();
+                                        }
+
+                                        $(thisSubmit).parents(".add_aspect").find("input").val("");
+                                        $(thisSubmit).parents(".add_aspect").find(".star").removeClass("selected");
+                                    },
+                                    error: function () {
+                                        $.miniErrorAjaxResult("添加Aspect失败.");
+                                    }
+                                })
+                            }
+                        }
+                    })
                 })
             </script>
 
@@ -1092,12 +1197,28 @@
                         $("#review_create_panel input:submit").click(function () {
                             var method = $("#review_create_panel").attr("method");
                             var api = $("#review_create_panel").attr("api");
+
+                            var ratedAspects = $("#review_create_panel .review_aspects .container .rate_aspect_input");
+                            var ratedAspectsString = "";
+
+                            for (var i=0; i<ratedAspects.length; i++) {
+                                var aspect = ratedAspects.eq(i)
+                                var rate = aspect.find(".Rate").val();
+
+                                if (rate > 0 && rate < 6) {
+                                    aspectId = aspect.attr("aspect_id");
+                                    aspectTitle = aspect.find(".Title").text();
+
+                                    ratedAspectsString += aspectId + "|" + aspectTitle + "|" + rate + ";";
+                                }
+                            }
                             $.ajax({
                                 type: method,
                                 url: api,
                                 data: { 
                                     Rate: $("#review_create_panel input[name='Rate']").val(),
-                                    Details: $("#review_create_panel textarea[name='Details']").val(),       
+                                    Details: $("#review_create_panel textarea[name='Details']").val(),
+                                    RatedAspects: ratedAspectsString
                                 },
                                 dataType: "json",
                                 success: function (data) {
@@ -1139,8 +1260,35 @@
                             <input type="hidden" name="Rate" />
                         </span>
                     </div>
+                    <div class="review_aspects">
+                        <div class="toggle_read">
+                            <p class="right"><a class="toggle">详细评分</a></p>
+                            <div class="toggle_content"></div>
+                            <div class="toggle_content hidden">
+                                <div class="container">
+                                    
+                                </div>
+                                <div class="add_aspect small">
+                                    <div class="line ajax_search" url="">
+                                        <span class="float_right">
+                                            <span class="star_input">
+                                                <span class="stars">
+                                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                                </span>
+                                                <input type="hidden" name="Rate" />
+                                            </span>
+                                            [<a href="#add_aspect" class="submit">添加</a>]
+                                        </span>
+                                        <input type="hidden" class="ajax_input_sid" value="">
+                                        <input class="ajax_input_title tip_search" value="添加更多的评价方面的问题" style="width:70%">
+                                        <div class="ajax_suggestions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="line">
-                        <label>你的评价<span class="tip">*</span></label>
+                        <label>详细评论<span class="tip">*</span></label>
                         <textarea name="Details"></textarea>
                     </div>
                 </div>
@@ -1157,12 +1305,28 @@
                         $("#review_edit_panel input:submit").click(function () {
                             var method = $("#review_edit_panel").attr("method");
                             var api = $("#review_edit_panel").attr("api");
+
+                            var ratedAspects = $("#review_edit_panel .review_aspects .container .rate_aspect_input");
+                            var ratedAspectsString = "";
+
+                            for (var i = 0; i < ratedAspects.length; i++) {
+                                var aspect = ratedAspects.eq(i)
+                                var rate = aspect.find(".Rate").val();
+
+                                if (rate > 0 && rate < 6) {
+                                    aspectId = aspect.attr("aspect_id");
+                                    aspectTitle = aspect.find(".Title").text();
+
+                                    ratedAspectsString += aspectId + "|" + aspectTitle + "|" + rate + ";";
+                                }
+                            }
                             $.ajax({
                                 type: method,
                                 url: api,
-                                data: { 
+                                data: {
                                     Rate: $("#review_edit_panel input[name='Rate']").val(),
-                                    Details: $("#review_edit_panel textarea[name='Details']").val(),       
+                                    Details: $("#review_edit_panel textarea[name='Details']").val(),
+                                    RatedAspects: ratedAspectsString
                                 },
                                 dataType: "json",
                                 success: function (data) {
@@ -1204,8 +1368,35 @@
                             <input type="hidden" name="Rate" />
                         </span>
                     </div>
+                    <div class="review_aspects">
+                        <div class="toggle_read">
+                            <p class="right"><a class="toggle">详细评分</a></p>
+                            <div class="toggle_content hidden"></div>
+                            <div class="toggle_content">
+                                <div class="container">
+                                    
+                                </div>
+                                <div class="add_aspect small">
+                                    <div class="line ajax_search" url="">
+                                        <span class="float_right">
+                                            <span class="star_input">
+                                                <span class="stars">
+                                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                                                </span>
+                                                <input type="hidden" name="Rate" />
+                                            </span>
+                                            [<a href="#add_aspect" class="submit">添加</a>]
+                                        </span>
+                                        <input type="hidden" class="ajax_input_sid" value="">
+                                        <input class="ajax_input_title tip_search" value="添加更多的评价方面的问题" style="width:70%">
+                                        <div class="ajax_suggestions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="line">
-                        <label>你的评价<span class="tip">*</span></label>
+                        <label>详细评价<span class="tip">*</span></label>
                         <textarea name="Details"></textarea>
                     </div>
                 </div>

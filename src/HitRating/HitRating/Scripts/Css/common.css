@@ -202,7 +202,6 @@ textarea
 .star_input .star
 {
     display: inline-block;
-    font-size: 18px;
     color: #ddd;
     cursor: pointer;   
 }

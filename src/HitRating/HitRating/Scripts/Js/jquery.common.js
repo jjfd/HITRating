@@ -507,6 +507,7 @@ $.renderReview = function (entity) {
                                                 .append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
 
         toggleRead.find(".toggle_content").eq(1).append("<p><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span></p>")
+                                                .append("<div class='rated_aspects'></div>")
                                                 .append("<div class='value'>" + $.renderDescription(entity.Details) + "</div>");
 
         var starGroup1 = toggleRead.find(".star_input").eq(0).find(".star");
@@ -517,6 +518,25 @@ $.renderReview = function (entity) {
         var starGroup2 = toggleRead.find(".star_input").eq(1).find(".star");
         for (var i = 0; i < entity.Rate; i++) {
             starGroup2.eq(i).addClass("selected");
+        }
+
+        var ratedAspects = toggleRead.find(".rated_aspects");
+        try {
+            var ras = entity.RatedAspects;
+
+            for (var i = 0; i < ras.length; i++) {
+                var ratedAspect = $("<p class='rated_aspect small gray right' aspect_id='" + ras[i].Id + "'><span class='float_left'>" + ras[i].Title + "</span><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span><span class='star'>★</span><span class='star'>★</span><span class='star'>★</span><span class='star'>★</span></span><input type='hidden' /></span></p>");
+
+                var starGroupOfRA = ratedAspect.find(".star");
+                for (var j = 0; j < ras[i].Rate; j++) {
+                    starGroupOfRA.eq(j).addClass("selected");
+                }
+
+                ratedAspects.append(ratedAspect);
+            }
+        }
+        catch (e) {
+            ratedAspects.empty();
         }
 
         tbox.find("article > section").append(toggleRead);

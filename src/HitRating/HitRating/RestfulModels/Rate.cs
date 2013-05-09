@@ -54,6 +54,31 @@ namespace HitRating.RestfulModels
             }
         }
 
+        public Models.Rate Update(int id, Models.Rate entity, string userName)
+        {
+            try
+            {
+                var old = RestfulRate.Read(id);
+
+                if (!RateAccessControl.Pass(RestfulAction.Update, old, userName))
+                {
+                    throw new NoAccessException("No Access");
+                }
+
+                entity.ReviewId = old.ReviewId;
+                entity.AspectId = old.AspectId;
+                entity.AspectTitle = old.AspectTitle;
+                entity.Creator = userName;
+                entity.Created = old.Created;
+
+                return RestfulRate.Update(id, entity);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public bool Delete(int id, string userName)
         {
             try
@@ -120,7 +145,7 @@ namespace HitRating.RestfulModels
             {
                 entity = RateDataProccessor.ValidationAndProcess(entity);
 
-                if (((new RestfulModels.Rate()).Search(new Models.RateSearchModel() { AspectId = entity.AspectId, Creator = entity.Creator })).Count() > 0)
+                if (((new RestfulModels.Rate()).Search(new Models.RateSearchModel() { ReviewId = entity.ReviewId, AspectId = entity.AspectId, Creator = entity.Creator })).Count() > 0)
                 {
                     var e = new RestfulModels.ValidationException();
                     e.ValidationErrors.Add("已经存在");
@@ -144,6 +169,24 @@ namespace HitRating.RestfulModels
             try
             {
                 return DbEntities.Rates.First(m => m.Id == id);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public Models.Rate Update(int id, Models.Rate entity)
+        {
+            try
+            {
+                entity = RateDataProccessor.ValidationAndProcess(entity);
+                entity.Id = id;
+
+                DbEntities.ApplyCurrentValues("Rates", entity);
+                DbEntities.SaveChanges();
+
+                return Read(entity.Id);
             }
             catch
             {
@@ -242,7 +285,14 @@ namespace HitRating.RestfulModels
                 }
                 else if (action == RestfulAction.Update)
                 {
-                    return false;
+                    if (!string.IsNullOrEmpty(accessor) && Rate.Creator == accessor)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (action == RestfulAction.Delete)
                 {

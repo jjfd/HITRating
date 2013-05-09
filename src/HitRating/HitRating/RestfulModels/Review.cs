@@ -148,6 +148,38 @@ namespace HitRating.RestfulModels
                 DbEntities.SaveChanges();
                 DbEntities.Refresh(System.Data.Objects.RefreshMode.StoreWins, entity);
 
+                try
+                {
+                    if (!string.IsNullOrEmpty(entity.RatedAspects))
+                    {
+                        string[] aspects = Utilities.StringUtility.DeGroup(entity.RatedAspects, ';');
+                        for (int i = 0; i < aspects.Count(); i++)
+                        {
+                            string[] aspectData = Utilities.StringUtility.DeGroup(aspects[i], '|');
+
+                            Models.Aspect theAspect = (new RestfulModels.Aspect()).Read(int.Parse(aspectData[0]), entity.Creator);
+                            theAspect.RatedTimes++;
+                            (new RestfulModels.Aspect()).Update(theAspect.Id, theAspect, theAspect.Creator);
+
+                            (new RestfulModels.Rate()).Create(new Models.Rate()
+                                {
+                                    ReviewId = entity.Id,
+                                    AspectId = theAspect.Id,
+                                    AspectTitle = theAspect.Title,
+                                    Stars = int.Parse(aspectData[2]),
+                                    Creator = entity.Creator,
+                                    Created = entity.Created
+                                },
+                                entity.Creator
+                            );
+                        }
+                    }
+                }
+                catch
+                {
+                    ;
+                }
+
                 return Read(entity.Id);
             }
             catch
@@ -163,8 +195,57 @@ namespace HitRating.RestfulModels
                 entity = ReviewDataProccessor.ValidationAndProcess(entity);
                 entity.Id = id;
 
+                string oldRatedAspects = entity.RatedAspects;
+
                 DbEntities.ApplyCurrentValues("Reviews", entity);
                 DbEntities.SaveChanges();
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(entity.RatedAspects))
+                    {
+                        string[] aspects = Utilities.StringUtility.DeGroup(entity.RatedAspects, ';');
+                        for (int i = 0; i < aspects.Count(); i++)
+                        {
+                            string[] aspectData = Utilities.StringUtility.DeGroup(aspects[i], '|');
+
+                            if ((";" + oldRatedAspects).IndexOf(";" + aspectData[0] + "|") < 0)
+                            {
+                                Models.Aspect theAspect = (new RestfulModels.Aspect()).Read(int.Parse(aspectData[0]), entity.Creator);
+                                theAspect.RatedTimes++;
+                                (new RestfulModels.Aspect()).Update(theAspect.Id, theAspect, theAspect.Creator);
+
+                                (new RestfulModels.Rate()).Create(new Models.Rate()
+                                {
+                                    ReviewId = entity.Id,
+                                    AspectId = theAspect.Id,
+                                    AspectTitle = theAspect.Title,
+                                    Stars = int.Parse(aspectData[2]),
+                                    Creator = entity.Creator,
+                                    Created = entity.Created
+                                },
+                                    entity.Creator
+                                );
+                            }
+                            else {
+                                Models.Rate theRate = (new RestfulModels.Rate()).First(new Models.RateSearchModel() { ReviewId = entity.Id, AspectId = int.Parse(aspectData[0]) }, entity.Creator);
+
+                                (new RestfulModels.Rate()).Update(
+                                    theRate.Id, 
+                                    new Models.Rate()
+                                    {
+                                        Stars = int.Parse(aspectData[2]),
+                                    },
+                                    theRate.Creator
+                                );
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    ;
+                }
 
                 return Read(entity.Id);
             }

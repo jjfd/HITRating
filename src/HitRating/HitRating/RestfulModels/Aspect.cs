@@ -54,6 +54,30 @@ namespace HitRating.RestfulModels
             }
         }
 
+        public Models.Aspect Update(int id, Models.Aspect entity, string userName)
+        {
+            try
+            {
+                var old = RestfulAspect.Read(id);
+
+                if (!AspectAccessControl.Pass(RestfulAction.Update, old, userName))
+                {
+                    throw new NoAccessException("No Access");
+                }
+
+                entity.CategoryId = old.CategoryId;
+                entity.Title = old.Title;
+                entity.Creator = userName;
+                entity.Created = old.Created;
+
+                return RestfulAspect.Update(id, entity);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public bool Delete(int id, string userName)
         {
             try
@@ -150,6 +174,24 @@ namespace HitRating.RestfulModels
                 throw;
             }
         }
+
+        public Models.Aspect Update(int id, Models.Aspect entity)
+        {
+            try
+            {
+                entity = AspectDataProccessor.ValidationAndProcess(entity);
+                entity.Id = id;
+
+                DbEntities.ApplyCurrentValues("Aspects", entity);
+                DbEntities.SaveChanges();
+
+                return Read(entity.Id);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         
         public bool Delete(int id)
         {
@@ -186,7 +228,7 @@ namespace HitRating.RestfulModels
                 IEnumerable<Models.Aspect> fs =
                 (
                     from aspect in
-                        DbEntities.Aspects.OrderByDescending(m => m.Id)
+                        DbEntities.Aspects.OrderByDescending(m => m.RatedTimes)
                     where
                     (
                         ((conditions.IdLower == null || conditions.IdLower < 1) ? true : aspect.Id < conditions.IdLower)
@@ -242,7 +284,14 @@ namespace HitRating.RestfulModels
                 }
                 else if (action == RestfulAction.Update)
                 {
-                    return true;
+                    if (!string.IsNullOrEmpty(accessor) && Aspect.Creator == accessor)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (action == RestfulAction.Delete)
                 {
@@ -284,8 +333,8 @@ namespace HitRating.RestfulModels
                     validationException.ValidationErrors.Add("评价内容为空");
                 }
 
-                if (data.RatedTimes == null || data.RatedTimes < 1) {
-                    data.RatedTimes = 1;
+                if (data.RatedTimes == null || data.RatedTimes < 0) {
+                    data.RatedTimes = 0;
                 }
 
                 //created

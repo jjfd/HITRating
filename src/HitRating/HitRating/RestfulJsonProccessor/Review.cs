@@ -89,6 +89,25 @@ namespace HitRating.RestfulJsonProccessor
                     ;
                 }
 
+                IList<object> ratedAspects = new List<object>(); 
+                try
+                {
+                    string[] aspects = Utilities.StringUtility.DeGroup(data.RatedAspects, ';');
+                    for (int i = 0; i < aspects.Count(); i++) {
+                        string[] aspectData = Utilities.StringUtility.DeGroup(aspects[i], '|');
+
+                        ratedAspects.Add(new {
+                           Id = int.Parse(aspectData[0]),
+                           Title = aspectData[1],
+                           Rate = int.Parse(aspectData[2])
+                        });
+                    }
+                }
+                catch
+                {
+                   ratedAspects = null;
+                }
+
                 return new
                 {
                     Id = data.Id,
@@ -98,6 +117,7 @@ namespace HitRating.RestfulJsonProccessor
                     Creator = RestfulJsonProccessor.Account.MiniSingle(data.Creator),
                     Created = data.Created.ToString(),
                     Updated = data.Updated.ToString(),
+                    RatedAspects = ratedAspects,
 
                     Vote = voted,
 
