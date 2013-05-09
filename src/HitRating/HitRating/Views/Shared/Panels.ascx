@@ -1067,7 +1067,7 @@
                             success: function (data) {
                                 var review = data.Entity;
 
-                                $("#review_edit_panel .star_input").find(".star").eq(review.Rate - 1).mouseover();
+                                $("#review_edit_panel .star_input").find(".star").eq(review.Rate - 1).click();
 
                                 $("#review_edit_panel textarea[name='Details']").val(review.Details);
 
@@ -1083,7 +1083,7 @@
                                     }
 
                                     for (var i = 0; i < aspects.length; i++) {
-                                        $("#review_edit_panel .review_aspects .container .rate_aspect_input .star_input").eq(i).find(".star").eq(aspects[i].Rate - 1).mouseover();
+                                        $("#review_edit_panel .review_aspects .container .rate_aspect_input .star_input").eq(i).find(".star").eq(aspects[i].Rate - 1).click();
                                     }
 
                                     $.centerPopup($("#review_edit_panel"));
@@ -1152,7 +1152,7 @@
 
                                     var stars = $(this).parents(".add_aspect").find("input[name='Rate']").val();
                                     if (stars > 0 && stars < 6) {
-                                        $(this).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).mouseover();
+                                        $(this).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).click();
                                     }
 
                                     $(this).parents(".add_aspect").find("input").val("");
@@ -1175,7 +1175,7 @@
 
                                         var stars = $(thisSubmit).parents(".add_aspect").find("input[name='Rate']").val();
                                         if (stars > 0 && stars < 6) {
-                                            $(thisSubmit).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).mouseover();
+                                            $(thisSubmit).parents(".review_aspects").find(".container").find(".rate_aspect_input").last().find(".star").eq(stars - 1).click();
                                         }
 
                                         $(thisSubmit).parents(".add_aspect").find("input").val("");

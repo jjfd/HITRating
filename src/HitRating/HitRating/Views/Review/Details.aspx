@@ -5,6 +5,32 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+         #the_review .tbox > aside
+         {
+            float: right;
+            width: 3.5em;
+            margin-right: 0;
+            margin-left: .5em;   
+         }
+         #the_review .tbox > aside img
+         {
+            width: 3.3em;
+            height: 3.3em;    
+         }
+        #the_review .tbox > article
+        {
+            margin-left: 0;
+        }
+        #the_review .tbox > article .toggle
+        {
+            display: none;    
+        }
+        #the_review .tbox > article > h3
+        {
+            font-size: 20px; 
+        }
+    </style>
     <script type="text/javascript">
         var reviewId = "<%: ViewData["Id"] %>";
 
@@ -15,6 +41,7 @@
                 dataType: "json",
                 success: function(data) {
                     $("#the_review").html($.renderReview(data.Entity));
+                    $("#the_review .toggle_read .toggle").click();
 
                     $("#the_review nav .taction:last").remove();
 

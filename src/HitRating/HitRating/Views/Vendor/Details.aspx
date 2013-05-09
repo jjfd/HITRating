@@ -5,6 +5,41 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+         #the_vendor .tbox > aside
+         {
+            float: right;
+            width: 5em;
+            margin-right: 0;
+            margin-top: 0;
+            margin-left: .5em;   
+         }
+         #the_vendor .tbox > aside img
+         {
+            width: 5em;
+            height: 5em;    
+         }
+        #the_vendor .tbox > article
+        {
+            margin-left: 0;
+        }
+        #the_vendor .tbox > article .toggle
+        {
+            display: none;    
+        }
+        #the_vendor .tbox > article > h3
+        {
+            font-size: 20px; 
+        }
+        #the_vendor .tbox > article > section .toggle_content > p
+        {
+            font-size: 12px;
+        }
+        #the_vendor .tbox > article > section .toggle_content > div > label
+        {
+            display: none;    
+        }
+    </style>
     <script type="text/javascript">
         var vendorId = "<%: ViewData["Id"] %>";
 
@@ -15,6 +50,7 @@
                 dataType: "json",
                 success: function(data) {
                     $("#the_vendor").html($.renderVendor(data.Entity));
+                    $("#the_vendor .toggle_read .toggle").click();
 
                     $("#the_vendor nav .taction:last").remove();
                 },

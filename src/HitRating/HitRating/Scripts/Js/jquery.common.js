@@ -287,7 +287,7 @@ $(function () {
         $.print($(this).parents(".printable"));
     })
 
-    $(".star_input:not([disabled='disabled'])").find(".star").live("mouseover", function (e) {
+    $(".star_input:not([disabled='disabled'])").find(".star").live("click", function (e) {
         
         $(this).addClass("selected");
         $(this).prevAll().addClass("selected");

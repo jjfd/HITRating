@@ -5,6 +5,41 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+         #the_product .tbox > aside
+         {
+            float: right;
+            width: 5em;
+            margin-right: 0;
+            margin-top: 0;
+            margin-left: .5em;   
+         }
+         #the_product .tbox > aside img
+         {
+            width: 5em;
+            height: 5em;    
+         }
+        #the_product .tbox > article
+        {
+            margin-left: 0;
+        }
+        #the_product .tbox > article .toggle
+        {
+            display: none;    
+        }
+        #the_product .tbox > article > h3
+        {
+            font-size: 20px; 
+        }
+        #the_product .tbox > article > section .toggle_content > p
+        {
+            font-size: 12px;
+        }
+        #the_product .tbox > article > section .toggle_content > div > label
+        {
+            display: none;    
+        }
+    </style>
     <script type="text/javascript">
         var productId = "<%: ViewData["Id"] %>";
         var avg_rate = 0;
@@ -16,6 +51,7 @@
                 dataType: "json",
                 success: function(data) {
                     $("#the_product").html($.renderProduct(data.Entity));
+                    $("#the_product .toggle_read .toggle").click();
 
                     $("#the_product nav .taction:last").remove();
 
@@ -48,7 +84,7 @@
 
                     avg_rate = Math.round(avg_rate / entities.length);
 
-                    $("#avg_rate .star_input").find(".star").eq(avg_rate - 1).mouseover();
+                    $("#avg_rate .star_input").find(".star").eq(avg_rate - 1).click();
                     $("#avg_rate .star_input").attr("disabled", "disabled");
                     $("#avg_rate .count").text(entities.length);
 
