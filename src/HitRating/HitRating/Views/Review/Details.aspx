@@ -45,19 +45,17 @@
 
                     $("#the_review nav .taction:last").remove();
 
-                    $("body > aside").append('<br /><br /><a href="#product" class="taction small" object="Product" object_id="' + data.Entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/' + data.Entity.Product.Id + '" title="查询同一HIT产品的评价">同一HIT产品的评价</a>');
-                
+                    $("body > aside").append('<br /><br /><a href="#product" class="taction small" object="Product" object_id="' + data.Entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/' + data.Entity.Product.Id + '" title="查询同一HIT产品的评价">同一HIT产品的评价</a>')
+                                     .append('<br /><br /><span class="gray small">应用 </span><a href="/Category/Aspects/' + data.Entity.Product.Category.Id + '" class="small">' + data.Entity.Product.Category.Title + ' 标准评价集 >></a> ');
                     $.ajax({
                         type: "GET",
                         url: "/Api/Review/" + reviewId + "/Votes",
                         dataType: "json",
                         success: function(data) {
                             var votes = data.Entities;
-
-                            if (votes.length > 1) {
+                            if (votes.length > 0) {
                                 var opposes = new Array();
                                 var supports = new Array();
-
                                 for (var i=0, oi=0, si=0; i<votes.length; i++) {
                                     if (votes[i].Supportive) {
                                         supports[si] = votes[i];
@@ -68,7 +66,7 @@
                                         oi++;
                                     }
                                 }
-                            
+                                
                                 var supportPercents = Math.round(supports.length * 100 / votes.length);
                                 var opposePercents = 100 - supportPercents;
                             

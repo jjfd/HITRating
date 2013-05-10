@@ -21,5 +21,10 @@ namespace HitRating.Controllers
             ViewData["Api"] = api;
             return View();
         }
+
+        public ActionResult Aspects(int id) {
+            ViewData["Id"] = id;
+            return View();
+        }
     }
 }

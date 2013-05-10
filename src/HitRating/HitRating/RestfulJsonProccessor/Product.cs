@@ -55,7 +55,12 @@ namespace HitRating.RestfulJsonProccessor
                 return new
                 {
                     Id = data.Id,
-                    Title = data.Title + " " + data.Version + "(" + data.Vendor.Title + ")" 
+                    Title = data.Title + " " + data.Version + "(" + data.Vendor.Title + ")",
+                    Category = new 
+                    {
+                        Id = data.Category.Id,
+                        Title = data.Category.Abbreviation
+                    }
                 };
             }
             catch

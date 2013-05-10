@@ -1071,8 +1071,8 @@
 
                                 $("#review_edit_panel textarea[name='Details']").val(review.Details);
 
-                                $("#review_create_panel .review_aspects .add_aspect").attr("method", "post").attr("api", PanelApiRoot + "Api/Aspects?CategoryId=" + review.CategoryId);
-                                $("#review_edit_panel .review_aspects .add_aspect .ajax_search").attr("url", PanelApiRoot + "Api/Category/" + review.CategoryId + "/Aspects?Title=");
+                                $("#review_edit_panel .review_aspects .add_aspect").attr("method", "post").attr("api", PanelApiRoot + "Api/Aspects?CategoryId=" + review.Product.Category.Id);
+                                $("#review_edit_panel .review_aspects .add_aspect .ajax_search").attr("url", PanelApiRoot + "Api/Category/" + review.Product.Category.Id + "/Aspects?Title=");
 
                                 $("#review_edit_panel .review_aspects .container").empty();
                                 try {

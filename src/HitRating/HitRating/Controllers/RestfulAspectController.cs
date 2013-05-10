@@ -24,9 +24,9 @@ namespace HitRating.Controllers
         {
             try
             {
-                var votes = RestfulAspect.Search(conditions, 0, count, User.Identity.IsAuthenticated ? User.Identity.Name : null);
+                var apsects = RestfulAspect.Search(conditions, 0, count, User.Identity.IsAuthenticated ? User.Identity.Name : null);
 
-                if (votes == null || votes.Count() < 1) {
+                if (apsects == null || apsects.Count() < 1) {
                     throw new Exception("NO FOUND");
                 }
 
@@ -34,7 +34,7 @@ namespace HitRating.Controllers
                 (
                     new
                     {
-                        Entities = RestfulJsonProccessor.Aspect.List(votes, User.Identity.IsAuthenticated ? User.Identity.Name : null)
+                        Entities = RestfulJsonProccessor.Aspect.List(apsects, User.Identity.IsAuthenticated ? User.Identity.Name : null)
                     },
                     JsonRequestBehavior.AllowGet
                 );

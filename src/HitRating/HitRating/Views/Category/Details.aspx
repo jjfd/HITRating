@@ -5,6 +5,35 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+         #the_category .tbox > aside
+         {
+            display: none;  
+         }
+        #the_category .tbox > article
+        {
+            margin-left: 0;
+        }
+        #the_category .tbox > article .toggle
+        {
+            display: none;    
+        }
+        #the_category .tbox > article > h3
+        {
+            font-size: 20px; 
+        }
+        #the_category .tbox > article label
+        {
+            display: none;    
+        }
+        #the_category .tbox > article .toggle_read .toggle_content > p
+        {
+            display: inline-block;
+            padding-right: 1em;
+            font-size: 12px;   
+            color: #999; 
+        }
+    </style>
     <script type="text/javascript">
         var categoryId = "<%: ViewData["Id"] %>";
 
@@ -15,6 +44,9 @@
                 dataType: "json",
                 success: function(data) {
                     $("#the_category").html($.renderCategory(data.Entity));
+                    $("#the_category .toggle").click().remove();
+
+                    $("body > aside").append('<br /><br /><span class="gray small"></span><a href="/Category/Aspects/' + data.Entity.Id + '" class="small">' + data.Entity.Abbreviation + ' (' + data.Entity.Title　+ ') 标准评价集 >></a> ');
 
                     $("#the_category nav .taction:last").remove();
                 },
@@ -85,5 +117,5 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="AsideContent" runat="server">
-    <input class="mini_search tip_search" value="查询其它HIT供应商" action="/Vendor/Search?api=/Api/Categories?Title=" title="Enter直接查询">
+    <input class="mini_search tip_search" value="查询HIT产品类别" action="/Category/Search?api=/Api/Categories?Title="  title="Enter直接查询">
 </asp:Content>

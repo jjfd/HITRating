@@ -601,3 +601,23 @@ $.renderComment = function (entity) {
     }
 }
 //--comment
+
+//aspect
+$.renderAspect = function (entity) {
+    try {
+        var line = $('<div class="line aspect"><p class="float_right attributor"></p></p><p class="title"></p><p class="gray small">[rated <span class="rated_times red"></span> times] contributed by <span class="creator blue"></span> @<span class="created"></span></p></div>');
+
+        line.attr("aspect_id", entity.Id);
+        line.find(".attributor").html("<img src='" + entity.Creator.PhotoUrl + "' alt='" + entity.Creator.UserName + "' style='width:2em;height: 2em; padding: 1px;border:1px solid #ddd;opacity:.8;' />");
+        line.find(".title").text(entity.Title);
+        line.find(".rated_times").text(entity.RatedTimes);
+        line.find(".creator").text(entity.Creator.UserName);
+        line.find(".created").text($.renderDateTime(entity.Created));
+
+        return line;
+    }
+    catch (e) {
+        throw e;
+    }
+}
+//--aspect

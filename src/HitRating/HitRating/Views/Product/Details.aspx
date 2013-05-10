@@ -58,10 +58,9 @@
                     $("body > aside").append('<br /><br /><a href="#relative_products" class="taction small" object="Product" taction_type="5" taction_id="Search_Product_By_Vendor" method="GET" api="/Api/Vendor/' + data.Entity.Vendor.Id + '/Products" title="查询同一供应商下的HIT产品">同供应商下的HIT产品</a> ');
                     
                     if (data.Entity.Category != null) {                 
-                        $("body > aside").append('<br /><br /><a href="#relative_products" class="taction small" object="Product" taction_type="5" taction_id="Search_Product_By_Vendor" method="GET" api="/Api/Products?CategoryId=' + data.Entity.Category.Id + '" title="查询同一类别下的HIT产品">同类别下的HIT产品</a>');   
+                        $("body > aside").append('<br /><br /><a href="#relative_products" class="taction small" object="Product" taction_type="5" taction_id="Search_Product_By_Vendor" method="GET" api="/Api/Products?CategoryId=' + data.Entity.Category.Id + '" title="查询同一类别下的HIT产品">同类别下的HIT产品</a>')
+                                         .append('<br /><br /><a href="/Category/Aspects/' + data.Entity.Category.Id + '" class="small">' + data.Entity.Category.Title + ' 标准评价集 >></a> ');
                     }
-
-
                 },
                 error: function() {
                     $.miniErrorAjaxResult("#" + productId + " HIT产品信息不存在");

@@ -418,7 +418,7 @@ namespace Tword
 
             routes.MapRoute(
                 "AspectSearchOfCategory",
-                "Api/Category/{categoryId}/Aspects",
+                "Api/Category/{CategoryId}/Aspects",
                 new { controller = "RestfulAspect", action = "List" },
                 new { Grendal = new HttpMethodConstraint("GET") }
             );
