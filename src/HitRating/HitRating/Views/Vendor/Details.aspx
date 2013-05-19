@@ -5,41 +5,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <style type="text/css">
-         #the_vendor .tbox > aside
-         {
-            float: right;
-            width: 5em;
-            margin-right: 0;
-            margin-top: 0;
-            margin-left: .5em;   
-         }
-         #the_vendor .tbox > aside img
-         {
-            width: 5em;
-            height: 5em;    
-         }
-        #the_vendor .tbox > article
-        {
-            margin-left: 0;
-        }
-        #the_vendor .tbox > article .toggle
-        {
-            display: none;    
-        }
-        #the_vendor .tbox > article > h3
-        {
-            font-size: 20px; 
-        }
-        #the_vendor .tbox > article > section .toggle_content > p
-        {
-            font-size: 12px;
-        }
-        #the_vendor .tbox > article > section .toggle_content > div > label
-        {
-            display: none;    
-        }
-    </style>
     <script type="text/javascript">
         var vendorId = "<%: ViewData["Id"] %>";
 
@@ -49,10 +14,15 @@
                 url: "/Api/Vendor/" + vendorId,
                 dataType: "json",
                 success: function(data) {
-                    $("#the_vendor").html($.renderVendor(data.Entity));
-                    $("#the_vendor .toggle_read .toggle").click();
-
-                    $("#the_vendor nav .taction:last").remove();
+                    var theVendor = $("<div></div>");
+                    theVendor.append("<img class='float_right' src='" + data.Entity.Logo + "' style='width:4.5em; height: 4.5em; padding: 1px; border: 1px solid #ddd;'/>")
+                              .append("<h1>" + data.Entity.Title + "</h1>")
+                              .append("<div class='small line'><a href='" + data.Entity.HomePage + "'>" + data.Entity.HomePage + "</a></div>")
+                              .append("<div class='small line'><label>电话：</label>" + data.Entity.Phone + " | <label>400：</label>" + data.Entity.Phone_400 + " | <label>800：</label>" + data.Entity.Phone_800 + " | <label>传真：</label>" + data.Entity.Fax + "</div>")
+                              .append("<div class='small line'><label>地址：</label>" + data.Entity.Address + " " + (data.Entity.PostNo?data.Entity.PostNo:"") +"</div>")
+                              .append("<div class='toggle_read'><div class='toggle_content'>" + $.renderDescription(data.Entity.Description, 300) + "<a class='toggle' title='展开/收起'>&#8645</a></div><div class='toggle_content hidden'>" + $.renderDescription(data.Entity.Description) + "<a class='toggle' title='展开/收起'>&#8645</a></div></div>")
+                    
+                    $("#the_vendor").html(theVendor.html());
                 },
                 error: function() {
                     $.miniErrorAjaxResult("#" + vendorId + " HIT供应商不存在");
@@ -108,6 +78,9 @@
     </script>
 
     <div id="the_vendor"></div>
+
+    <br />
+    <br />
 
     <div id="products">
         <p class="gray_background">HIT产品信息</p>

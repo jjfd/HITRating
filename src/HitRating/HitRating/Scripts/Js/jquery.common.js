@@ -500,7 +500,7 @@ $.renderReview = function (entity) {
 
         tbox.addClass("review_instant").attr("object_id", entity.Id);
         tbox.find("aside").append("<a href='#taction' class='taction' object='Review' taction_id='Search_Review' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Reviews?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'><img src='" + entity.Creator.PhotoUrl + "' /></a>");
-        tbox.find("article > h3").append("<a href='#taction' class='taction' object='Review' taction_id='Search_Review' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Reviews?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'>" + entity.Creator.UserName + "</a>" + "@" + entity.Product.Title);
+        tbox.find("article > h3").append("<a href='#taction' class='taction' object='Review' taction_id='Search_Review' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Reviews?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'>" + entity.Creator.UserName + "</a>" + "@" + entity.Product.Title + "的评价");
 
         var toggleRead = $(ToggleReadTemplate);
         toggleRead.find(".toggle_content").eq(0).append("<span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span>&nbsp;")

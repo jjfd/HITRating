@@ -5,41 +5,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <style type="text/css">
-         #the_product .tbox > aside
-         {
-            float: right;
-            width: 5em;
-            margin-right: 0;
-            margin-top: 0;
-            margin-left: .5em;   
-         }
-         #the_product .tbox > aside img
-         {
-            width: 5em;
-            height: 5em;    
-         }
-        #the_product .tbox > article
-        {
-            margin-left: 0;
-        }
-        #the_product .tbox > article .toggle
-        {
-            display: none;    
-        }
-        #the_product .tbox > article > h3
-        {
-            font-size: 20px; 
-        }
-        #the_product .tbox > article > section .toggle_content > p
-        {
-            font-size: 12px;
-        }
-        #the_product .tbox > article > section .toggle_content > div > label
-        {
-            display: none;    
-        }
-    </style>
     <script type="text/javascript">
         var productId = "<%: ViewData["Id"] %>";
         var avg_rate = 0;
@@ -50,10 +15,14 @@
                 url: "/Api/Product/" + productId,
                 dataType: "json",
                 success: function(data) {
-                    $("#the_product").html($.renderProduct(data.Entity));
-                    $("#the_product .toggle_read .toggle").click();
-
-                    $("#the_product nav .taction:last").remove();
+                    var theProduct = $("<div></div>");
+                    theProduct.append("<img class='float_right' src='" + data.Entity.Logo + "' style='width:4.5em; height: 4.5em; padding: 1px; border: 1px solid #ddd;'/>")
+                              .append("<h1>" + data.Entity.Title + "<a href='/Category/Details/" + data.Entity.Category.Id + "'>[" + data.Entity.Category.Title + "]</a></h1>")
+                              .append("<h3><a href='/Vendor/Details/" + data.Entity.Vendor.Id + "'>" + data.Entity.Vendor.Title + "</a></h3>")
+                              .append("<div class='small line'><label>售前电话：</label>" + data.Entity.PhonePreSale + " | <label>售后电话：</label>" + data.Entity.PhoneAfterSale + " -- <label>版本：</label>" + data.Entity.Version + " | <label>发布于 </label>" + data.Entity.Published + "</div>")
+                              .append("<div class='toggle_read'><div class='toggle_content'>" + $.renderDescription(data.Entity.Description, 300) + "<a class='toggle' title='展开/收起'>&#8645</a></div><div class='toggle_content hidden'>" + $.renderDescription(data.Entity.Description) + "<a class='toggle' title='展开/收起'>&#8645</a></div></div>")
+                    
+                    $("#the_product").html(theProduct.html());
 
                     $("body > aside").append('<br /><br /><a href="#relative_products" class="taction small" object="Product" taction_type="5" taction_id="Search_Product_By_Vendor" method="GET" api="/Api/Vendor/' + data.Entity.Vendor.Id + '/Products" title="查询同一供应商下的HIT产品">同供应商下的HIT产品</a> ');
                     
@@ -128,6 +97,9 @@
     </script>
 
     <div id="the_product"></div>
+    
+    <br />
+    <br />
 
     <div id="reviews">
         <p class="buttons float_right">

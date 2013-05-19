@@ -6,6 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
+        #the_review .tbox
+        {
+            border-bottom: 0;    
+        }
          #the_review .tbox > aside
          {
             float: right;
@@ -43,7 +47,7 @@
                     $("#the_review").html($.renderReview(data.Entity));
                     $("#the_review .toggle_read .toggle").click();
 
-                    $("#the_review nav .taction:last").remove();
+                    $("#the_review nav").remove();
 
                     $("body > aside").append('<br /><br /><a href="#product" class="taction small" object="Product" object_id="' + data.Entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/' + data.Entity.Product.Id + '" title="查询同一HIT产品的评价">同一HIT产品的评价</a>')
                                      .append('<br /><br /><span class="gray small">应用 </span><a href="/Category/Aspects/' + data.Entity.Product.Category.Id + '" class="small">' + data.Entity.Product.Category.Title + ' 标准评价集 >></a> ');
