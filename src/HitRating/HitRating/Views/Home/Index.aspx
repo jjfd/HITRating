@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
-        body > article 
+        body > article
         {
             padding-right: 20px;    
         }
@@ -17,11 +17,35 @@
         .tbox > aside img
         {
             width: 60px;
-            height: 60px;    
+            height: 60px;
         }
         .tbox > article
         {
-            margin-left: 100px;    
+            margin-left: 80px;    
+        }
+        .tbox > article > h3
+        {
+            font-size: 1.6em;   
+        }
+        .tbox > article > nav .taction,
+        .tbox > article > nav .taction:link,
+        .tbox > article > nav .taction:hover
+        {
+            display: none;
+        }
+        .tbox > article > nav .taction:nth-child(4),
+        .tbox > article > nav .taction:nth-child(4):link,
+        .tbox > article > nav .taction:nth-child(4):hover
+        {
+            display: inline-block;
+            font-size: 1.5em;  
+        }
+        .tbox .toggle
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 1.5em;    
         }
     </style>
     <script type="text/javascript">

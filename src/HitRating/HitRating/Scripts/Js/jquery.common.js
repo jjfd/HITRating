@@ -494,8 +494,12 @@ $.renderProduct = function (entity) {
 //--product
 
 //review
-$.renderReview = function (entity) {
+$.renderReview = function (entity, snapShotSize) {
     try {
+        if (snapShotSize == null) {
+            snapShotSize = 140;
+        }
+
         var tbox = $(TboxTemplate);
 
         tbox.addClass("review_instant").attr("object_id", entity.Id);
@@ -504,7 +508,7 @@ $.renderReview = function (entity) {
 
         var toggleRead = $(ToggleReadTemplate);
         toggleRead.find(".toggle_content").eq(0).append("<span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span>&nbsp;")
-                                                .append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
+                                                .append("<span class='value'>" + $.renderDescription(entity.Details, snapShotSize) + "</span>");
 
         toggleRead.find(".toggle_content").eq(1).append("<p><span class='value star_input' disabled='disabled'><span class='stars'><span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span>&nbsp;<span class='star'>★</span></span><input type='hidden' /></span></p>")
                                                 .append("<div class='rated_aspects'></div>")
@@ -571,8 +575,12 @@ $.renderReview = function (entity) {
 //--review 
 
 //review
-$.renderNews = function (entity) {
+$.renderNews = function (entity, snapShotSize) {
     try {
+        if (snapShotSize == null) {
+            snapShotSize = 140;
+        }
+
         var tbox = $(TboxTemplate);
 
         tbox.addClass("review_instant").addClass("news_instant").attr("object_id", entity.Id);
@@ -580,7 +588,7 @@ $.renderNews = function (entity) {
         tbox.find("article > h3").append("<a href='#taction' class='taction' object='News' taction_id='Search_News' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Newss?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'>" + entity.Creator.UserName + "</a>" + "@" + entity.Product.Title + "的资讯");
 
         var toggleRead = $(ToggleReadTemplate);
-        toggleRead.find(".toggle_content").eq(0).append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
+        toggleRead.find(".toggle_content").eq(0).append("<span class='value'>" + $.renderDescription(entity.Details, snapShotSize) + "</span>");
 
         toggleRead.find(".toggle_content").eq(1).append("<div class='value'>" + $.renderDescription(entity.Details) + "</div>");
 
@@ -594,7 +602,7 @@ $.renderNews = function (entity) {
         tbox.find("article > section").append(dateTime);
 
         tbox.find("article > nav").append($.renderTactions(entity.Options))
-                                  .append('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Review" method="GET" api="/Api/Review/' + entity.Id + '" title="查看详情">&#8674</a>')
+                                  .append('<a href="#taction" class="taction" object="News" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_News" method="GET" api="/Api/News/' + entity.Id + '" title="查看详情">&#8674</a>')
                                   .prepend('<a href="#taction" class="taction" object="Product" object_id="' + entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/"' + entity.Product.Id + ' title="查看产品详情">产品详情</a>');
 
         return tbox;
@@ -606,13 +614,13 @@ $.renderNews = function (entity) {
 //--review 
 
 //product info
-$.renderProductInfo = function (entity) {
+$.renderProductInfo = function (entity, snapShotSize) {
     try {
         if (entity.Type == 1) {
-            return $.renderReview(entity)
+            return $.renderReview(entity, snapShotSize)
         }
         else if (entity.Type == 2) {
-            return $.renderNews(entity);
+            return $.renderNews(entity, snapShotSize);
         }
         else {
             return null;

@@ -593,9 +593,9 @@ table textarea
 }
 .tbox > aside img 
 {
-    width: 2.8em;
-    height: 2.8em;
-    padding: 1px;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
     border: 1px solid #ddd;   
 }
 .tbox > article 
