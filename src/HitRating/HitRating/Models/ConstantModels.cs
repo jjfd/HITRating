@@ -19,4 +19,10 @@ namespace HitRating.Models
         public static byte Delete = 4;
         public static byte Search = 5;
     }
+
+    public static class ReviewType
+    {
+        public static byte Review = 1;
+        public static byte News = 2;
+    }
 }

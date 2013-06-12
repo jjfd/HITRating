@@ -11,11 +11,6 @@ namespace HitRating.Controllers
     {
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Home", "Account");
-            }
-
             return View();
         }
 

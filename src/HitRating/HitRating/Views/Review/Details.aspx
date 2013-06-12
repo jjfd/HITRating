@@ -187,8 +187,8 @@
         <br />
         <div class="container"></div>
 
-        <div class="line big_buttons one_click_buttons hidden">
-            <a href="#more" class="more">更多评论</a>
+        <div class="more line big_buttons one_click_buttons hidden">
+            <a href="#more">更多</a>
         </div>
     </div>
 </asp:Content>

@@ -279,6 +279,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="int" />
           <Property Name="ProductId" Type="int" />
           <Property Name="Rate" Type="int" />
           <Property Name="Details" Type="varchar(max)" />
@@ -739,6 +740,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" />
           <Property Name="ProductId" Type="Int32" />
           <Property Name="Rate" Type="Int32" />
           <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
@@ -1002,6 +1004,7 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Reviews"><EntityTypeMapping TypeName="HitRatingModel.Review"><MappingFragment StoreEntitySet="Review">
             <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Type" ColumnName="Type" />
             <ScalarProperty Name="ProductId" ColumnName="ProductId" />
             <ScalarProperty Name="Rate" ColumnName="Rate" />
             <ScalarProperty Name="Details" ColumnName="Details" />
@@ -1135,7 +1138,7 @@
         <EntityTypeShape EntityType="HitRatingModel.Comment" Width="1.5" PointX="0.75" PointY="3.75" Height="2.1610522460937531" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Product" Width="1.5" PointX="9.75" PointY="0.75" Height="3.6892097981770888" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Rate" Width="1.5" PointX="4.75" PointY="0.75" Height="2.3520719401041674" IsExpanded="true" />
-        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="9.75" PointY="5.75" Height="2.5430916341145888" IsExpanded="true" />
+        <EntityTypeShape EntityType="HitRatingModel.Review" Width="1.5" PointX="9.75" PointY="5.75" Height="2.7341113281250031" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" Height="1.9700325520833388" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Vendor" Width="1.5" PointX="11.75" PointY="0.75" Height="3.8802294921875031" IsExpanded="true" />
         <EntityTypeShape EntityType="HitRatingModel.Vote" Width="1.5" PointX="11.75" PointY="5.75" Height="1.9700325520833388" IsExpanded="true" />

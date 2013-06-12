@@ -274,6 +274,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="int" />
     <Property Name="ProductId" Type="int" />
     <Property Name="Rate" Type="int" />
     <Property Name="Details" Type="varchar(max)" />

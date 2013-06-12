@@ -329,6 +329,71 @@ namespace Tword
                 new { Grendal = new HttpMethodConstraint("DELETE") }
             );
 
+            //apies of news
+            routes.MapRoute(
+                "NewsSearch",
+                "Api/Newses",
+                new { controller = "RestfulNews", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "NewsSearchOfProduct",
+                "Api/Product/{productId}/Newses",
+                new { controller = "RestfulNews", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "NewsRead",
+                "Api/News/{id}",
+                new { controller = "RestfulNews", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "NewsCreate",
+                "Api/Newses",
+                new { controller = "RestfulNews", action = "Create" },
+                new { Grendal = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "NewsEdit",
+                "Api/News/{id}",
+                new { controller = "RestfulNews", action = "Edit" },
+                new { Grendal = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "NewsDelete",
+                "Api/News/{id}",
+                new { controller = "RestfulNews", action = "Delete" },
+                new { Grendal = new HttpMethodConstraint("DELETE") }
+            );
+
+            //apies of product_info
+            routes.MapRoute(
+                "ProductInfoSearch",
+                "Api/ProductInfoes",
+                new { controller = "RestfulProductInfo", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductInfoSearchOfProduct",
+                "Api/Product/{ProductId}/ProductInfoes",
+                new { controller = "RestfulProductInfo", action = "List" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "ProductInfoRead",
+                "Api/ProductInfo/{id}",
+                new { controller = "RestfulProductInfo", action = "Read" },
+                new { Grendal = new HttpMethodConstraint("GET") }
+            );
+
             //apies of comment
             routes.MapRoute(
                 "CommentSearch",

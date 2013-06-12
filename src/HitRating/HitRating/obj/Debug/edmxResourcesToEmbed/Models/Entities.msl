@@ -208,6 +208,7 @@
       <EntityTypeMapping TypeName="HitRatingModel.Review">
         <MappingFragment StoreEntitySet="Review">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Details" ColumnName="Details" />

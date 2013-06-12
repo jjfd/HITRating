@@ -322,6 +322,7 @@ namespace HitRating.RestfulModels
                             review.Rate == conditions.Rate
                            )
                         && (string.IsNullOrEmpty(conditions.Creator) ? true : review.Creator == conditions.Creator)
+                        && (review.Type == Models.ReviewType.Review)
                     )
                     select review
                 ).AsEnumerable();
@@ -434,6 +435,8 @@ namespace HitRating.RestfulModels
             try
             {
                 ValidationException validationException = new ValidationException();
+
+                data.Type = Models.ReviewType.Review;
 
                 try
                 {

@@ -560,7 +560,7 @@ $.renderReview = function (entity) {
 
         tbox.find("article > nav").append($.renderTactions(entity.Options))
                                   .append('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Review" method="GET" api="/Api/Review/' + entity.Id + '" title="查看详情">&#8674</a>')
-                                  .prepend('<a href="#taction" class="taction" object="Product" object_id="' + entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/"' + entity.Product.Id + ' title="查看产品信息">同类产品评价</a>');
+                                  .prepend('<a href="#taction" class="taction" object="Product" object_id="' + entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/"' + entity.Product.Id + ' title="查看产品详情">产品详情</a>');
 
         return tbox;
     }
@@ -569,6 +569,60 @@ $.renderReview = function (entity) {
     }
 }
 //--review 
+
+//review
+$.renderNews = function (entity) {
+    try {
+        var tbox = $(TboxTemplate);
+
+        tbox.addClass("review_instant").addClass("news_instant").attr("object_id", entity.Id);
+        tbox.find("aside").append("<a href='#taction' class='taction' object='News' taction_id='Search_News' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/News?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品资讯'><img src='" + entity.Creator.PhotoUrl + "' /></a>");
+        tbox.find("article > h3").append("<a href='#taction' class='taction' object='News' taction_id='Search_News' taction_type='5' method='GET' api='" + HitRatingApiRoot + "Api/Newss?Creator=" + entity.Creator.UserName + "' title='查询" + entity.Creator.UserName + "发布的产品评价'>" + entity.Creator.UserName + "</a>" + "@" + entity.Product.Title + "的资讯");
+
+        var toggleRead = $(ToggleReadTemplate);
+        toggleRead.find(".toggle_content").eq(0).append("<span class='value'>" + $.renderDescription(entity.Details, 140) + "</span>");
+
+        toggleRead.find(".toggle_content").eq(1).append("<div class='value'>" + $.renderDescription(entity.Details) + "</div>");
+
+        tbox.find("article > section").append(toggleRead);
+
+        var dateTime = $("<p class='created_and_updated gray small'></p>");
+        dateTime.append("<span>创建于" + $.renderDateTime(entity.Created) + "</span>");
+        if (entity.Updated != null && entity.Updated != "") {
+            dateTime.append("，<span>" + $.renderDateTime(entity.Updated) + "做了最新修改</span>");
+        }
+        tbox.find("article > section").append(dateTime);
+
+        tbox.find("article > nav").append($.renderTactions(entity.Options))
+                                  .append('<a href="#taction" class="taction" object="Review" object_id="' + entity.Id + '" taction_type="2" taction_id="Read_Review" method="GET" api="/Api/Review/' + entity.Id + '" title="查看详情">&#8674</a>')
+                                  .prepend('<a href="#taction" class="taction" object="Product" object_id="' + entity.Product.Id + '" taction_type="2" taction_id="Read_Product" method="GET" api="/Api/Product/"' + entity.Product.Id + ' title="查看产品详情">产品详情</a>');
+
+        return tbox;
+    }
+    catch (e) {
+        throw e;
+    }
+}
+//--review 
+
+//product info
+$.renderProductInfo = function (entity) {
+    try {
+        if (entity.Type == 1) {
+            return $.renderReview(entity)
+        }
+        else if (entity.Type == 2) {
+            return $.renderNews(entity);
+        }
+        else {
+            return null;
+        }
+    }
+    catch (e) {
+        throw e;
+    }
+}
+//--prodcut info
 
 //comment
 $.renderComment = function (entity) {

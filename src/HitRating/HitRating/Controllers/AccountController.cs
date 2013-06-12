@@ -29,5 +29,14 @@ namespace HitRating.Controllers
 
             return View();
         }
+
+        public ActionResult LogOn() {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Account");
+            }
+
+            return View();
+        }
     }
 }

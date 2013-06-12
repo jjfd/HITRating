@@ -56,11 +56,14 @@ namespace HitRating.RestfulJsonProccessor
                 {
                     Id = data.Id,
                     Title = data.Title + " " + data.Version + "(" + data.Vendor.Title + ")",
+                    Name = data.Title,
+                    Logo = data.Logo,
                     Category = new 
                     {
                         Id = data.Category.Id,
                         Title = data.Category.Abbreviation
-                    }
+                    },
+                    Vendor = Vendor.MiniSingle(data.Vendor)
                 };
             }
             catch

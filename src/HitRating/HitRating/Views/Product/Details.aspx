@@ -38,23 +38,33 @@
 
             $.ajax({
                 type: "GET",
-                url: "/Api/Reviews?ProductId=" + productId,
+                url: "/Api/ProductInfoes?ProductId=" + productId,
                 dataType: "json",
                 success: function(data) {
                     var entities = data.Entities;
+                    var reviewLength = 0;
 
                     for (var i=0; i<entities.length; i++) {
-                        var reviewHtml = $.renderReview(entities[i]);
+                        var reviewHtml = $.renderProductInfo(entities[i]);
                         $(reviewHtml).find("nav .taction:first").remove();
                         $("#reviews .container").append(reviewHtml);
-                        avg_rate += entities[i].Rate;
+
+                        if (entities[i].Type == 1)
+                        {
+                            avg_rate += entities[i].Rate;
+                            reviewLength ++;
+                        }
                     }
 
-                    avg_rate = Math.round(avg_rate / entities.length);
+                    avg_rate = 0 
+                    if (reviewLength > 0) 
+                    {
+                        avg_rate = Math.round(avg_rate / reviewLength);
+                    }
 
                     $("#avg_rate .star_input").find(".star").eq(avg_rate - 1).click();
                     $("#avg_rate .star_input").attr("disabled", "disabled");
-                    $("#avg_rate .count").text(entities.length);
+                    $("#avg_rate .count").text(reviewLength);
 
 
                     if (entities.length >= 20) {
@@ -109,8 +119,8 @@
         <br />
         <div class="container"></div>
 
-        <div class="line big_buttons one_click_buttons hidden">
-            <a href="#more" class="more">更多产品评价</a>
+        <div class="more line big_buttons one_click_buttons hidden">
+            <a href="#more">更多</a>
         </div>
     </div>
 </asp:Content>

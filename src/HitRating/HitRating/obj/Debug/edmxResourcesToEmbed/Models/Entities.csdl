@@ -275,6 +275,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" />
     <Property Name="ProductId" Type="Int32" />
     <Property Name="Rate" Type="Int32" />
     <Property Name="Details" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />

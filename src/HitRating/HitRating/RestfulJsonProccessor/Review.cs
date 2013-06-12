@@ -112,6 +112,7 @@ namespace HitRating.RestfulJsonProccessor
                 {
                     Id = data.Id,
                     Product = RestfulJsonProccessor.Product.MiniSingle(data.Product),
+                    Type = Models.ReviewType.Review,
                     Rate = data.Rate,
                     Details = data.Details,
                     Creator = RestfulJsonProccessor.Account.MiniSingle(data.Creator),

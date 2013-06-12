@@ -55,7 +55,8 @@ namespace HitRating.RestfulJsonProccessor
                 return new
                 {
                     Id = data.Id,
-                    Title = data.Title
+                    Title = data.Title,
+                    Logo = data.Logo
                 };
             }
             catch

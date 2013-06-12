@@ -87,6 +87,8 @@
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\RestfulAspectController.cs" />
     <Compile Include="Controllers\RestfulRateController.cs" />
+    <Compile Include="Controllers\RestfulNewsController.cs" />
+    <Compile Include="Controllers\RestfulProductInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -117,6 +119,8 @@
     <Compile Include="RestfulJsonProccessor\Vote.cs" />
     <Compile Include="RestfulJsonProccessor\Aspect.cs" />
     <Compile Include="RestfulJsonProccessor\Rate.cs" />
+    <Compile Include="RestfulJsonProccessor\News.cs" />
+    <Compile Include="RestfulJsonProccessor\ProductInfo.cs" />
     <Compile Include="RestfulModels\Product.cs" />
     <Compile Include="RestfulModels\Vendor.cs" />
     <Compile Include="RestfulModels\IRestful.cs" />
@@ -128,6 +132,8 @@
     <Compile Include="RestfulModels\Vote.cs" />
     <Compile Include="RestfulModels\Aspect.cs" />
     <Compile Include="RestfulModels\Rate.cs" />
+    <Compile Include="RestfulModels\News.cs" />
+    <Compile Include="RestfulModels\ProductInfo.cs" />
     <Compile Include="Utitlities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,11 +160,12 @@
     <Content Include="Views\Category\Aspects.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Find.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Home\Test.aspx" />
     <Content Include="Views\Product\Details.aspx" />
     <Content Include="Views\Product\Search.aspx" />
     <Content Include="Views\Shared\Panels.ascx" />
-    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
