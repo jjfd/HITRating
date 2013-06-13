@@ -6,26 +6,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
-        body > article
-        {
-            padding-right: 20px;    
-        }
-        body > aside
-        {
-            display: none;    
-        }
-        .tbox > aside img
-        {
-            width: 60px;
-            height: 60px;
-        }
-        .tbox > article
-        {
-            margin-left: 80px;    
-        }
         .tbox > article > h3
         {
-            font-size: 1.6em;   
         }
         .tbox > article > nav .taction,
         .tbox > article > nav .taction:link,
@@ -33,19 +15,17 @@
         {
             display: none;
         }
-        .tbox > article > nav .taction:nth-child(4),
-        .tbox > article > nav .taction:nth-child(4):link,
-        .tbox > article > nav .taction:nth-child(4):hover
+        .tbox > article > nav .taction:last-child,
+        .tbox > article > nav .taction:last-child:link,
+        .tbox > article > nav .taction:last-child:hover
         {
             display: inline-block;
-            font-size: 1.5em;  
         }
         .tbox .toggle
         {
             position: absolute;
             top: 0;
-            right: 0;
-            font-size: 1.5em;    
+            right: 0;  
         }
     </style>
     <script type="text/javascript">
@@ -60,7 +40,7 @@
                     var entities = data.Entities;
 
                     for (var i=0; i<entities.length; i++) {
-                        $("#infoes .container").append($.renderProductInfo(entities[i]));
+                        $("#infoes .container").append($.renderProductInfo(entities[i], 300));
                     }
 
                     if (entities.length >= 20) {
@@ -82,7 +62,7 @@
                         var entities = data.Entities;
 
                         for (var i=0; i<entities.length; i++) {
-                            $("#infoes .container").append($.renderProductInfo(entities[i]));
+                            $("#infoes .container").append($.renderProductInfo(entities[i], 300));
                         }
 
                         if (entities.length < 20) {

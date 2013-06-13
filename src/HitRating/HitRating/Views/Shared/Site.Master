@@ -14,9 +14,10 @@
         <header>
             <a href="/" title="返回主页"><img id="logo" src="<%: Html.ParseImageUrl("Images/logo_mini.png") %>" alt="HitRating" /></a>
             <nav class="float_left" style="margin-left: 100px;">
-            <a href="/Vendor/Search">供应商</a>
-            <a href="/Product/Search">HIT产品</a>
-            <a href="/Review/Search">产品评价</a>
+                <a href="/Vendor/Search">供应商</a>
+                <a href="/Product/Search">HIT产品</a>
+                <a href="/News/Search">HIT资讯</a>
+                <a href="/Review/Search">产品评价</a>
             </nav>
             <nav>
                 <input class="mini_search tip_search short_input" value="发现" action="/Home/Find?key=" />

@@ -1005,6 +1005,206 @@
             </div>
         </div>
 
+        <div id="news_panels">
+            <script type="text/javascript">
+                $(function () {
+                    $(".taction[object='News'][taction_type='1']").live("click", function () {
+                        $("#news_create_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#news_create_panel .caption").text($(this).attr("title"));
+
+                        var productId = $(this).attr("object_id");
+
+                        if (productId != null) {
+                            $("#news_create_panel input[name='ProductId']").val(productId).parent().hide();
+                        }
+
+                        $.centerPopup($("#news_create_panel"));
+                    });
+
+                    $(".taction[object='News'][taction_type='2']").live("click", function () {
+                        window.location.href = (PanelApiRoot + "News/Details/" + $(this).attr("object_id"));
+                    });
+
+                    $(".taction[object='News'][taction_type='3']").live("click", function () {
+                        $("#news_edit_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api"));
+                        $("#news_edit_panel .caption").text($(this).attr("title"));
+
+                        var objectId = $(this).attr("object_id");
+
+                        $.ajax({
+                            type: "GET",
+                            url: PanelApiRoot + "Api/News/" + objectId,
+                            dataType: "json",
+                            success: function (data) {
+                                var review = data.Entity;
+
+                                $("#news_edit_panel textarea").val(review.Details);
+
+                                $.centerPopup($("#news_edit_panel"));
+                            },
+                            error: function () {
+                                $.miniErrorAjaxResult("HIT资讯 #" + objectId + " 不存在");
+                            }
+                        })
+                    });
+
+                    $(".taction[object='News'][taction_type='4']").live("click", function () {
+                        var objectId = $(this).attr("object_id");
+                        $("#news_delete_panel").attr("method", $(this).attr("method")).attr("api", $(this).attr("api")).attr("object_id", objectId);
+                        $("#news_delete_panel .caption").text($(this).attr("title"));
+
+                        $("#news_delete_panel .pages").html("删除 #" + objectId + " HIT资讯 吗?");
+                        $.centerPopup($("#news_delete_panel"));
+                    })
+                })
+            </script>
+
+            <div id="news_create_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#news_create_panel input:submit").click(function () {
+                            var method = $("#news_create_panel").attr("method");
+                            var api = $("#news_create_panel").attr("api");
+
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: {
+                                    ProductId: $("#news_create_panel input[name='ProductId']").val(),
+                                    Details: $("#news_create_panel textarea[name='Details']").val(),
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var review = data.Entity;
+
+                                    $("#news_create_panel .pages input").val("");
+                                    $("#news_create_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#news_create_panel .buttons"));
+
+                                    $.fadePopup($("#news_create_panel"), function () {
+                                        $.miniSuccessAjaxResult("发布成功");
+                                        $("#reviews .container").prepend($.renderNews(review));
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#news_create_panel .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">创建HIT资讯</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line ajax_search product" url="/Api/Products?Title=">
+                        <input type="hidden" class="ajax_input_sid" name="ProductId" value="">
+                        <input class="ajax_input_title tip_search" value="HIT产品">
+                        <div class="ajax_suggestions"></div>
+                    </div>
+                    <div class="line">
+                        <label>资讯内容<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="news_edit_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#news_edit_panel input:submit").click(function () {
+                            var method = $("#news_edit_panel").attr("method");
+                            var api = $("#news_edit_panel").attr("api");
+
+                            $.ajax({
+                                type: method,
+                                url: api,
+                                data: {
+                                    Details: $("#news_edit_panel textarea[name='Details']").val(),
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    var review = data.Entity;
+
+                                    $("#news_edit_panel .pages textarea").val("");
+
+                                    $.enableButtons($("#news_edit_panel .buttons"));
+
+                                    $.fadePopup($("#news_edit_panel"), function () {
+                                        $.miniSuccessAjaxResult("修改成功");
+                                        $(".review_instant[object_id='" + review.Id + "']").html($.renderNews(review).html());
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("发布失败");
+
+                                    $.enableButtons($("#review_instant .buttons"));
+                                }
+                            });
+                        });
+                    })
+                </script>
+                <h3 class="caption">修改HIT资讯</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <div class="line">
+                        <label>资讯内容<span class="tip">*</span></label>
+                        <textarea name="Details"></textarea>
+                    </div>
+                </div>
+                <div class="bottom right">
+                    <div class="buttons one_click_buttons">
+                        <input type="submit" value="提交" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="news_delete_panel" class="module popup">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#news_delete_panel input:submit").click(function () {
+                            var objectId = $("#news_delete_panel").attr("object_id");
+
+                            $.ajax({
+                                type: $("#news_delete_panel").attr("method"),
+                                url: $("#news_delete_panel").attr("api"),
+                                dataType: "json",
+                                success: function () {
+                                    $.fadePopup($("#news_delete_panel"), function () {
+                                        $.miniSuccessAjaxResult("删除成功");
+
+                                        $.enableButtons($("#news_delete_panel .buttons"));
+                                        $(".review_instant[object_id='" + objectId + "']").fadeOut("normal", function () {
+                                            $(this).remove();
+                                        })
+                                    });
+                                },
+                                error: function () {
+                                    $.miniErrorAjaxResult("删除失败");
+                                    $.enableButtons($("#news_delete_panel .buttons"));
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <h3 class="caption">删除</h3>
+                <a class="close">x</a>
+                <div class="pages">
+                    <p class="gray center">加载中...</p>
+                </div>
+                <div class="bottom buttons one_click_buttons right">
+                    <input type="submit" value="确认" />
+                </div>
+            </div>
+        </div>
+
         <div id="review_panels">
             <script type="text/javascript">
                 $(function () {

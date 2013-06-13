@@ -180,9 +180,12 @@
     <div id="the_review"></div>
 
     <div id="comments">
+        <% if (Page.User.Identity.IsAuthenticated)
+           { %>
         <p class="buttons float_right">
             <a href="#comment" class="taction" object="Comment" object_id="<%: ViewData["Id"] %>" taction_type="1" taction_id="Create_Comment" method="POST" api="/Api/Comments?ReviewId=<%: ViewData["Id"] %>" title="发表评论">你的意见</a>
         </p>
+        <% } %>
         <p class="gray_background">评论</p>
         <br />
         <div class="container"></div>

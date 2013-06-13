@@ -89,6 +89,7 @@
     <Compile Include="Controllers\RestfulRateController.cs" />
     <Compile Include="Controllers\RestfulNewsController.cs" />
     <Compile Include="Controllers\RestfulProductInfoController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -176,6 +177,8 @@
     <Content Include="Views\Category\Search.aspx" />
     <Content Include="Views\Review\Details.aspx" />
     <Content Include="Views\Review\Search.aspx" />
+    <Content Include="Views\News\Details.aspx" />
+    <Content Include="Views\News\Search.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

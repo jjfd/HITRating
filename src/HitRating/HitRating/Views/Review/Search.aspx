@@ -67,5 +67,5 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="AsideContent" runat="server">
-    <input class="mini_search tip_search" value="查询HIT产品及其产品评价" action="/Product/Search?api=/Api/Products?Title="  title="Enter直接查询">    
+    <input class="mini_search tip_search" value="查询HIT产品及其资讯与评价" action="/Product/Search?api=/Api/Products?Title="  title="Enter直接查询">    
 </asp:Content>

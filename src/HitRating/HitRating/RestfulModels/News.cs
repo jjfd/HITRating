@@ -304,7 +304,7 @@ namespace HitRating.RestfulModels
             {
                 if (action == RestfulAction.Create)
                 {
-                    if (!string.IsNullOrEmpty(accessor) && (new AccountMembershipService()).Exist(accessor))
+                    if (!string.IsNullOrEmpty(accessor) && (new Models.AccountMembershipService()).IsAdmin(accessor))
                     {
                         return true;
                     }
@@ -363,7 +363,7 @@ namespace HitRating.RestfulModels
                 data.Rate = null;
                 data.RatedAspects = null;
 
-                if (data.ProductId != null || (data.ProductId > 0) && (new RestfulModels.Product()).Read((int)data.ProductId) == null)
+                if (data.ProductId != null && (data.ProductId > 0) && (new RestfulModels.Product()).Read((int)data.ProductId) == null)
                 {
                     validationException.ValidationErrors.Add("HIT产品为空");
                 }
